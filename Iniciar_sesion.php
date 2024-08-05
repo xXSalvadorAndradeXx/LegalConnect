@@ -115,7 +115,7 @@ a:hover {
         <button type="submit">Iniciar Sesión</button>
     </form>
     <center>
-    <p>¿No tienes cuenta? <a href="/Registrarse.php">Registrate Ya</a>
+    <p>¿No tienes cuenta? <a href="/Registro_usuario.php">Registrate Ya</a>
     </center>
 </div>
 
@@ -138,3 +138,4 @@ a:hover {
 
 </body>
 </html>
+

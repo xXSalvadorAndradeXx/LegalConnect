@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido</title>
+    <title>Botones en una Caja</title>
     <style>
         body {
-            overflow: hidden;
             background-color: #242975;
             font-family: Bahnschrift;
         }
@@ -22,7 +21,7 @@
 .box {
     font-family: Bahnschrift;
     padding: 20px;
-  
+    border: 2px solid #1E90FF; /* Cambiado a azul más claro */
     border-radius: 10px;
     background-color: #E6F0FF; /* Cambiado a un tono de azul más claro */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -65,7 +64,7 @@
 }
 
 #boton-abajo:hover {
-    background-color: #242975;
+    background-color: #1E90FF;
     color: white; /* Cambiado a azul más claro */
 }
 
@@ -77,7 +76,6 @@
 }
 
 .letras{
-    
     font-size: 12px;
     color: white;
 }
@@ -90,11 +88,11 @@
             <center>
             <img src="recursos\inicio.png" alt="Descripción de la imagen" width="155" height="150">
             <div style="flex-grow: 1;"></div> <!-- Espacio para empujar los botones hacia abajo -->
-            <button id="boton-arriba" onclick="window.location.href = '/Registrarse.php';">Registrarse</button>
+            <button id="boton-arriba" onclick="window.location.href = '/Registro_usuario.php';">Registrarse</button>
             <div class="barra-negra"></div> <!-- Barra negra entre los botones -->
             <button id="boton-abajo" onclick="window.location.href = '/Iniciar_Sesion.php';">Iniciar Sesion</button>
         </div>
-        <div class="letras">Escuadros del Desarrollo Agile © 2024</div>
+        <div class="letras">Legal Connect © 2024</div>
     </div>
 </body>
 </html>
