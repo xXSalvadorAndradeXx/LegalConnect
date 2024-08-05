@@ -90,7 +90,7 @@
             <center>
             <img src="recursos\inicio.png" alt="Descripción de la imagen" width="155" height="150">
             <div style="flex-grow: 1;"></div> <!-- Espacio para empujar los botones hacia abajo -->
-            <button id="boton-arriba" onclick="window.location.href = '/Registro_usuario.php';">Registrarse</button>
+            <button id="boton-arriba" onclick="window.location.href = '/Registrarse.php';">Registrarse</button>
             <div class="barra-negra"></div> <!-- Barra negra entre los botones -->
             <button id="boton-abajo" onclick="window.location.href = '/Iniciar_Sesion.php';">Iniciar Sesion</button>
         </div>
