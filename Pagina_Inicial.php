@@ -65,7 +65,7 @@
 
 #boton-abajo:hover {
     background-color: #1E90FF;
-    color: white; /* Cambiado a azul más claro */
+    color: white; /* Cambiado a azul más claro para realiza un cambio*/
 }
 
 .barra-negra {
