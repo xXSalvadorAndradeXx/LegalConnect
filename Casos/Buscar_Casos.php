@@ -377,8 +377,8 @@ nav {
                 echo "</div>";
                 echo "<div class='table-cell'>" . $row["fecha_creacion"] . "</div>";
                 echo "<div class='table-cell'>";
-                echo "<button class='delete-button' onclick=\"eliminarCaso('" . $row["referencia"] . "')\">Eliminar</button>";
-                //echo "<a class='edit-button' href='ver_detalle_caso.php?referencia=" . $row["referencia"] . "'>Detalles</a>";
+                //echo "<button class='delete-button' onclick=\"eliminarCaso('" . $row["referencia"] . "')\">Eliminar</button>";
+                echo "<a class='edit-button' href='ver_detalle_caso.php?referencia=" . $row["referencia"] . "'>Detalles</a>";
                 echo "<button class='archive-button' onclick=\"archivarCaso('" . $row["referencia"] . "')\">Archivar</button>";
                 echo "</div>";
                 echo "</div>";
