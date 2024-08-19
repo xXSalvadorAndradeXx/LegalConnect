@@ -1,46 +1,64 @@
 <?php
-// Conectar a la base de datos
+// Conexión a la base de datos
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "legalcc";
+$database = "legalcc";
 
-// Crear la conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $database);
 
-// Verificar la conexión
+// Verificar conexión
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-// Obtener la referencia del caso desde la URL
-$referencia = $conn->real_escape_string($_GET['referencia']);
+// Verificar si se ha recibido la referencia del caso
+if (isset($_GET['referencia'])) {
+    $referencia = $_GET['referencia'];
 
-// Iniciar una transacción
-$conn->begin_transaction();
+    // Obtener los datos del caso desde la tabla 'casos'
+    $sql = "SELECT * FROM casos WHERE referencia = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $referencia);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-try {
-    // Copiar los datos del caso a la tabla de archivados
-    $sql_archivar = "INSERT INTO casos_archivados SELECT * FROM casos WHERE referencia='$referencia'";
-    if ($conn->query($sql_archivar) !== TRUE) {
-        throw new Exception("Error al archivar el caso: " . $conn->error);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+
+        $sql_evidencia_documentos = "DELETE FROM evidencias WHERE caso_referencia = ?";
+        $stmt_evidencia_documentos = $conn->prepare($sql_evidencia_documentos);
+        $stmt_evidencia_documentos->bind_param("s", $referencia);
+        $stmt_evidencia_documentos->execute();
+
+        $sql_eliminar_documentos = "DELETE FROM documentos WHERE caso_referencia = ?";
+        $stmt_eliminar_documentos = $conn->prepare($sql_eliminar_documentos);
+        $stmt_eliminar_documentos->bind_param("s", $referencia);
+        $stmt_eliminar_documentos->execute();
+
+        $sql_eliminar = "DELETE FROM casos WHERE referencia = ?";
+        $stmt_eliminar = $conn->prepare($sql_eliminar);
+        $stmt_eliminar->bind_param("s", $referencia);
+        $stmt_eliminar->execute();
+
+
+
+        // Insertar el caso en la tabla 'casos_archivados'
+        $sql_archivar = "INSERT INTO casos_archivados (referencia, victima, imputado, tipo_delito, archivos_documento, fecha_creacion) 
+                         VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt_archivar = $conn->prepare($sql_archivar);
+        $stmt_archivar->bind_param("ssssss", $row['referencia'], $row['victima'], $row['imputado'], $row['tipo_delito'], $row['archivos_documento'], $row['fecha_creacion']);
+        $stmt_archivar->execute();
+
+
+       
+
+        // Redirigir de vuelta a la página principal
+        header("Location: Buscar_Casos.php");
+        exit();
+    } else {
+        echo "Caso no encontrado.";
     }
-
-    // Actualizar el estado del caso en la tabla original
-    $sql_ocultar = "UPDATE casos SET estado='archivado' WHERE referencia='$referencia'";
-    if ($conn->query($sql_ocultar) !== TRUE) {
-        throw new Exception("Error al actualizar el estado del caso: " . $conn->error);
-    }
-
-    // Confirmar la transacción
-    $conn->commit();
-    echo "Caso archivado correctamente.";
-} catch (Exception $e) {
-    // Revertir la transacción en caso de error
-    $conn->rollback();
-    echo $e->getMessage();
 }
-
-// Cerrar la conexión
-$conn->close();
 ?>
+

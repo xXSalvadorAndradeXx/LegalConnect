@@ -378,7 +378,8 @@ nav {
                 echo "<div class='table-cell'>" . $row["fecha_creacion"] . "</div>";
                 echo "<div class='table-cell'>";
                 echo "<button class='delete-button' onclick=\"eliminarCaso('" . $row["referencia"] . "')\">Eliminar</button>";
-                echo "<a class='edit-button' href='ver_detalle_caso.php?referencia=" . $row["referencia"] . "'>Detalles</a>";
+                //echo "<a class='edit-button' href='ver_detalle_caso.php?referencia=" . $row["referencia"] . "'>Detalles</a>";
+                echo "<button class='archive-button' onclick=\"archivarCaso('" . $row["referencia"] . "')\">Archivar</button>";
                 echo "</div>";
                 echo "</div>";
             }
@@ -395,6 +396,15 @@ nav {
 
 
 <script>
+
+
+function archivarCaso(referencia) {
+    if (confirm(" Se eliminaran las evidencias y documentos ¿Estás seguro de que deseas archivar este caso?")) {
+        // Redireccionar a la página de archivado con la referencia del caso
+        window.location.href = "archivar_caso.php?referencia=" + referencia;
+    }
+}
+
 
 function ordenarPorReferencia() {
     var table, rows, switching, i, x, y, shouldSwitch;
