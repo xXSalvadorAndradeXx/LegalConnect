@@ -339,6 +339,7 @@ nav {
   </header>
 
   <a id="botonArribaIzquierda" href="/Casos/Agregar_casos.php">Añadir Caso</a>
+  <a id="" href="/Archivados/casos_archivados.php">Añadir Caso</a>
 
   <div class="container">
 <center>
