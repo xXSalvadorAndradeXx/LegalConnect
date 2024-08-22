@@ -65,10 +65,9 @@ $result = $conn->query($sql);
             top: 20px;
             left: 20px;
             padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
+            background-color: white;
+            color: black;
             text-decoration: none;
-            border: 2px solid #007bff;
             border-radius: 5px;
             font-family: Arial, sans-serif;
             font-size: 16px;
@@ -78,6 +77,29 @@ $result = $conn->query($sql);
         }
 
         #botonArribaIzquierda:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
+
+        #botonArribaIzquierda3 {
+            position: fixed;
+            top: 70px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: white;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+
+            transition: background-color 0.3s, color 0.3s;
+            margin-left: 1000px;
+            margin-top: 50px;
+        }
+
+        #botonArribaIzquierda3:hover {
             background-color: #0056b3;
             color: #fff;
         }
@@ -339,7 +361,7 @@ nav {
   </header>
 
   <a id="botonArribaIzquierda" href="/Casos/Agregar_casos.php">Añadir Caso</a>
-  <a id="" href="/Archivados/casos_archivados.php">Añadir Caso</a>
+  <a id="botonArribaIzquierda3" href="/Archivados/casos_archivados.php">Casos Archivados</a>
 
   <div class="container">
 <center>
