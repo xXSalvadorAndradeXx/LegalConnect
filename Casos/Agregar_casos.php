@@ -465,7 +465,7 @@ nav {
         <input type="file" name="evidencia[]" multiple accept=".png ,.jpg,.jpeg">
 
         <label for="documento">Documento:</label>
-        <input type="file" name="documento" accept=".pdf">
+        <input type="file" name="documento">
 
         <div class="button-container">
             <input type="submit" value="Agregar Caso" class="submit-btn">

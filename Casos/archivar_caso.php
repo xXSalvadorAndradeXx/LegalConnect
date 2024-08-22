@@ -36,23 +36,11 @@ if (isset($_GET['referencia'])) {
                          archivos_documento = VALUES(archivos_documento),
                          fecha_creacion = VALUES(fecha_creacion)";
         $stmt_archivar = $conn->prepare($sql_archivar);
-        $stmt_archivar->bind_param("ssssss", $row['referencia'], $row['victima'], $row['imputado'], $row['tipo_delito'], $row['archivos_documento'], $row['fecha_creacion']);
-        $stmt_archivar->execute();
-
-       
-        $sql_documentos = "INSERT INTO documentos_archivados (caso_referencia, nombre_archivo) 
-                           SELECT caso_referencia, nombre_archivo FROM documentos 
-                           WHERE caso_referencia = ?";
-        $stmt_documentos = $conn->prepare($sql_documentos);
-        $stmt_documentos->bind_param("s", $referencia);
-        $stmt_documentos->execute();
-
         
-        $sql_archivar_evidencias = "INSERT INTO evidencias_archivadas (caso_referencia, tipo_evidencia, descripcion) 
-        VALUES (?, ?, ?)";
-        $stmt_archivar_evidencias = $conn->prepare($sql_archivar_evidencias);
-        $stmt_archivar_evidencias->bind_param("sss", $row_evidencia['caso_referencia'], $row_evidencia['tipo_evidencia'], $row_evidencia['descripcion']);
-        $stmt_archivar_evidencias->execute();
+        $stmt_archivar->bind_param("ssssss", $row['referencia'], $row['victima'], $row['imputado'], $row['tipo_delito'], $row['archivos_documento'], $row['fecha_creacion']);
+
+        $stmt_archivar->execute();
+  
 
         $sql_evidencia_documentos = "DELETE FROM evidencias WHERE caso_referencia = ?";
         $stmt_evidencia_documentos = $conn->prepare($sql_evidencia_documentos);

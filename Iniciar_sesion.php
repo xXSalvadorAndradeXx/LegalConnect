@@ -108,8 +108,17 @@ a:hover {
     <form action="Proceso_Sesion.php" method="POST">
         <label for="correo">Correo Electrónico:</label>
         <input type="email" id="correo" name="correo" required>
+
+        
         <label for="contrasena">Contraseña:</label>
         <input type="password" id="contrasena" name="contrasena" required>
+        <span class="toggle-password" onclick="togglePasswordVisibility()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                 <path d="M7.364 4C2.571 4 0 8 0 8s2.57 4 7.364 4c.518 0 1.016-.104 1.486-.298a2.5 2.5 0 0 1-1.047-1.524C7.477 10 7.143 10 7 10c-.143 0-.476 0-.804-.022a2.5 2.5 0 0 1-1.047 1.524A8.158 8.158 0 0 0 7.364 12C12.157 12 14.727 8 14.727 8s-2.57-4-7.364-4zM8 6.364a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+                            </svg>
+                        </span>
+
+
         <p id="error-msg" class="error"></p>
      
         <button type="submit">Iniciar Sesión</button>
@@ -121,6 +130,22 @@ a:hover {
 
 
 <script>
+
+
+function togglePasswordVisibility() {
+    const passwordInput = document.getElementById("contrasena");
+    const toggleIcon = document.querySelector(".toggle-password svg");
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        toggleIcon.classList.remove("bi-eye");
+        toggleIcon.classList.add("bi-eye-slash");
+    } else {
+        passwordInput.type = "password";
+        toggleIcon.classList.remove("bi-eye-slash");
+        toggleIcon.classList.add("bi-eye");
+    }
+}
        const urlParams = new URLSearchParams(window.location.search);
         const error = urlParams.get('error');
 

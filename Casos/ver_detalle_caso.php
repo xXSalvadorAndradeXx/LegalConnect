@@ -476,6 +476,7 @@ button:hover {
                     while($row_documento = $result_documento->fetch_assoc()) {
                         // Mostrar el documento en un iframe
                         echo "<iframe src='" . $row_documento["ubicacion_archivo"] . "'></iframe>";
+                        
                     }
                     echo "</div>";
                 } else {

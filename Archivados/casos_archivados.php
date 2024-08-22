@@ -71,22 +71,26 @@ if ($result->num_rows > 0) {
                 <th>Víctima</th>
                 <th>Imputado</th>
                 <th>Tipo de Delito</th>
-                <th>Documento Archivado</th>
                 <th>Fecha de Creación</th>
+                <th>Acciones</th>
             </tr>";
     // Mostrar cada caso archivado
     while($row = $result->fetch_assoc()) {
         // Asumimos que 'archivos_documento' contiene la ruta o el nombre del archivo
         $archivo = htmlspecialchars($row['archivos_documento']);
-        $ruta_documento = "/Casos/documentos/" . $archivo; // Cambia esta ruta según corresponda
+        $ruta_documento = "Casos/documentos/" . $archivo; // Cambia esta ruta según corresponda
 
         echo "<tr>
                 <td>" . htmlspecialchars($row['referencia']) . "</td>
                 <td>" . htmlspecialchars($row['victima']) . "</td>
                 <td>" . htmlspecialchars($row['imputado']) . "</td>
                 <td>" . htmlspecialchars($row['tipo_delito']) . "</td>
-                <td><a href='" . $ruta_documento . "' target='_blank'>Ver Documento</a></td>
                 <td>" . htmlspecialchars($row['fecha_creacion']) . "</td>
+                <td>
+                    <a href='restaurar_caso.php?referencia=" . urlencode($row['referencia']) . "'>
+                        <button class='btn-restaurar'>Restaurar</button>
+                    </a>
+                </td>
               </tr>";
     }
     echo "</table>";
