@@ -72,6 +72,7 @@ if ($result->num_rows > 0) {
                 <th>Imputado</th>
                 <th>Tipo de Delito</th>
                 <th>Fecha de Creación</th>
+                <th>Tiempo de Expiracion</th>
                 <th>Acciones</th>
             </tr>";
     // Mostrar cada caso archivado
@@ -86,6 +87,7 @@ if ($result->num_rows > 0) {
                 <td>" . htmlspecialchars($row['imputado']) . "</td>
                 <td>" . htmlspecialchars($row['tipo_delito']) . "</td>
                 <td>" . htmlspecialchars($row['fecha_creacion']) . "</td>
+                <td>" . htmlspecialchars($row['fecha_expiracion']) . "</td>
                 <td>
                     <a href='restaurar_caso.php?referencia=" . urlencode($row['referencia']) . "'>
                         <button class='btn-restaurar'>Restaurar</button>
