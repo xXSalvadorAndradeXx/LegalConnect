@@ -58,11 +58,11 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
      #botonArribaIzquierda {
             position: fixed;
-            top: 20px;
+            top: 400px;
             left: 20px;
             padding: 10px 20px;
             background-color: white;
@@ -72,7 +72,7 @@ $result = $conn->query($sql);
             font-family: Arial, sans-serif;
             font-size: 16px;
             transition: background-color 0.3s, color 0.3s;
-            margin-left: 1000px;
+            margin-left: 1200px;
             margin-top: 50px;
         }
 
@@ -84,7 +84,7 @@ $result = $conn->query($sql);
 
         #botonArribaIzquierda3 {
             position: fixed;
-            top: 70px;
+            top: 450px;
             left: 20px;
             padding: 10px 20px;
             background-color: white;
@@ -95,7 +95,7 @@ $result = $conn->query($sql);
             font-size: 16px;
 
             transition: background-color 0.3s, color 0.3s;
-            margin-left: 1000px;
+            margin-left: 1200px;
             margin-top: 50px;
         }
 
@@ -360,8 +360,13 @@ nav {
     </center>
   </header>
 
-  <a id="botonArribaIzquierda" href="/Casos/Agregar_casos.php">Añadir Caso</a>
-  <a id="botonArribaIzquierda3" href="/Archivados/casos_archivados.php">Casos Archivados</a>
+  <a id="botonArribaIzquierda" href="/Casos/Agregar_casos.php">
+    <i class="fas fa-plus"></i>
+</a>
+<a id="botonArribaIzquierda3" href="/Archivados/casos_archivados.php">
+    <i class="fas fa-archive"></i>
+</a>
+
 
   <div class="container">
 <center>
