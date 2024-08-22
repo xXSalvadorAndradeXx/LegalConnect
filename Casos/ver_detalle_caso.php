@@ -32,6 +32,7 @@ if (isset($_GET['logout'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles del Caso</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -167,15 +168,14 @@ nav {
             top: 20px;
             left: 20px;
             padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
+            background-color: white;
+            color: black;
             text-decoration: none;
-            border: 2px solid #007bff;
             border-radius: 5px;
             font-family: Arial, sans-serif;
             font-size: 16px;
             transition: background-color 0.3s, color 0.3s;
-            margin-left: 1000px;
+            margin-left: 1150px;
             margin-top: 400px;
         }
 
@@ -186,23 +186,24 @@ nav {
 
         .edit-btn {
           position: fixed;
-            top: 20px;
+            top: 400px;
             left: 20px;
             padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
+            background-color: white;
+            color: black;
             text-decoration: none;
-            border: 2px solid #007bff;
+            
             border-radius: 5px;
             font-family: Arial, sans-serif;
             font-size: 16px;
             transition: background-color 0.3s, color 0.3s;
-            margin-left: 1000px;
+            margin-left: 1150px;
             margin-top: 80px;
 }
 
 .edit-btn:hover {
     background-color: #0056b3;
+    color: white;
 }
 
 
@@ -368,7 +369,10 @@ button:hover {
     </video>
 </div>
 
-  <a id="botonArribaIzquierda" href="/Casos/Buscar_Casos.php">Historial de Casos</a>
+<a id="botonArribaIzquierda" href="/Casos/Buscar_Casos.php">
+    <i class="fas fa-history"></i>
+</a>
+
 
     <div class="container">
         <?php
@@ -391,7 +395,10 @@ button:hover {
             $referencia = $_GET['referencia'];
 
 
-            echo "<a href='editar_caso.php?referencia=$referencia' class='edit-btn'>Editar Caso</a>";
+            echo "<a href='editar_caso.php?referencia=$referencia' class='edit-btn'>
+        <i class='fas fa-edit'></i>
+      </a>";
+
 
 
             // Consulta para obtener los detalles del caso
