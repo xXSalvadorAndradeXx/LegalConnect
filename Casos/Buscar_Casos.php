@@ -189,6 +189,27 @@ nav {
 .btn-nav:hover {
   background: rgba(255, 255, 255, 0.1); /* Cambiar el color de fondo al pasar el cursor */
 }
+.archive-button {
+            background-color: #fff; /* Green */
+            border: none;
+            color: black;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-family: Bahnschrift;
+        }
+
+        .archive-button:hover {
+            background-color: #0056b3; /* Darker Green on Hover */
+            color: #fff;
+            font-family: Bahnschrift;
+        }
 
 .circle-container {
         width: 70px;

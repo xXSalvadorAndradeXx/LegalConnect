@@ -273,7 +273,7 @@ nav {
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             overflow-y: auto; /* Agregamos scroll vertical */
-            max-height: 500px; /* Establecemos una altura máxima */
+            max-height: 600px; /* Establecemos una altura máxima */
             margin-top: 20px;
         }
 
@@ -410,6 +410,36 @@ nav {
             outline: none;
             border-color: #007bff;
         }
+
+        /* Oculta el input de archivo real */
+.evidence-btn {
+    position: absolute;
+    left: -9999px; /* Lo mueve fuera de la vista */
+}
+
+/* Estilo del label que actúa como botón */
+.custom-label {
+    background-color: #007bff; /* Fondo blanco */
+    border: none;
+    color: white; /* Color del texto */
+    padding: 10px 20px; /* Espaciado del botón */
+    text-align: center; /* Centrar el texto */
+    text-decoration: none; /* Sin decoración de texto */
+    display: inline-block; /* Mostrar como bloque en línea */
+    font-size: 14px; /* Tamaño del texto */
+    margin: 4px 2px; /* Margen alrededor del botón */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s ease; /* Transición suave al cambiar de fondo */
+    font-family: Bahnschrift; /* Fuente personalizada */
+}
+
+/* Estilo al pasar el mouse sobre el label */
+.custom-label:hover {
+    background-color: #0056b3; /* Fondo más oscuro al pasar el ratón */
+    color: #fff; /* Color de texto blanco al pasar el ratón */
+}
+
     </style>
 
 </head>
@@ -465,13 +495,21 @@ nav {
                 <option value="homicidio">Homicidio</option>
             </select>
         </div>
-
-        <label>Evidencia:</label>
-        <input type="file" name="evidencia[]" multiple accept=".png ,.jpg,.jpeg">
-
+        <div id="evidencia-container">
+    <form>
+        <br>
+        <label for="evidencia">Evidencia:</label>
+        <br>
+        <label for="evidencia" class="custom-label">Seleccionar</label>
+        <input type="file" id="evidencia" name="evidencia[]" multiple accept=".png,.jpg,.jpeg" class="evidence-btn">
+        <span id="evidencia-nombres"></span> <!-- Span para mostrar los nombres de los archivos seleccionados -->
+        <br><br>
         <label for="documento">Documento:</label>
-        <input type="file" name="documento">
-
+        <br>
+        <label for="documento" class="custom-label">Seleccionar</label>
+        <input type="file" id="documento" name="documento" class="evidence-btn">
+        <span id="documento-nombre"></span> <!-- Span para mostrar el nombre del archivo seleccionado -->
+        <br><br>
         <div class="button-container">
             <input type="submit" value="Agregar Caso" class="submit-btn">
             <input type="reset" value="Cancelar" class="cancel-btn">
@@ -479,28 +517,36 @@ nav {
     </form>
 </div>
 
-
-    <script>
-        function agregarCampoEvidencia() {
-            var container = document.getElementById("evidencia-container");
-            var input = document.createElement("input");
-            input.type = "file";
-            input.name = "evidencia[]";
-            container.appendChild(document.createElement("br"));
-            container.appendChild(input);
+<script>
+    document.getElementById('evidencia').addEventListener('change', function() {
+        var nombresArchivos = [];
+        for (var i = 0; i < this.files.length; i++) {
+            nombresArchivos.push(this.files[i].name);
         }
+        document.getElementById('evidencia-nombres').textContent = nombresArchivos.join(', ');
+    });
 
+    document.getElementById('documento').addEventListener('change', function() {
+        var nombreArchivo = this.files[0] ? this.files[0].name : '';
+        document.getElementById('documento-nombre').textContent = nombreArchivo;
+    });
 
-
-        document.querySelector('a[href="?logout"]').addEventListener('click', function(event) {
-    if (!confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-        event.preventDefault(); // Cancelar el evento de clic si el usuario no confirma
+    function agregarCampoEvidencia() {
+        var container = document.getElementById("evidencia-container");
+        var input = document.createElement("input");
+        input.type = "file";
+        input.name = "evidencia[]";
+        input.className = "evidence-btn";
+        container.appendChild(document.createElement("br"));
+        container.appendChild(input);
     }
-});
 
-    </script>
+    document.querySelector('a[href="?logout"]').addEventListener('click', function(event) {
+        if (!confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+            event.preventDefault(); // Cancelar el evento de clic si el usuario no confirma
+        }
+    });
+</script>
+
 </body>
 </html>
-
-
-
