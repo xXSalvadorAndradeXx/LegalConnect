@@ -72,7 +72,7 @@ if ($result->num_rows > 0) {
                 <th>Imputado</th>
                 <th>Tipo de Delito</th>
                 <th>Fecha de Creación</th>
-                <th>Tiempo de Expiracion</th>
+                <th>Tiempo para Prescribir</th>
                 <th>Acciones</th>
             </tr>";
     // Mostrar cada caso archivado

@@ -137,6 +137,8 @@ $conn->close();
 <html>
 <head>
     <title>Agregar Caso</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
     <style>
 
 :root {
@@ -440,7 +442,10 @@ nav {
 
 
 
-  <a id="botonArribaIzquierda" href="/Casos/Buscar_Casos.php">Historia de Casos</a>
+  <a id="botonArribaIzquierda" href="/Casos/Buscar_Casos.php">
+    <i class="fas fa-table"></i>
+</a>
+
 <div class="container">
     <h2>Agregar Caso</h2>
     <form method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
