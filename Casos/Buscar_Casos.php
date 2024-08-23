@@ -240,6 +240,7 @@ nav {
     margin: 0 auto;
     max-width: 800px;
     height: 400px;
+    margin-top: 10px;
     overflow-y: auto;
 }
 
@@ -288,7 +289,7 @@ nav {
         border-radius: 5px;
         font-size: 16px;
         transition: border-color 0.3s ease;
-        margin-top: 200px; /* Añadir margen superior */
+        margin-top: 50px; /* Añadir margen superior */
 }
 
 /* Estilo cuando el campo de entrada está enfocado */

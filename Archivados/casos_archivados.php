@@ -151,7 +151,7 @@ nav {
 
 .table-container {
     height: 400px;
-    margin-top: 100px;
+    margin-top: 10px;
     overflow-y: auto;
 }
 
@@ -161,6 +161,7 @@ nav {
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
+    font-size: 16px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -205,6 +206,30 @@ nav {
             color: #fff;
         }
 
+
+
+
+
+
+
+
+        .table-search {
+
+        margin-left: 390px;
+        padding: 10px;
+        width: 700px; /* Ancho aumentado a 400px */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+        margin-top: 50px; /* Añadir margen superior */
+}
+
+.table-search:focus {
+  outline: none;
+  border-color: #66afe9;
+}
+
     </style>
 </head>
 <body>
@@ -216,7 +241,7 @@ nav {
     <a href="/Formularios/Perfil.php">
 <div class="circle-container">
 
-    <img class="circle-image" src="Recursos/profile.png" alt="Tu imagen">
+    <img class="circle-image" src="/Recursos/profile.png" alt="Tu imagen">
 
    </div>
   </a>
@@ -257,52 +282,59 @@ if ($conn->connect_error) {
 }
 
 // Consultar los casos archivados
-$sql = "SELECT * FROM casos_archivados";
+$sql = "SELECT referencia, victima, imputado, tipo_delito, fecha_creacion, fecha_expiracion, archivos_documento 
+        FROM casos_archivados 
+        ORDER BY fecha_creacion DESC";
+
 $result = $conn->query($sql);
 
-// Verificar si hay resultados
 if ($result->num_rows > 0) {
-    echo "<div class='table-container'><table class='custom-table'>
-            <tr class='table-header'>
-                <th class='table-cell'>Referencia</th>
-                <th class='table-cell'>Víctima</th>
-                <th class='table-cell'>Imputado</th>
-                <th class='table-cell'>Tipo de Delito</th>
-                <th class='table-cell'>Fecha de Creación</th>
-                <th class='table-cell'>Tiempo para Prescribir</th>
-                <th class='table-cell'>Acciones</th>
+
+  echo "<input type='text' id='buscador' class='table-search' placeholder='Buscar casos archivados...'>";
+
+
+  
+  echo "<div class='table-container'><table class='custom-table' id='tablaCasos'>
+          <tr class='table-header'>
+              <th class='table-cell'>Referencia</th>
+              <th class='table-cell'>Víctima</th>
+              <th class='table-cell'>Imputado</th>
+              <th class='table-cell'>Tipo de Delito</th>
+              <th class='table-cell'>Fecha de Creación</th>
+              <th class='table-cell'>Tiempo para Prescribir</th>
+              <th class='table-cell'>Acciones</th>
+          </tr>";
+  
+  // Mostrar cada caso archivado
+  while($row = $result->fetch_assoc()) {
+      $archivo = htmlspecialchars($row['archivos_documento']);
+      $ruta_documento = "Casos/documentos/" . $archivo; // Cambia esta ruta según corresponda
+
+      echo "<tr class='table-row'>
+              <td class='table-cell'>" . htmlspecialchars($row['referencia']) . "</td>
+              <td class='table-cell'>" . htmlspecialchars($row['victima']) . "</td>
+              <td class='table-cell'>" . htmlspecialchars($row['imputado']) . "</td>
+              <td class='table-cell'>" . htmlspecialchars($row['tipo_delito']) . "</td>
+              <td class='table-cell'>" . htmlspecialchars($row['fecha_creacion']) . "</td>
+              <td class='table-cell'>" . htmlspecialchars($row['fecha_expiracion']) . "</td>
+              <td class='table-cell'>
+                  <a href='restaurar_caso.php?referencia=" . urlencode($row['referencia']) . "'>
+                      <button class='btn-restaurar'>
+                          <i class='fas fa-undo'></i>
+                      </button>
+                  </a>
+              </td>
             </tr>";
-    
-    // Mostrar cada caso archivado
-    while($row = $result->fetch_assoc()) {
-        $archivo = htmlspecialchars($row['archivos_documento']);
-        $ruta_documento = "Casos/documentos/" . $archivo; // Cambia esta ruta según corresponda
-
-        echo "<tr class='table-row'>
-                <td class='table-cell'>" . htmlspecialchars($row['referencia']) . "</td>
-                <td class='table-cell'>" . htmlspecialchars($row['victima']) . "</td>
-                <td class='table-cell'>" . htmlspecialchars($row['imputado']) . "</td>
-                <td class='table-cell'>" . htmlspecialchars($row['tipo_delito']) . "</td>
-                <td class='table-cell'>" . htmlspecialchars($row['fecha_creacion']) . "</td>
-                <td class='table-cell'>" . htmlspecialchars($row['fecha_expiracion']) . "</td>
-                <td class='table-cell'>
-    <a href='restaurar_caso.php?referencia=" . urlencode($row['referencia']) . "'>
-        <button class='btn-restaurar'>
-            <i class='fas fa-undo'></i>
-        </button>
-    </a>
-</td>
-
-              </tr>";
-    }
-    echo "</table></div>";
+  }
+  echo "</table></div>";
 } else {
-    echo "<p class='no-data'>No hay casos archivados.</p>";
+  echo "<p class='no-data'>No hay casos archivados.</p>";
 }
 
 // Cerrar la conexión
 $conn->close();
 ?>
+
 
 <script>
 
@@ -334,7 +366,32 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
+
+// Filtrar la tabla en tiempo real
+document.getElementById('buscador').addEventListener('keyup', function() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById('buscador');
+    filter = input.value.toUpperCase();
+    table = document.getElementById('tablaCasos');
+    tr = table.getElementsByTagName('tr');
+
+    for (i = 1; i < tr.length; i++) { // Comienza en 1 para omitir la fila de encabezado
+        tr[i].style.display = 'none';
+        td = tr[i].getElementsByTagName('td');
+        for (var j = 0; j < td.length; j++) {
+            if (td[j]) {
+                txtValue = td[j].textContent || td[j].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = '';
+                    break;
+                }
+            }
+        }
+    }
+});
+
 </script>
+
 </body>
 </html>
 
