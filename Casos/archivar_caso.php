@@ -27,7 +27,7 @@ if (isset($_GET['referencia'])) {
 
         // Calcular la fecha de expiración (6 meses después de la fecha de creación)
         $fecha_creacion = $row['fecha_creacion'];
-        $fecha_expiracion = date('Y-m-d', strtotime($fecha_creacion . ' +6 months'));
+        $fecha_expiracion = date('Y-m-d', strtotime($fecha_creacion . ' +12 months'));
 
         // Insertar el caso en la tabla 'casos_archivados'
         $sql_archivar = "INSERT INTO casos_archivados (referencia, victima, imputado, tipo_delito, archivos_documento, fecha_creacion, fecha_expiracion) 
