@@ -189,27 +189,8 @@ nav {
 .btn-nav:hover {
   background: rgba(255, 255, 255, 0.1); /* Cambiar el color de fondo al pasar el cursor */
 }
-.archive-button {
-            background-color: #fff; /* Green */
-            border: none;
-            color: black;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            font-family: Bahnschrift;
-        }
 
-        .archive-button:hover {
-            background-color: #0056b3; /* Darker Green on Hover */
-            color: #fff;
-            font-family: Bahnschrift;
-        }
+
 
 .circle-container {
         width: 70px;
@@ -319,9 +300,9 @@ nav {
   border-radius: 5px;
   cursor: pointer;
   font-family: Bahnschrift;
-  
-  
-  
+  position: relative;
+    display: inline-block;
+    
 }
 
 .edit-button:hover {
@@ -330,26 +311,111 @@ nav {
   font-family: Bahnschrift;
 }
 
-.delete-button {
+
+
+.edit-button:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+    background-color: black; 
+  font-family: Bahnschrift;
+  color: white;
+}
+
+
+.edit-button .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 0;
+
+    /* Posicionamiento */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Ajusta según la posición deseada */
+    left: 50%;
+    margin-left: -60px;
+
+    /* Flecha */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.edit-button:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
+/*______________________*/
+
+
+.archive-button {
   display: inline-block;
-  background-color: white; /* Color de fondo del botón de eliminar */
-  color: black; /* Color del texto del botón de eliminar */
+  background-color: white;
+  color: black;
   padding: 10px 20px;
   text-decoration: none;
   border: none;
-  font-size: 15px;
   border-radius: 5px;
   cursor: pointer;
   font-family: Bahnschrift;
-  border-color: black;
+  position: relative;
+    display: inline-block;
+    
 }
 
-.delete-button:hover {
-  background-color: red; 
+.archive-button:hover {
+  background-color: #0056b3;
+  color: white;
+  font-family: Bahnschrift;
+}
+
+
+
+.archive-button:hover .tooltiptext2 {
+    visibility: visible;
+    opacity: 1;
+    background-color: black; 
   font-family: Bahnschrift;
   color: white;
-  
 }
+
+
+.archive-button .tooltiptext2 {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 0;
+
+    /* Posicionamiento */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Ajusta según la posición deseada */
+    left: 50%;
+    margin-left: -60px;
+
+    /* Flecha */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.archive-button:hover .tooltiptext2 {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
+
+
+
 
 
     </style>
@@ -429,16 +495,21 @@ nav {
                 echo "<div class='table-cell'>";
                 //echo "<button class='delete-button' onclick=\"eliminarCaso('" . $row["referencia"] . "')\">Eliminar</button>";
                 echo "<center>
-                <a class='edit-button' href='ver_detalle_caso.php?referencia=" . $row["referencia"] . "'>
-                    <i class='fas fa-info-circle'></i>
-                </a>
-              </center>";
+        <a class='edit-button' href='ver_detalle_caso.php?referencia=" . $row['referencia'] . "'>
+            <i class='fas fa-info-circle'></i>
+            <span class='tooltiptext'>Detalles de Caso</span>
+        </a>
+      </center>";
+
         
-                echo "<center>";
-                echo "<button class='archive-button' onclick=\"archivarCaso('" . $row["referencia"] . "')\">
-                <i class='fas fa-archive'></i>
-              </button>";
-              echo "</center>";
+      echo "<center>";
+      echo "<button class='archive-button' onclick=\"archivarCaso('" . $row['referencia'] . "')\">
+              <i class='fas fa-archive'></i>
+              <span class='tooltiptext2'>Archivar caso</span>
+            </button>";
+      echo "</center>";
+      
+              
                 
             }
         } else {
@@ -457,7 +528,7 @@ nav {
 
 
 function archivarCaso(referencia) {
-    if (confirm(" Se eliminaran las evidencias y documentos ¿Estás seguro de que deseas archivar este caso?")) {
+    if (confirm(" Se descargaran las evidencias y documentos ¿Estás seguro de que deseas archivar este caso?")) {
         // Redireccionar a la página de archivado con la referencia del caso
         window.location.href = "archivar_caso.php?referencia=" + referencia;
     }
