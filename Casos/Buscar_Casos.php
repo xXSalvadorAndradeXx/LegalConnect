@@ -427,10 +427,18 @@ nav {
                 echo "<div class='table-cell'>" . $row["fecha_creacion"] . "</div>";
                 echo "<div class='table-cell'>";
                 //echo "<button class='delete-button' onclick=\"eliminarCaso('" . $row["referencia"] . "')\">Eliminar</button>";
-                echo "<a class='edit-button' href='ver_detalle_caso.php?referencia=" . $row["referencia"] . "'>Detalles</a>";
-                echo "<button class='archive-button' onclick=\"archivarCaso('" . $row["referencia"] . "')\">Archivar</button>";
-                echo "</div>";
-                echo "</div>";
+                echo "<center>
+                <a class='edit-button' href='ver_detalle_caso.php?referencia=" . $row["referencia"] . "'>
+                    <i class='fas fa-info-circle'></i>
+                </a>
+              </center>";
+        
+                echo "<center>";
+                echo "<button class='archive-button' onclick=\"archivarCaso('" . $row["referencia"] . "')\">
+                <i class='fas fa-archive'></i>
+              </button>";
+              echo "</center>";
+                
             }
         } else {
             echo "<div class='no-data' colspan='6'>No hay casos registrados.</div>";
