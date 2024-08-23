@@ -21,10 +21,7 @@
             font-family: 'Roboto', sans-serif;
   overflow: hidden;
         }
-        h1 {
-            color: #333;
-            margin-left: 20%;
-        }
+       
         
 .main-header {
   background: var(--main-color); /* Usar el color principal */
@@ -73,6 +70,7 @@ nav {
   font-family: Bahnschrift;
 }
 
+
 #btn-nav {
   display: none;
 }
@@ -113,11 +111,7 @@ nav {
     p{
         margin-left: 20%;
     }
-    h2{
-      color: white;
-      font-size: 20px;
-      font-family: Bahnschrift;
-    }
+  
 
         a {
             color: #007BFF;
@@ -235,13 +229,14 @@ nav {
         <li><a href="/Audiencias/Buscar_Audiencias.php">Audiencias</a></li>
         <li><a href="/Casos/Agregar_Casos.php">Casos</a></li>
         <li><a href="?logout">Cerrar Sesion</a></li>
-        <h2>LegalConnect v.1</h2>
+        
       </ul>
     </nav>
     </center>
   </header>
+  <center>
 <h1>Casos Archivados</h1>
-
+</center>
 
 
 <a id="botonArribaIzquierda" href="/Casos/Buscar_Casos.php">
