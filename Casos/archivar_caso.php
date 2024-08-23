@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 // Verificar si se ha recibido la referencia del caso
 if (isset($_GET['referencia'])) {
     $referencia = $_GET['referencia'];
-    $download_dir = 'descargas/'; // Directorio para guardar los archivos descargados
+    $download_dir = 'Documentos_Archivados/'; // Directorio para guardar los archivos descargados
     if (!is_dir($download_dir)) {
         mkdir($download_dir, 0777, true); // Crear el directorio si no existe
     }
