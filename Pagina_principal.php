@@ -182,19 +182,6 @@ nav {
     </center>
   </header>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
 
 document.querySelector('a[href="?logout"]').addEventListener('click', function(event) {

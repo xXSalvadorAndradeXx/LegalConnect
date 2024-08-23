@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Usuario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             background-color: #242975;
@@ -51,7 +52,7 @@
             border-radius: 5px;
             border: 1px solid #ccc;
             outline: none;
-            width: 100%; /* Ancho completo para todos los inputs y selects */
+            width: 100%;
         }
 
         .box button {
@@ -63,8 +64,8 @@
             color: white;
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s;
-            width: 100%; /* Ancho completo para el botón */
-            max-width: 200px; /* Ajuste máximo de ancho */
+            width: 100%;
+            max-width: 200px;
         }
 
         .box button:hover {
@@ -79,9 +80,8 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            width: 100%; /* Ancho completo para el botón */
-            max-width: 200px; /* Ajuste máximo de ancho */
-           
+            width: 100%;
+            max-width: 200px;
         }
 
         .boton-registro:hover {
@@ -100,39 +100,59 @@
             color: white;
         }
 
-       
         p {
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 20px;
-}
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-a {
-  color: #007bff;
-  text-decoration: none;
-}
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
 
-a:hover {
-  text-decoration: underline;
-}
-.popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    max-width: 300px;
-    text-align: center;
-}
-.popup.error {
-    background-color: #d9534f; /* Color rojo */
-    color: #fff; /* Texto blanco */
-}
+        a:hover {
+            text-decoration: underline;
+        }
 
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .popup.error {
+            background-color: #d9534f;
+            color: #fff;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #007bff;
+            font-size: 18px;
+        }
+        .password-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .password-field {
+            position: relative;
+            width: 48%;
+        }
     </style>
 </head>
 <body>
@@ -141,108 +161,82 @@ $error_message = isset($_GET['mensaje']) ? $_GET['mensaje'] : null;
 ?>
 
 <?php if ($error_message !== null): ?>
-        <div class="popup error">
-            <p><?php echo $error_message; ?></p>
-        </div>
-    <?php endif; ?>
-
-    <div class="box">
-        <h2>Registro de Usuario</h2>
-        <form action="Proceso_registro.php" method="POST" enctype="multipart/form-data">
-            
-            <div style="display: flex; justify-content: space-between; width: 100%;">
-                <div style="width: 48%;">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" required>
-                </div>
-                <div style="width: 48%;">
-                    <label for="apellido">Apellido:</label>
-                    <input type="text" id="apellido" name="apellido" required>
-                </div>
-            </div>
-
-            <div style="display: flex; justify-content: space-between; width: 100%;">
-                <div style="width: 48%;">
-                    <label for="telefono">Teléfono:</label>
-                    <input type="tel" id="telefono" name="telefono" required>
-                </div>
-                <div style="width: 48%;">
-                    <label for="tipo">Oficio:</label>
-                    <select id="tipo" name="tipo" required>
-                        <option value="" disabled selected hidden></option>
-                        <option value="abogado">Abogado</option>
-                        <option value="juez">Juez</option>
-                        <option value="fiscal">Fiscal</option>
-                    </select>
-                </div>
-            </div>
-            <label for="correo" style="width: 100%;">Correo Electrónico:</label>
-            <input type="email" id="correo" name="correo" required>
-
-
-
-            <div style="display: flex; justify-content: space-between; width: 100%;">
-            <div style="width: 48%;">
-                <label for="contrasena">Contraseña:</label>
-                        <input type="password" id="contrasena" name="contrasena" required>
-                        <span class="toggle-password" onclick="togglePasswordVisibility()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-                                 <path d="M7.364 4C2.571 4 0 8 0 8s2.57 4 7.364 4c.518 0 1.016-.104 1.486-.298a2.5 2.5 0 0 1-1.047-1.524C7.477 10 7.143 10 7 10c-.143 0-.476 0-.804-.022a2.5 2.5 0 0 1-1.047 1.524A8.158 8.158 0 0 0 7.364 12C12.157 12 14.727 8 14.727 8s-2.57-4-7.364-4zM8 6.364a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
-                            </svg>
-                        </span>
-            </div>
-
-                <div style="width: 48%;">
-                    <label for="confirmar_contrasena">Confirmar Contraseña:</label>
-                    <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" required>
-                    <span class="toggle-password" onclick="togglePasswordVisibility2()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-                                 <path d="M7.364 4C2.571 4 0 8 0 8s2.57 4 7.364 4c.518 0 1.016-.104 1.486-.298a2.5 2.5 0 0 1-1.047-1.524C7.477 10 7.143 10 7 10c-.143 0-.476 0-.804-.022a2.5 2.5 0 0 1-1.047 1.524A8.158 8.158 0 0 0 7.364 12C12.157 12 14.727 8 14.727 8s-2.57-4-7.364-4zM8 6.364a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
-                            </svg>
-                        </span>
-                </div>
-            </div>
-            
-            <button type="submit" class="boton-registro">Registrarse</button>
-            
-            <p>¿Ya tienes cuenta? <a href="/Iniciar_Sesion.php">Iniciar Sesion </a>
-        </form>
+    <div class="popup error">
+        <p><?php echo $error_message; ?></p>
     </div>
-</body>
+<?php endif; ?>
+
+<div class="box">
+    <h2>Registro de Usuario</h2>
+    <form action="Proceso_registro.php" method="POST" enctype="multipart/form-data">
+        <div style="display: flex; justify-content: space-between; width: 100%;">
+            <div style="width: 48%;">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div style="width: 48%;">
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" name="apellido" required>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; width: 100%;">
+            <div style="width: 48%;">
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono" required>
+            </div>
+            <div style="width: 48%;">
+                <label for="tipo">Oficio:</label>
+                <select id="tipo" name="tipo" required>
+                    <option value="" disabled selected hidden></option>
+                    <option value="abogado">Abogado</option>
+                    <option value="juez">Juez</option>
+                    <option value="fiscal">Fiscal</option>
+                </select>
+            </div>
+        </div>
+        
+        <label for="correo" style="width: 100%;">Correo Electrónico:</label>
+        <input type="email" id="correo" name="correo" required>
+
+        <div class="password-container">
+            <div class="password-field">
+                <label for="contrasena">Contraseña:</label>
+                <input type="password" id="contrasena" name="contrasena" required>
+                <span class="toggle-password" onclick="togglePasswordVisibility('contrasena', 'togglePassword1')">
+                    <i class="fas fa-eye" id="togglePassword1"></i>
+                </span>
+            </div>
+
+            <div class="password-field">
+                <label for="confirmar_contrasena">Confirmar Contraseña:</label>
+                <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" required>
+                <span class="toggle-password" onclick="togglePasswordVisibility('confirmar_contrasena', 'togglePassword2')">
+                    <i class="fas fa-eye" id="togglePassword2"></i>
+                </span>
+            </div>
+            </div>
+        <button type="submit" class="boton-registro">Registrarse</button>
+        
+        <p>¿Ya tienes cuenta? <a href="/Iniciar_Sesion.php">Iniciar Sesión</a></p>
+    </form>
+</div>
 
 <script>
+    function togglePasswordVisibility(inputId, iconId) {
+        const passwordField = document.getElementById(inputId);
+        const toggleIcon = document.getElementById(iconId);
 
-
-function togglePasswordVisibility() {
-    const passwordInput = document.getElementById("contrasena");
-    const toggleIcon = document.querySelector(".toggle-password svg");
-
-    if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        toggleIcon.classList.remove("bi-eye");
-        toggleIcon.classList.add("bi-eye-slash");
-    } else {
-        passwordInput.type = "password";
-        toggleIcon.classList.remove("bi-eye-slash");
-        toggleIcon.classList.add("bi-eye");
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            toggleIcon.classList.remove("fa-eye");
+            toggleIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordField.type = "password";
+            toggleIcon.classList.remove("fa-eye-slash");
+            toggleIcon.classList.add("fa-eye");
+        }
     }
-}
-
-
-function togglePasswordVisibility2() {
-const passwordInput = document.getElementById("confirmar_contrasena");
-const toggleIcon = document.querySelector(".toggle-password svg");
-
-if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        toggleIcon.classList.remove("bi-eye");
-        toggleIcon.classList.add("bi-eye-slash");
-    } else {
-        passwordInput.type = "password";
-        toggleIcon.classList.remove("bi-eye-slash");
-        toggleIcon.classList.add("bi-eye");
-    }
-}
 
     document.getElementById("tipo").addEventListener("change", function() {
         if (this.value === "") {
@@ -269,10 +263,6 @@ if (passwordInput.type === "password") {
             this.setCustomValidity("");
         }
     });
-
-
-   
-
 </script>
+</body>
 </html>
-
