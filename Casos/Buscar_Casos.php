@@ -519,7 +519,104 @@ nav {
     </div>
 </div>
 
+<!-- Modal para confirmar archivado -->
+<!-- Modal para confirmar archivado -->
+<div id="archiveModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Se descargarán las evidencias y documentos. ¿Estás seguro de que deseas archivar este caso?</p>
+    <button id="confirmArchive" class="modal-button">Sí, archivar</button>
+    <button id="cancelArchive" class="modal-button">Cancelar</button>
+  </div>
+</div>
 
+<!-- Contenedor de notificación -->
+<div id="notification" class="notification">
+  <p id="notificationMessage"></p>
+</div>
+
+
+<style>
+/* Estilos para el modal */
+.modal {
+  display: none; /* Oculto por defecto */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 10px;
+  font-family: Bahnschrift;
+  text-align: center;
+}
+
+.modal-content p {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.modal-button {
+  background-color: #0056b3;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: Bahnschrift;
+  margin: 5px;
+}
+
+.modal-button:hover {
+  background-color: #003f7f;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Estilos para la notificación */
+.notification {
+  display: none; /* Oculto por defecto */
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #0056b3;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  font-family: Bahnschrift;
+  z-index: 1001;
+}
+
+.notification.show {
+  display: block;
+}
+
+
+</style>
 
 
 
@@ -528,11 +625,55 @@ nav {
 
 
 function archivarCaso(referencia) {
-    if (confirm(" Se descargaran las evidencias y documentos ¿Estás seguro de que deseas archivar este caso?")) {
-        // Redireccionar a la página de archivado con la referencia del caso
-        window.location.href = "archivar_caso.php?referencia=" + referencia;
+    // Mostrar el modal
+    var modal = document.getElementById("archiveModal");
+    modal.style.display = "block";
+
+    // Obtener botones del modal
+    var confirmBtn = document.getElementById("confirmArchive");
+    var cancelBtn = document.getElementById("cancelArchive");
+    var closeBtn = document.getElementsByClassName("close")[0];
+
+    // Cuando el usuario confirma el archivado
+    confirmBtn.onclick = function() {
+        modal.style.display = "none";
+
+        // Mostrar notificación
+        showNotification("El caso ha sido archivado exitosamente.");
+
+        // Simular la redirección después de un corto tiempo
+        setTimeout(function() {
+            window.location.href = "archivar_caso.php?referencia=" + referencia;
+        }, 1000); // Cambiar a 0 o eliminar para redirigir inmediatamente
+    }
+
+    // Cuando el usuario cancela el archivado o cierra el modal
+    cancelBtn.onclick = closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // Cerrar el modal si el usuario hace clic fuera de él
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
     }
 }
+
+function showNotification(message) {
+    var notification = document.getElementById("notification");
+    var notificationMessage = document.getElementById("notificationMessage");
+    
+    notificationMessage.innerText = message;
+    notification.classList.add("show");
+
+    // Ocultar la notificación después de 3 segundos
+    setTimeout(function() {
+        notification.classList.remove("show");
+    }, 3000);
+}
+
+
 
 
 function ordenarPorReferencia() {
