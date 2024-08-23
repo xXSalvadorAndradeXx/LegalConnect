@@ -14,6 +14,10 @@ if ($conn->connect_error) {
 // Verificar si se ha recibido la referencia del caso
 if (isset($_GET['referencia'])) {
     $referencia = $_GET['referencia'];
+    $download_dir = 'descargas/'; // Directorio para guardar los archivos descargados
+    if (!is_dir($download_dir)) {
+        mkdir($download_dir, 0777, true); // Crear el directorio si no existe
+    }
 
     // Obtener los datos del caso desde la tabla 'casos'
     $sql = "SELECT * FROM casos WHERE referencia = ?";
@@ -25,7 +29,7 @@ if (isset($_GET['referencia'])) {
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
 
-        // Calcular la fecha de expiración (6 meses después de la fecha de creación)
+        // Calcular la fecha de expiración (12 meses después de la fecha de creación)
         $fecha_creacion = $row['fecha_creacion'];
         $fecha_expiracion = date('Y-m-d', strtotime($fecha_creacion . ' +12 months'));
 
@@ -40,25 +44,48 @@ if (isset($_GET['referencia'])) {
                          fecha_creacion = VALUES(fecha_creacion),
                          fecha_expiracion = VALUES(fecha_expiracion)";
         $stmt_archivar = $conn->prepare($sql_archivar);
-        
         $stmt_archivar->bind_param("sssssss", $row['referencia'], $row['victima'], $row['imputado'], $row['tipo_delito'], $row['archivos_documento'], $fecha_creacion, $fecha_expiracion);
-
         $stmt_archivar->execute();
 
-       
-        $sql_documentos = "INSERT INTO documentos_archivados (caso_referencia, nombre_archivo) 
-                           SELECT caso_referencia, nombre_archivo FROM documentos 
-                           WHERE caso_referencia = ?";
+        // Descargar documentos
+        $sql_documentos = "SELECT nombre_archivo FROM documentos WHERE caso_referencia = ?";
         $stmt_documentos = $conn->prepare($sql_documentos);
         $stmt_documentos->bind_param("s", $referencia);
         $stmt_documentos->execute();
+        $result_documentos = $stmt_documentos->get_result();
 
-        
-     
+        while ($doc = $result_documentos->fetch_assoc()) {
+            $archivo = 'documentos/' . $doc['nombre_archivo'];
+            if (file_exists($archivo)) {
+                copy($archivo, $download_dir . $doc['nombre_archivo']);
+            }
+        }
+
+        // Descargar evidencias
+        $sql_evidencias = "SELECT nombre_archivo FROM evidencias WHERE caso_referencia = ?";
+        $stmt_evidencias = $conn->prepare($sql_evidencias);
+        $stmt_evidencias->bind_param("s", $referencia);
+        $stmt_evidencias->execute();
+        $result_evidencias = $stmt_evidencias->get_result();
+
+        while ($evi = $result_evidencias->fetch_assoc()) {
+            $archivo = 'uploads/' . $evi['nombre_archivo'];
+            if (file_exists($archivo)) {
+                copy($archivo, $download_dir . $evi['nombre_archivo']);
+            }
+        }
+
+        // Eliminar documentos
         $sql_eliminar_documentos = "DELETE FROM documentos WHERE caso_referencia = ?";
         $stmt_eliminar_documentos = $conn->prepare($sql_eliminar_documentos);
         $stmt_eliminar_documentos->bind_param("s", $referencia);
         $stmt_eliminar_documentos->execute();
+
+        // Eliminar evidencias
+        $sql_eliminar_evidencias = "DELETE FROM evidencias WHERE caso_referencia = ?";
+        $stmt_eliminar_evidencias = $conn->prepare($sql_eliminar_evidencias);
+        $stmt_eliminar_evidencias->bind_param("s", $referencia);
+        $stmt_eliminar_evidencias->execute();
 
         // Eliminar el caso de la tabla 'casos'
         $sql_eliminar = "DELETE FROM casos WHERE referencia = ?";
@@ -74,5 +101,6 @@ if (isset($_GET['referencia'])) {
     }
 }
 ?>
+
 
 
