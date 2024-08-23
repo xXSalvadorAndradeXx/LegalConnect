@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Casos Archivados</title>
     <style>
         :root {
@@ -149,12 +150,7 @@ nav {
 
 
 
-
-
-
-
-
-        .table-container, .table-container2 {
+  .table-container, .table-container2 {
     margin: 0 auto;
     max-width: 1000px;
 }
@@ -194,6 +190,27 @@ nav {
     text-align: center;
 }
 
+#botonArribaIzquierda {
+            position: fixed;
+            top: 400px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: white;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
+            margin-left: 1200px;
+            margin-top: 50px;
+        }
+
+        #botonArribaIzquierda:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
     </style>
 </head>
 <body>
@@ -225,6 +242,11 @@ nav {
   </header>
 <h1>Casos Archivados</h1>
 
+
+
+<a id="botonArribaIzquierda" href="/Casos/Buscar_Casos.php">
+    <i class="fas fa-table"></i>
+</a>
 <?php
 // Conexión a la base de datos
 $servername = "localhost";
@@ -269,10 +291,13 @@ if ($result->num_rows > 0) {
                 <td class='table-cell'>" . htmlspecialchars($row['fecha_creacion']) . "</td>
                 <td class='table-cell'>" . htmlspecialchars($row['fecha_expiracion']) . "</td>
                 <td class='table-cell'>
-                    <a href='restaurar_caso.php?referencia=" . urlencode($row['referencia']) . "'>
-                        <button class='btn-restaurar'>Restaurar</button>
-                    </a>
-                </td>
+    <a href='restaurar_caso.php?referencia=" . urlencode($row['referencia']) . "'>
+        <button class='btn-restaurar'>
+            <i class='fas fa-undo'></i>
+        </button>
+    </a>
+</td>
+
               </tr>";
     }
     echo "</table></div>";

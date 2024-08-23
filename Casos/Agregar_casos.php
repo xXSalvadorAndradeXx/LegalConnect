@@ -368,15 +368,15 @@ nav {
             top: 20px;
             left: 20px;
             padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
+           
+            color: black;
             text-decoration: none;
-            border: 2px solid #007bff;
+            
             border-radius: 5px;
             font-family: Bahnschrift;
             font-size: 16px;
             transition: background-color 0.3s, color 0.3s;
-            margin-left: 1000px;
+            margin-left: 1280px;
             margin-top: 80px;
         }
 
@@ -419,9 +419,9 @@ nav {
 
 /* Estilo del label que actúa como botón */
 .custom-label {
-    background-color: #007bff; /* Fondo blanco */
+     /* Fondo blanco */
     border: none;
-    color: white; /* Color del texto */
+    color: black; /* Color del texto */
     padding: 10px 20px; /* Espaciado del botón */
     text-align: center; /* Centrar el texto */
     text-decoration: none; /* Sin decoración de texto */
@@ -439,6 +439,60 @@ nav {
     background-color: #0056b3; /* Fondo más oscuro al pasar el ratón */
     color: #fff; /* Color de texto blanco al pasar el ratón */
 }
+
+
+
+
+/*_____________________________________________________*/
+
+
+.button-container {
+    display: flex;
+    gap: 10px; /* Espacio entre los botones */
+    
+}
+
+.submit-btn, .cancel-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    font-family: Bahnschrift;
+}
+
+.submit-btn {
+    background-color: white;
+    color: black;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+.cancel-btn {
+    background-color: white;
+    color:black;
+}
+
+.cancel-btn:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+.submit-btn i, .cancel-btn i {
+    margin-right: 8px; /* Espacio entre el ícono y el texto */
+    font-size: 20px; /* Tamaño del ícono */
+}
+
+
+
+
 
     </style>
 
@@ -498,22 +552,36 @@ nav {
         <div id="evidencia-container">
     <form>
         <br>
+        
         <label for="evidencia">Evidencia:</label>
         <br>
-        <label for="evidencia" class="custom-label">Seleccionar</label>
-        <input type="file" id="evidencia" name="evidencia[]" multiple accept=".png,.jpg,.jpeg" class="evidence-btn">
-        <span id="evidencia-nombres"></span> <!-- Span para mostrar los nombres de los archivos seleccionados -->
+        <label for="evidencia" class="custom-label">
+    <i class="fas fa-file-upload"></i> Seleccionar
+</label>
+<input type="file" id="evidencia" name="evidencia[]" multiple accept=".png,.jpg,.jpeg" class="evidence-btn" onchange="updateFileNames()">
+<span id="evidencia-nombres"></span> <!-- Span para mostrar los nombres de los archivos seleccionados -->
+
         <br><br>
+
         <label for="documento">Documento:</label>
         <br>
-        <label for="documento" class="custom-label">Seleccionar</label>
-        <input type="file" id="documento" name="documento" class="evidence-btn">
-        <span id="documento-nombre"></span> <!-- Span para mostrar el nombre del archivo seleccionado -->
-        <br><br>
+        <label for="documento" class="custom-label">
+    <i class="fas fa-file-upload"></i> Seleccionar
+</label>
+<input type="file" id="documento" name="documento" class="evidence-btn" onchange="updateFileName()">
+<span id="documento-nombre"></span> <!-- Span para mostrar el nombre del archivo seleccionado -->
+
+        <br>
+
         <div class="button-container">
-            <input type="submit" value="Agregar Caso" class="submit-btn">
-            <input type="reset" value="Cancelar" class="cancel-btn">
-        </div>
+    <button type="submit" class="submit-btn">
+        <i class="fas fa-plus"></i> Agregar Caso
+    </button>
+    <button type="reset" class="cancel-btn">
+        <i class="fas fa-times"></i> Cancelar
+    </button>
+</div>
+
     </form>
 </div>
 
