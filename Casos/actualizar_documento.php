@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['documento']['name']))
                 VALUES ('$referencia', '$fileName', '$fileType', '$targetFilePath', 0)";
 
         if ($conn->query($sql) === TRUE) {
-            header("Location: /Casos/casoguardado.php"); 
+            header("Location: /Casos/editar_caso.php?referencia=?"); 
         } else {
             echo "Error al registrar el documento: " . $conn->error;
         }

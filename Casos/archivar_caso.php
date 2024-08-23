@@ -54,17 +54,7 @@ if (isset($_GET['referencia'])) {
         $stmt_documentos->execute();
 
         
-        $sql_archivar_evidencias = "INSERT INTO evidencias_archivadas (caso_referencia, tipo_evidencia, descripcion) 
-        VALUES (?, ?, ?)";
-        $stmt_archivar_evidencias = $conn->prepare($sql_archivar_evidencias);
-        $stmt_archivar_evidencias->bind_param("sss", $row_evidencia['caso_referencia'], $row_evidencia['tipo_evidencia'], $row_evidencia['descripcion']);
-        $stmt_archivar_evidencias->execute();
-
-        $sql_evidencia_documentos = "DELETE FROM evidencias WHERE caso_referencia = ?";
-        $stmt_evidencia_documentos = $conn->prepare($sql_evidencia_documentos);
-        $stmt_evidencia_documentos->bind_param("s", $referencia);
-        $stmt_evidencia_documentos->execute();
-
+     
         $sql_eliminar_documentos = "DELETE FROM documentos WHERE caso_referencia = ?";
         $stmt_eliminar_documentos = $conn->prepare($sql_eliminar_documentos);
         $stmt_eliminar_documentos->bind_param("s", $referencia);

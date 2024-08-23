@@ -34,6 +34,8 @@ if (isset($_GET['referencia'])) {
         $stmt_reinsertar->execute();
 
         
+
+        
     
         // Eliminar el caso de la tabla 'casos_archivados'
         $sql_eliminar_archivado = "DELETE FROM casos_archivados WHERE referencia = ?";
