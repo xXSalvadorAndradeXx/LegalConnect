@@ -45,44 +45,21 @@ if (isset($_GET['referencia'])) {
 
         $stmt_archivar->execute();
 
+       
+        $sql_documentos = "INSERT INTO documentos_archivados (caso_referencia, nombre_archivo) 
+                           SELECT caso_referencia, nombre_archivo FROM documentos 
+                           WHERE caso_referencia = ?";
+        $stmt_documentos = $conn->prepare($sql_documentos);
+        $stmt_documentos->bind_param("s", $referencia);
+        $stmt_documentos->execute();
 
-$sql_docs = "SELECT * FROM documentos WHERE caso_referencia = ?";
-        $stmt_docs = $conn->prepare($sql_docs);
-        $stmt_docs->bind_param("s", $referencia);
-        $stmt_docs->execute();
-        $result_docs = $stmt_docs->get_result();
+        
+        $sql_archivar_evidencias = "INSERT INTO evidencias_archivadas (caso_referencia, tipo_evidencia, descripcion) 
+        VALUES (?, ?, ?)";
+        $stmt_archivar_evidencias = $conn->prepare($sql_archivar_evidencias);
+        $stmt_archivar_evidencias->bind_param("sss", $row_evidencia['caso_referencia'], $row_evidencia['tipo_evidencia'], $row_evidencia['descripcion']);
+        $stmt_archivar_evidencias->execute();
 
-        while ($doc = $result_docs->fetch_assoc()) {
-            $doc_path = $doc['ruta_archivo']; // Ruta del archivo del documento
-            $doc_name = basename($doc_path);
-            
-            // Descargar el archivo
-            if (file_exists($doc_path)) {
-                $dest_path = '/ruta/a/carpeta/temp/' . $doc_name; // Cambia esto según tu estructura de carpetas
-                copy($doc_path, $dest_path);
-            }
-        }
-
-        // Obtener y guardar evidencias
-        $sql_evidencias = "SELECT * FROM evidencias WHERE caso_referencia = ?";
-        $stmt_evidencias = $conn->prepare($sql_evidencias);
-        $stmt_evidencias->bind_param("s", $referencia);
-        $stmt_evidencias->execute();
-        $result_evidencias = $stmt_evidencias->get_result();
-
-        while ($evi = $result_evidencias->fetch_assoc()) {
-            $evi_path = $evi['ruta_archivo']; // Ruta del archivo de la evidencia
-            $evi_name = basename($evi_path);
-            
-            // Descargar el archivo
-            if (file_exists($evi_path)) {
-                $dest_path = '/ruta/a/carpeta/temp/' . $evi_name; // Cambia esto según tu estructura de carpetas
-                copy($evi_path, $dest_path);
-            }
-        }
-
-
-        // Eliminar evidencias y documentos relacionados
         $sql_evidencia_documentos = "DELETE FROM evidencias WHERE caso_referencia = ?";
         $stmt_evidencia_documentos = $conn->prepare($sql_evidencia_documentos);
         $stmt_evidencia_documentos->bind_param("s", $referencia);
@@ -107,4 +84,5 @@ $sql_docs = "SELECT * FROM documentos WHERE caso_referencia = ?";
     }
 }
 ?>
+
 

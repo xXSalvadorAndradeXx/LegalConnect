@@ -26,13 +26,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['documento']['name']))
 
     // Guardar el documento en el directorio
     if(move_uploaded_file($_FILES["documento"]["tmp_name"], $targetFilePath)){
-        // Consulta para actualizar el documento en la base de datos
-        $sql = "UPDATE casos SET documento='$fileName', documentos/='$targetFilePath' WHERE referencia='$referencia'";
+        // Obtener el tipo de archivo
+        $fileType = $_FILES['documento']['type'];
+
+        // Consulta para insertar el documento en la tabla documentos
+        $sql = "INSERT INTO documentos (caso_referencia, nombre_archivo, tipo_archivo, ubicacion_archivo, archivado) 
+                VALUES ('$referencia', '$fileName', '$fileType', '$targetFilePath', 0)";
 
         if ($conn->query($sql) === TRUE) {
-            echo "El documento se actualizó correctamente.";
+            echo "El documento se guardó y registró correctamente.";
         } else {
-            echo "Error al actualizar el documento: " . $conn->error;
+            echo "Error al registrar el documento: " . $conn->error;
         }
     } else {
         echo "Error al cargar el archivo de documento.";
@@ -43,3 +47,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['documento']['name']))
     echo "No se recibieron datos del formulario o no se seleccionó un archivo.";
 }
 ?>
+
+

@@ -71,8 +71,8 @@ if(isset($_GET['error'])) {
             // Redirigir después de 2 segundos
             setTimeout(function() {
                 window.location.href = '/Casos/Buscar_Casos.php';
-            }, 1000); // 2000 milisegundos = 2 segundos
-        }, 1000); // 2000 milisegundos = 2 segundos
+            }, 1000); // 1000 milisegundos = 2 segundos
+        }, 1000); // 1000 milisegundos = 2 segundos
 
 
 
