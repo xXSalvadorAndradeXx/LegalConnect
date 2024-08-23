@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['documento']['name']))
                 VALUES ('$referencia', '$fileName', '$fileType', '$targetFilePath', 0)";
 
         if ($conn->query($sql) === TRUE) {
-            echo "El documento se guardó y registró correctamente.";
+            header("Location: /Casos/casoguardado.php"); 
         } else {
             echo "Error al registrar el documento: " . $conn->error;
         }
