@@ -117,25 +117,7 @@ nav {
       font-size: 20px;
       font-family: Bahnschrift;
     }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #007BFF;
-            color: white;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
+
         a {
             color: #007BFF;
             text-decoration: none;
@@ -164,6 +146,54 @@ nav {
             color: #fff;
             font-family: Bahnschrift;
         }
+
+
+
+
+
+
+
+
+        .table-container, .table-container2 {
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+.table-container {
+    height: 400px;
+    margin-top: 100px;
+    overflow-y: auto;
+}
+
+.custom-table {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table-header, .table-row {
+    display: flex;
+}
+
+.table-cell {
+    flex: 1;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.table-header {
+    font-weight: bold;
+    background-color: #f2f2f2;
+}
+
+.no-data {
+    padding: 12px;
+    text-align: center;
+}
+
     </style>
 </head>
 <body>
@@ -215,44 +245,45 @@ $result = $conn->query($sql);
 
 // Verificar si hay resultados
 if ($result->num_rows > 0) {
-    echo "<table>
-            <tr>
-                <th>Referencia</th>
-                <th>Víctima</th>
-                <th>Imputado</th>
-                <th>Tipo de Delito</th>
-                <th>Fecha de Creación</th>
-                <th>Tiempo para Prescribir</th>
-                <th>Acciones</th>
+    echo "<div class='table-container'><table class='custom-table'>
+            <tr class='table-header'>
+                <th class='table-cell'>Referencia</th>
+                <th class='table-cell'>Víctima</th>
+                <th class='table-cell'>Imputado</th>
+                <th class='table-cell'>Tipo de Delito</th>
+                <th class='table-cell'>Fecha de Creación</th>
+                <th class='table-cell'>Tiempo para Prescribir</th>
+                <th class='table-cell'>Acciones</th>
             </tr>";
+    
     // Mostrar cada caso archivado
     while($row = $result->fetch_assoc()) {
-        // Asumimos que 'archivos_documento' contiene la ruta o el nombre del archivo
         $archivo = htmlspecialchars($row['archivos_documento']);
         $ruta_documento = "Casos/documentos/" . $archivo; // Cambia esta ruta según corresponda
 
-        echo "<tr>
-                <td>" . htmlspecialchars($row['referencia']) . "</td>
-                <td>" . htmlspecialchars($row['victima']) . "</td>
-                <td>" . htmlspecialchars($row['imputado']) . "</td>
-                <td>" . htmlspecialchars($row['tipo_delito']) . "</td>
-                <td>" . htmlspecialchars($row['fecha_creacion']) . "</td>
-                <td>" . htmlspecialchars($row['fecha_expiracion']) . "</td>
-                <td>
+        echo "<tr class='table-row'>
+                <td class='table-cell'>" . htmlspecialchars($row['referencia']) . "</td>
+                <td class='table-cell'>" . htmlspecialchars($row['victima']) . "</td>
+                <td class='table-cell'>" . htmlspecialchars($row['imputado']) . "</td>
+                <td class='table-cell'>" . htmlspecialchars($row['tipo_delito']) . "</td>
+                <td class='table-cell'>" . htmlspecialchars($row['fecha_creacion']) . "</td>
+                <td class='table-cell'>" . htmlspecialchars($row['fecha_expiracion']) . "</td>
+                <td class='table-cell'>
                     <a href='restaurar_caso.php?referencia=" . urlencode($row['referencia']) . "'>
                         <button class='btn-restaurar'>Restaurar</button>
                     </a>
                 </td>
               </tr>";
     }
-    echo "</table>";
+    echo "</table></div>";
 } else {
-    echo "<p>No hay casos archivados.</p>";
+    echo "<p class='no-data'>No hay casos archivados.</p>";
 }
 
 // Cerrar la conexión
 $conn->close();
 ?>
+
 <script>
 
 document.querySelector('a[href="?logout"]').addEventListener('click', function(event) {
