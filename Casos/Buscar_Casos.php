@@ -60,49 +60,9 @@ $result = $conn->query($sql);
     <title>Document</title>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-     #botonArribaIzquierda {
-            position: fixed;
-            top: 400px;
-            left: 20px;
-            padding: 10px 20px;
-            background-color: white;
-            color: black;
-            text-decoration: none;
-            border-radius: 5px;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            transition: background-color 0.3s, color 0.3s;
-            margin-left: 1200px;
-            margin-top: 50px;
-        }
+    
 
-        #botonArribaIzquierda:hover {
-            background-color: #0056b3;
-            color: #fff;
-        }
-
-
-        #botonArribaIzquierda3 {
-            position: fixed;
-            top: 450px;
-            left: 20px;
-            padding: 10px 20px;
-            background-color: white;
-            color: black;
-            text-decoration: none;
-            border-radius: 5px;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-
-            transition: background-color 0.3s, color 0.3s;
-            margin-left: 1200px;
-            margin-top: 50px;
-        }
-
-        #botonArribaIzquierda3:hover {
-            background-color: #0056b3;
-            color: #fff;
-        }
+        
 
 :root {
   --main-color: #242975; /* Cambio de color principal */
@@ -350,7 +310,7 @@ nav {
 
 
 
-/*______________________*/
+/*___________Archive___________*/
 
 
 .archive-button {
@@ -412,11 +372,162 @@ nav {
 }
 
 
+/*_____Agregar Casos_____*/
+
+.archive-button {
+  display: inline-block;
+  background-color: white;
+  color: black;
+  padding: 10px 20px;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: Bahnschrift;
+  position: relative;
+    display: inline-block;
+    
+}
+
+.archive-button:hover {
+  background-color: #0056b3;
+  color: white;
+  font-family: Bahnschrift;
+}
 
 
 
+.archive-button:hover .tooltiptext2 {
+    visibility: visible;
+    opacity: 1;
+    background-color: black; 
+  font-family: Bahnschrift;
+  color: white;
+}
 
 
+.archive-button .tooltiptext2 {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 0;
+
+    /* Posicionamiento */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Ajusta según la posición deseada */
+    left: 50%;
+    margin-left: -60px;
+
+    /* Flecha */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.archive-button:hover .tooltiptext2 {
+    visibility: visible;
+    opacity: 1;
+}
+
+/*_____Agregar Casos_____*/
+
+
+#botonArribaIzquierda {
+    position: fixed;
+    top: 400px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 60px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    margin-left: 1200px;
+    transition: background-color 0.3s, color 0.3s;
+    display: inline-block; /* Asegura que el tooltip se posicione correctamente */
+}
+
+#botonArribaIzquierda:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+/* Estilos para el tooltip */
+#botonArribaIzquierda .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Ajusta la posición del tooltip */
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-family: Arial, sans-serif;
+}
+
+#botonArribaIzquierda:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+/*____Archivo____*/
+
+#botonArribaIzquierda3 {
+    position: fixed;
+    top: 400px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 60px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    margin-left: 1270px;
+    transition: background-color 0.3s, color 0.3s;
+    display: inline-block; /* Asegura que el tooltip se posicione correctamente */
+}
+
+#botonArribaIzquierda3:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+/* Estilos para el tooltip */
+#botonArribaIzquierda3 .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Ajusta la posición del tooltip */
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-family: Arial, sans-serif;
+}
+
+#botonArribaIzquierda3:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
 
     </style>
 </head>
@@ -450,9 +561,11 @@ nav {
 
   <a id="botonArribaIzquierda" href="/Casos/Agregar_casos.php">
     <i class="fas fa-plus"></i>
+    <span class="tooltiptext">Agregar Caso</span>
 </a>
 <a id="botonArribaIzquierda3" href="/Archivados/casos_archivados.php">
     <i class="fas fa-archive"></i>
+    <span class="tooltiptext">Casos Archivados</span>
 </a>
 
 
