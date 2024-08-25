@@ -120,27 +120,7 @@ nav {
         a:hover {
             text-decoration: underline;
         }
-        .btn-restaurar{
-            background-color: #fff; /* Green */
-            border: none;
-            color: black;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: background-color 0.3s ease;
-            font-family: Bahnschrift;
-        }
-
-        .btn-restaurar:hover {
-            background-color: #0056b3; /* Darker Green on Hover */
-            color: #fff;
-            font-family: Bahnschrift;
-        }
+       
 
 
 
@@ -228,6 +208,74 @@ nav {
 .table-search:focus {
   outline: none;
   border-color: #66afe9;
+}
+
+
+
+
+
+
+
+
+
+
+
+.btn-restaurar{
+            background-color: #fff; /* Green */
+            border: none;
+            color: black;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            font-family: Bahnschrift;
+            background-color: white;
+    color: black;
+  
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s;
+    position: relative
+        }
+
+        .btn-restaurar:hover {
+            background-color: #0056b3; /* Darker Green on Hover */
+            color: #fff;
+            font-family: Bahnschrift;
+            background-color: #0056b3;
+            color: white; 
+        }
+
+
+        .btn-restaurar .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Ajusta la posición del tooltip */
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-family: Arial, sans-serif;
+}
+
+.btn-restaurar:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
 }
 
     </style>
@@ -319,10 +367,12 @@ if ($result->num_rows > 0) {
               <td class='table-cell'>" . htmlspecialchars($row['fecha_expiracion']) . "</td>
               <td class='table-cell'>
                   <a href='restaurar_caso.php?referencia=" . urlencode($row['referencia']) . "'>
-                      <button class='btn-restaurar'>
-                          <i class='fas fa-undo'></i>
-                      </button>
-                  </a>
+    <button class='btn-restaurar'>
+        <i class='fas fa-undo'></i>
+        <span class='tooltiptext'>Restaurar Caso</span>
+    </button>
+</a>
+
               </td>
             </tr>";
   }
