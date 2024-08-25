@@ -571,7 +571,11 @@ nav {
 
   <div class="container">
 <center>
-  <input type="text" id="inputBusqueda" onkeyup="buscarCasos()" placeholder="Buscar casos...">
+ 
+  </center>
+  <div class="container">
+<center>                                                     
+  <input type="text" id="inputBusqueda" onkeyup="buscarCasos()" placeholder="Buscar casos..." >
   </center>
   <div class="table-container">
     <div class="custom-table" id="casosTabla">
@@ -621,9 +625,8 @@ nav {
               <span class='tooltiptext2'>Archivar caso</span>
             </button>";
       echo "</center>";
-      
-              
-                
+                echo "</div>";
+                echo "</div>";
             }
         } else {
             echo "<div class='no-data' colspan='6'>No hay casos registrados.</div>";
