@@ -46,7 +46,7 @@ if (isset($_GET['referencia'])) {
         
 
         // Redirigir de vuelta a la página de casos archivados
-        header("Location: /Casos/buscar_casos.php");
+        header("Location: /Archivados/casos_archivados.php");
         exit();
     } else {
         echo "Caso no encontrado.";

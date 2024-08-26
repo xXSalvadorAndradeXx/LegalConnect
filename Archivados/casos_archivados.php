@@ -336,6 +336,26 @@ nav {
 }
 
 
+
+.notification {
+  display: none; /* Oculto por defecto */
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #0056b3;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  font-family: Bahnschrift;
+  z-index: 1001;
+}
+
+.notification.visible {
+  display: block;
+}
+
+
+
     </style>
 </head>
 <body>
@@ -450,27 +470,49 @@ $conn->close();
         <button class="btn-cancelar" onclick="cerrarPopupRestauracion()">Cancelar</button>
     </div>
 </div>
+<div id="notification" class="notification hidden">
+    <p>El caso ha sido restaurado correctamente.</p>
+</div>
+
 <script>
 
 
 function mostrarPopupRestauracion(referencia) {
-        var popup = document.getElementById('popupRestauracion');
-        popup.style.display = 'block';
+    var popup = document.getElementById('popupRestauracion');
+    popup.style.display = 'block';
+    
+    // Asigna la referencia al botón de confirmación
+    var btnConfirmar = document.getElementById('btnConfirmar');
+    btnConfirmar.setAttribute('onclick', 'confirmarRestauracion("' + referencia + '")');
+}
+
+function cerrarPopupRestauracion() {
+    var popup = document.getElementById('popupRestauracion');
+    popup.style.display = 'none';
+}
+
+function confirmarRestauracion(referencia) {
+    cerrarPopupRestauracion();
+    
+    var notification = document.getElementById('notification');
+    notification.classList.remove('hidden');
+    notification.classList.add('visible');
+
+    // Simular restauración del caso (puedes reemplazar esto con la lógica real de restauración)
+    console.log('Caso restaurado: ' + referencia);
+
+    // Ocultar la notificación después de unos segundos y redirigir
+    setTimeout(function() {
+        notification.classList.remove('visible');
+        notification.classList.add('hidden');
         
-        // Asigna la referencia al botón de confirmación
-        var btnConfirmar = document.getElementById('btnConfirmar');
-        btnConfirmar.setAttribute('onclick', 'confirmarRestauracion("' + referencia + '")');
-    }
-
-    function cerrarPopupRestauracion() {
-        var popup = document.getElementById('popupRestauracion');
-        popup.style.display = 'none';
-    }
-
-    function confirmarRestauracion(referencia) {
-        console.log('Restaurando caso con referencia: ' + referencia);
+        // Redirigir después de ocultar la notificación
         window.location.href = 'restaurar_caso.php?referencia=' + referencia;
-    }
+    }, 3000);
+}
+
+
+
 
 
 document.querySelector('a[href="?logout"]').addEventListener('click', function(event) {
