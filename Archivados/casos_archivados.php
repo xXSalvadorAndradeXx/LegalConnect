@@ -278,6 +278,64 @@ nav {
     opacity: 1;
 }
 
+
+
+
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.popup-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    text-align: center;
+    z-index: 1001;
+    max-width: 400px;
+    width: 100%;
+}
+
+.popup-content h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.popup-content p {
+    margin-bottom: 30px;
+}
+
+.btn-confirmar, .btn-cancelar {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-confirmar {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.btn-cancelar {
+    background-color: #f44336;
+    color: white;
+}
+
+
     </style>
 </head>
 <body>
@@ -359,22 +417,22 @@ if ($result->num_rows > 0) {
       $ruta_documento = "Casos/documentos/" . $archivo; // Cambia esta ruta según corresponda
 
       echo "<tr class='table-row'>
-              <td class='table-cell'>" . htmlspecialchars($row['referencia']) . "</td>
-              <td class='table-cell'>" . htmlspecialchars($row['victima']) . "</td>
-              <td class='table-cell'>" . htmlspecialchars($row['imputado']) . "</td>
-              <td class='table-cell'>" . htmlspecialchars($row['tipo_delito']) . "</td>
-              <td class='table-cell'>" . htmlspecialchars($row['fecha_creacion']) . "</td>
-              <td class='table-cell'>" . htmlspecialchars($row['fecha_expiracion']) . "</td>
-              <td class='table-cell'>
-                  <a href='restaurar_caso.php?referencia=" . urlencode($row['referencia']) . "'>
-    <button class='btn-restaurar'>
-        <i class='fas fa-undo'></i>
-        <span class='tooltiptext'>Restaurar Caso</span>
-    </button>
-</a>
+      <td class='table-cell'>" . htmlspecialchars($row['referencia']) . "</td>
+      <td class='table-cell'>" . htmlspecialchars($row['victima']) . "</td>
+      <td class='table-cell'>" . htmlspecialchars($row['imputado']) . "</td>
+      <td class='table-cell'>" . htmlspecialchars($row['tipo_delito']) . "</td>
+      <td class='table-cell'>" . htmlspecialchars($row['fecha_creacion']) . "</td>
+      <td class='table-cell'>" . htmlspecialchars($row['fecha_expiracion']) . "</td>
+      <td class='table-cell'>
+          <a href='#' onclick='mostrarPopupRestauracion(\"" . urlencode($row['referencia']) . "\")'>
+              <button class='btn-restaurar'>
+                  <i class='fas fa-undo'></i>
+                  <span class='tooltiptext'>Restaurar Caso</span>
+              </button>
+          </a>
+      </td>
+    </tr>";
 
-              </td>
-            </tr>";
   }
   echo "</table></div>";
 } else {
@@ -384,9 +442,36 @@ if ($result->num_rows > 0) {
 // Cerrar la conexión
 $conn->close();
 ?>
-
-
+<div id="popupRestauracion" class="popup-overlay">
+    <div class="popup-content">
+        <h2>Confirmación</h2>
+        <p>¿Estás seguro de que deseas restaurar este caso?</p>
+        <button class="btn-confirmar" id="btnConfirmar">Sí</button>
+        <button class="btn-cancelar" onclick="cerrarPopupRestauracion()">Cancelar</button>
+    </div>
+</div>
 <script>
+
+
+function mostrarPopupRestauracion(referencia) {
+        var popup = document.getElementById('popupRestauracion');
+        popup.style.display = 'block';
+        
+        // Asigna la referencia al botón de confirmación
+        var btnConfirmar = document.getElementById('btnConfirmar');
+        btnConfirmar.setAttribute('onclick', 'confirmarRestauracion("' + referencia + '")');
+    }
+
+    function cerrarPopupRestauracion() {
+        var popup = document.getElementById('popupRestauracion');
+        popup.style.display = 'none';
+    }
+
+    function confirmarRestauracion(referencia) {
+        console.log('Restaurando caso con referencia: ' + referencia);
+        window.location.href = 'restaurar_caso.php?referencia=' + referencia;
+    }
+
 
 document.querySelector('a[href="?logout"]').addEventListener('click', function(event) {
     if (!confirm('¿Estás seguro de que deseas cerrar sesión?')) {
