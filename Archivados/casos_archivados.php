@@ -182,9 +182,33 @@ nav {
         }
 
         #botonArribaIzquierda:hover {
-            background-color: #0056b3;
-            color: #fff;
-        }
+    background-color: #0056b3;
+    color: white;
+}
+
+/* Estilos para el tooltip */
+#botonArribaIzquierda .tooltip {
+    visibility: hidden;
+    width: 100px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Ajusta la posición del tooltip */
+    left: 50%;
+    margin-left: -50px; /* Centra el tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-family: Arial, sans-serif;
+}
+
+#botonArribaIzquierda:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
 
 
 
@@ -325,14 +349,37 @@ nav {
     font-size: 16px;
 }
 
+
+
+
+
 .btn-confirmar {
-    background-color: #4CAF50;
-    color: white;
+   
+    background-color: white;
+    color: black;
+    font-family: Bahnschrift;
+}
+.btn-confirmar:hover {
+ 
+            color: #fff;
+            font-family: Bahnschrift;
+            background-color: #0056b3;
+            color: white;
+            
+            
 }
 
+
+
+
 .btn-cancelar {
-    background-color: #f44336;
-    color: white;
+  background-color:#0056b3 ;
+  color: white;
+}
+
+.btn-cancelar:hover {
+  background-color: #1C205C;
+  color: white; 
 }
 
 
@@ -392,7 +439,9 @@ nav {
 
 <a id="botonArribaIzquierda" href="/Casos/Buscar_Casos.php">
     <i class="fas fa-table"></i>
+    <span class="tooltip">Tabla de Casos</span>
 </a>
+
 <?php
 // Conexión a la base de datos
 $servername = "localhost";
@@ -456,7 +505,7 @@ if ($result->num_rows > 0) {
   }
   echo "</table></div>";
 } else {
-  echo "<p class='no-data'>No hay casos archivados.</p>";
+  echo "<div class='no-data' colspan='6'>No hay casos archivados.</div>";
 }
 
 // Cerrar la conexión
@@ -464,14 +513,21 @@ $conn->close();
 ?>
 <div id="popupRestauracion" class="popup-overlay">
     <div class="popup-content">
+      
         <h2>Confirmación</h2>
+        <center>
         <p>¿Estás seguro de que deseas restaurar este caso?</p>
-        <button class="btn-confirmar" id="btnConfirmar">Sí</button>
-        <button class="btn-cancelar" onclick="cerrarPopupRestauracion()">Cancelar</button>
+        </center>
+       
+        <button class="btn-confirmar" id="btnConfirmar"><i class="fas fa-check"></i></button>
+
+              
+        <button class="btn-cancelar" onclick="cerrarPopupRestauracion()">X</i></button>
     </div>
 </div>
 <div id="notification" class="notification hidden">
     <p>El caso ha sido restaurado correctamente.</p>
+    
 </div>
 
 <script>

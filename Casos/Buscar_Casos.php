@@ -641,8 +641,8 @@ nav {
   <div class="modal-content">
     <span class="close">&times;</span>
     <p>Se descargarán las evidencias y documentos. ¿Estás seguro de que deseas archivar este caso?</p>
-    <button id="confirmArchive" class="modal-button">Sí, archivar</button>
-    <button id="cancelArchive" class="modal-button">Cancelar</button>
+    <button id="confirmArchive" class="modal-button"><i class="fas fa-check"></i></button>
+    <button id="cancelArchive" class="modal-button2">X</button>
   </div>
 </div>
 
@@ -684,8 +684,8 @@ nav {
 }
 
 .modal-button {
-  background-color: #0056b3;
-  color: white;
+  background-color: white;
+  color: black;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -696,8 +696,25 @@ nav {
 
 .modal-button:hover {
   background-color: #003f7f;
+  color: white;
+  
 }
 
+
+.modal-button2 {
+  background-color: #0056b3;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: Bahnschrift;
+  margin: 5px;
+}
+
+.modal-button2:hover {
+  background-color: #003f7f;
+}
 .close {
   color: #aaa;
   float: right;
