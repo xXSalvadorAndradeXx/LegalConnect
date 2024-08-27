@@ -8,6 +8,38 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "legalcc";
+
+// Crear la conexión
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verificar la conexión
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+// Obtener la información del usuario desde la base de datos
+$user_id = $_SESSION['user_id'];
+$sql = "SELECT tipo FROM usuarios WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$stmt->bind_result($tipo_usuario);
+$stmt->fetch();
+$stmt->close();
+$conn->close();
+
+
+
+
+
+
+
+
 if (isset($_GET['logout'])) {
   // Verificar si se ha confirmado la salida
   if ($_GET['logout'] == 'confirm') {
@@ -176,10 +208,19 @@ nav {
         <li><a href="/Audiencias/Buscar_Audiencias.php">Audiencias</a></li>
         <li><a href="/Casos/Agregar_Casos.php">Casos</a></li>
         <li><a href="?logout">Cerrar Sesion</a></li>
-        <h1>LegalConnect v.1</h1>
+
+        <?php if ($tipo_usuario === 'juez'): ?>
+        <form action="/Audiencias/Buscar_Audiencias.php" method="GET">
+            <button type="submit" class="btn-juez">Ir al Formulario de Juez</button>
+        </form>
+    <?php endif; ?>
       </ul>
     </nav>
     </center>
+
+
+
+   
   </header>
 
 <script>

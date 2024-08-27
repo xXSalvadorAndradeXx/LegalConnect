@@ -8,6 +8,37 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "legalcc";
+
+// Crear la conexión
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verificar la conexión
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+// Obtener la información del usuario desde la base de datos
+$user_id = $_SESSION['user_id'];
+$sql = "SELECT tipo FROM usuarios WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$stmt->bind_result($tipo_usuario);
+$stmt->fetch();
+$stmt->close();
+$conn->close();
+
+
+
+
+
+
+
 if (isset($_GET['logout'])) {
   // Verificar si se ha confirmado la salida
   if ($_GET['logout'] == 'confirm') {
@@ -587,8 +618,12 @@ $sql = "SELECT * FROM audiencias ORDER BY fecha DESC";
           echo "<div class='table-cell'>" . $row["victima"] . "</div>";
           echo "<div class='table-cell'>" . $row["delito"] . "</div>";
           echo "<div class='table-cell'>";
+         
                     echo "<center><a class='edit-button' href='ver_audiencia.php?id=" . $row["id"] . "'><i class='fa fa-eye'></i> Ver </a></center>";
-          echo "<a class='edit-button' href='#' onclick='eliminar(".$row["id"].")'><i class='fa fa-trash'></i> Eliminar</a>";
+                     if ($tipo_usuario === 'juez'): ?>
+                        <a class='edit-button' href='#' onclick='eliminar(<?php echo $row["id"]; ?>)'><i class='fa fa-trash'></i> Eliminar</a>
+                    <?php endif; 
+                    
           echo "<a href='' id='deleteRequestLink' >Solicitud</a>";
           echo "</div>";
         }
