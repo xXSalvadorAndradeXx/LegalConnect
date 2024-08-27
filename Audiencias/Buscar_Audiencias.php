@@ -623,8 +623,9 @@ $sql = "SELECT * FROM audiencias ORDER BY fecha DESC";
                      if ($tipo_usuario === 'juez'): ?>
                         <a class='edit-button' href='#' onclick='eliminar(<?php echo $row["id"]; ?>)'><i class='fa fa-trash'></i> Eliminar</a>
                     <?php endif; 
-                    
-          echo "<a href='' id='deleteRequestLink' >Solicitud</a>";
+        if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>         
+          <a href='' id='deleteRequestLink' >Solicitud</a>
+        <?php endif; 
           echo "</div>";
         }
     } else {
