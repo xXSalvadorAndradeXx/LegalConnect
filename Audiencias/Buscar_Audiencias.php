@@ -459,24 +459,15 @@ button[type="submit"]:active {
     font-family: Bahnschrift;
 }
 
-.error-message {
-  position: fixed;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #0056b3;
-  color: white;
-  padding: 15px 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  z-index: 9999;
-  transition: opacity 0.5s ease;
-}
+
 
 .hidden {
   opacity: 0;
   pointer-events: none;
 }
+
+
+
 
     </style>
 </head>
@@ -510,32 +501,53 @@ button[type="submit"]:active {
     </center>
   </header>
 
-
   <?php
-if(isset($_GET['error'])) {
-    echo '<div id="errorMessage" class="error-message">';
-    echo "<p>" . htmlspecialchars($_GET['error']) . "</p>";
-    echo '</div>';
-    echo '<script>
-        setTimeout(function() {
-            var errorMessage = document.getElementById("errorMessage");
-            if (errorMessage) {
-                errorMessage.style.display = "none";
-            }
-        }, 5000);
-    </script>';
+// Conexión a la base de datos
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "legalcc";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verificar conexión
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
 }
+
+// Procesar el formulario al enviar
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombre_usuario = $conn->real_escape_string($_POST['nombre_usuario']);
+    $reason = $conn->real_escape_string($_POST['reason']);
+    $fecha_hora = $conn->real_escape_string($_POST['fecha_hora']);
+
+    $sql = "INSERT INTO solicitudes (nombre_usuario, reason, fecha_hora) VALUES ('$nombre_usuario', '$reason', '$fecha_hora')";
+
+    if ($conn->query($sql) === TRUE) {
+        $mensaje = "Solicitud enviada correctamente.";
+    } else {
+        $mensaje = "Error al enviar la solicitud: " . $conn->error;
+    }
+}
+
+// Cerrar la conexión
+$conn->close();
 ?>
+
 
     
   <?php if ($result->num_rows > 0): ?>
     <?php $row = $result->fetch_assoc(); ?>
 
-    <div id="deleteRequestModal" class="modal">
+
+
+
+  
+  <div id="deleteRequestModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Solicitud de Eliminación</h2>
-        <form id="deleteRequestForm" action="submit_request.php" method="POST">
+        <form id="deleteRequestForm" action="" method="POST">
             <label>Nombre de Usuario:</label>
             <p class="highlight">
                 <strong><?php echo $row['nombre']; ?> <?php echo $row['apellido']; ?></strong>
@@ -640,14 +652,21 @@ $sql = "SELECT * FROM audiencias ORDER BY fecha DESC";
 </div>
 
 
+
+
+
+
+
+
 <script>
 
 
-
-
-
-
-
+        // Mostrar notificación si hay un mensaje
+        window.onload = function() {
+            <?php if (!empty($mensaje)) { ?>
+                alert("<?php echo $mensaje; ?>");
+            <?php } ?>
+        };
 var modal = document.getElementById("deleteRequestModal");
 
 // Obtener el enlace que abre el modal
