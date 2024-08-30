@@ -20,9 +20,14 @@ $fecha = $_POST['fecha'];
 $hora = $_POST['hora'];
 
 // Preparar y ejecutar la consulta SQL
-$sql = "INSERT INTO solicitudes (usuario_id, juez_id, razon, fecha, hora) VALUES (?, ?, ?, ?, ?)";
+$sql = "INSERT INTO solicitudes (usuario_id, juez_id, razon, fecha, hora, estado) VALUES (?, ?, ?, ?, ?, ?)";
+
+
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("issss", $usuario_id, $juez_id, $razon, $fecha, $hora);
+$stmt->bind_param("iissss", $usuario_id, $juez_id, $razon, $fecha, $hora, $estado);
+
+$estado = "Pendiente";
+
 
 if ($stmt->execute()) {
     header("Location: buscar_audiencias.php?mensaje=exito");

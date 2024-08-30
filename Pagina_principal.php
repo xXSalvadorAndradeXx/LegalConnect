@@ -183,6 +183,18 @@ nav {
       font-family: Bahnschrift;
     }
 
+    .notification-icon {
+    margin-top: 35px;
+    margin-left: 1000px;
+    top: 0;
+    right: 0;
+    /* Ajusta el color según sea necesario */
+    color: white;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 20px; /* Ajusta el tamaño del ícono según sea necesario */
+    transform: translate(50%, -50%);
+}
 
     </style>
 </head>
@@ -193,6 +205,11 @@ nav {
 
     <label for="btn-nav" class="btn-nav">&#9776;</label>
     <input type="checkbox" id="btn-nav">
+    <a href="Audiencias\notifications.php" class="notification-link">
+    <i class="fas fa-bell notification-icon"></i>
+</a>
+
+
     <a href="/Formularios/Perfil.php">
 <div class="circle-container">
 

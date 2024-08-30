@@ -497,6 +497,7 @@ button[type="submit"]:active {
     <label for="btn-nav" class="btn-nav">&#9776;</label>
     
     <input type="checkbox" id="btn-nav">
+    
     <a href="notifications.php" class="notification-link">
     <i class="fas fa-bell notification-icon"></i>
 </a>
