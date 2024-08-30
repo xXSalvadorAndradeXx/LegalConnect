@@ -33,13 +33,15 @@ $stmt_user->bind_result($nombre_usuario, $apellido_usuario);
 $stmt_user->fetch();
 $stmt_user->close();
 
+
 // Consultar el juez asignado (supongamos que el juez está relacionado con el caso del usuario)
-$sql_juez = "SELECT nombre, apellido FROM usuarios WHERE tipo = 'juez' LIMIT 1";
+$sql_juez = "SELECT id, nombre, apellido FROM usuarios WHERE tipo = 'juez' LIMIT 1";
 $stmt_juez = $conn->prepare($sql_juez);
 $stmt_juez->execute();
-$stmt_juez->bind_result($nombre_juez, $apellido_juez);
+$stmt_juez->bind_result($juez_id, $nombre_juez, $apellido_juez);
 $stmt_juez->fetch();
 $stmt_juez->close();
+
 
 
 
@@ -230,8 +232,8 @@ textarea {
 input[type="submit"] {
     width: 100%;
     padding: 12px 0;
-    background-color: #4CAF50;
-    color: white;
+    background-color:white ;
+    color: black;
     border: none;
     border-radius: 8px;
     font-size: 16px;
@@ -239,6 +241,12 @@ input[type="submit"] {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
+input:hover[type="submit"] {
+    background-color: #242975;
+    color: white;
+}
+
 
 @media (max-width: 450px) {
     form {
@@ -310,6 +318,7 @@ input[type="submit"] {
     <label for="juez">Juez:</label><br><br>
     <label><?php echo $nombre_juez . ' ' . $apellido_juez; ?></label><br><br>
     <input type="hidden" name="juez_id" value="<?php echo $juez_id; ?>">
+
 
     <label for="razon">Razón:</label><br><br>
     <textarea id="razon" name="razon" required></textarea><br><br>
