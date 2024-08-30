@@ -88,6 +88,7 @@ $conn->close();
 <head>
     <title>Audiencias Registradas</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
 
@@ -469,7 +470,18 @@ button[type="submit"]:active {
   pointer-events: none;
 }
 
-
+.notification-icon {
+    margin-top: 35px;
+    margin-left: 1000px;
+    top: 0;
+    right: 0;
+    /* Ajusta el color según sea necesario */
+    color: white;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 20px; /* Ajusta el tamaño del ícono según sea necesario */
+    transform: translate(50%, -50%);
+}
 
 
     </style>
@@ -480,10 +492,19 @@ button[type="submit"]:active {
 
 
 <header class="main-header">
+    
 
     <label for="btn-nav" class="btn-nav">&#9776;</label>
+    
     <input type="checkbox" id="btn-nav">
+    <a href="notifications.php" class="notification-link">
+    <i class="fas fa-bell notification-icon"></i>
+</a>
+
+
+
     <a href="/Formularios/Perfil.php">
+        
 <div class="circle-container">
 
     <img class="circle-image" src="/recursos/profile.png" alt="Tu imagen">

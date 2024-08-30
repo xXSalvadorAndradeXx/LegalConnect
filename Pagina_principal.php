@@ -187,6 +187,7 @@ nav {
     </style>
 </head>
 <body>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <header class="main-header">
 
@@ -209,11 +210,7 @@ nav {
         <li><a href="/Casos/Agregar_Casos.php">Casos</a></li>
         <li><a href="?logout">Cerrar Sesion</a></li>
 
-        <?php if ($tipo_usuario === 'juez'): ?>
-        <form action="/Audiencias/Buscar_Audiencias.php" method="GET">
-            <button type="submit" class="btn-juez">Ir al Formulario de Juez</button>
-        </form>
-    <?php endif; ?>
+      
       </ul>
     </nav>
     </center>
