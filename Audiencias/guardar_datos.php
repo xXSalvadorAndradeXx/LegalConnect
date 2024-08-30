@@ -20,7 +20,7 @@ $fecha = $_POST['fecha'];
 $hora = $_POST['hora'];
 
 // Preparar y ejecutar la consulta SQL
-$sql = "INSERT INTO solicitudes (usuario_id, juez_id, razon, fecha, hora, estado, codigo_audiencia) VALUES (?, ?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO solicitudes (usuario_id, juez_id, razon, fecha, hora, estado) VALUES (?, ?, ?, ?, ?, ?)";
 
 
 
