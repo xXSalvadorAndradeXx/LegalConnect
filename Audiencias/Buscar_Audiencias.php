@@ -74,6 +74,9 @@ if ($conn->connect_error) {
 $sql = "SELECT nombre, apellido, telefono, tipo, correo FROM usuarios WHERE id = $user_id";
 $result = $conn->query($sql);
 
+$sql = "SELECT nombre, apellido, telefono, tipo, correo FROM usuarios WHERE id = $user_id";
+$result = $conn->query($sql);
+
 // Cerrar conexión
 $conn->close();
 ?>
@@ -543,27 +546,7 @@ $conn->close();
 
 
   
-  <div id="deleteRequestModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Solicitud de Eliminación</h2>
-        <form id="deleteRequestForm" action="" method="POST">
-            <label>Nombre de Usuario:</label>
-            <p class="highlight">
-                <strong><?php echo $row['nombre']; ?> <?php echo $row['apellido']; ?></strong>
-                <input type="hidden" name="nombre_usuario" value="<?php echo $row['nombre'] . ' ' . $row['apellido']; ?>">
-            </p>
-            <label for="reason">Razón de la solicitud:</label><br>
-            <textarea id="reason" name="reason" rows="4" cols="50" required></textarea><br><br>
-            <label for="fecha_hora">Propone una fecha:</label><br>
-            <input type="datetime-local" id="fecha_hora" name="fecha_hora" required><br><br>
-            <button type="submit">Enviar</button>
-        </form>
-    </div>
-</div>
-
-
-    <?php else: ?>
+     <?php else: ?>
         <p class="error-message">Error: No se encontraron detalles del usuario.</p>
     <?php endif; ?>
  
@@ -635,8 +618,10 @@ $sql = "SELECT * FROM audiencias ORDER BY fecha DESC";
                      if ($tipo_usuario === 'juez'): ?>
                         <a class='edit-button' href='#' onclick='eliminar(<?php echo $row["id"]; ?>)'><i class='fa fa-trash'></i> Eliminar</a>
                     <?php endif; 
+
+
         if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>         
-          <a href='' id='deleteRequestLink' >Solicitud</a>
+          <a href='Solicitud_Audiencia.php' class='edit-button'>Solicitud</a>
         <?php endif; 
           echo "</div>";
         }
@@ -660,13 +645,19 @@ $sql = "SELECT * FROM audiencias ORDER BY fecha DESC";
 
 <script>
 
+window.onload = function() {
+            // Obtener los parámetros de la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const mensaje = urlParams.get('mensaje');
 
-        // Mostrar notificación si hay un mensaje
-        window.onload = function() {
-            <?php if (!empty($mensaje)) { ?>
-                alert("<?php echo $mensaje; ?>");
-            <?php } ?>
-        };
+            // Mostrar el mensaje de éxito si el parámetro 'mensaje' es 'exito'
+            if (mensaje === 'exito') {
+                alert('Solicitud enviada con éxito');
+                // Opcional: Redirigir a otra página después de mostrar el mensaje
+                window.location.href = 'buscar_audiencias.php';
+            }
+        }
+      
 var modal = document.getElementById("deleteRequestModal");
 
 // Obtener el enlace que abre el modal
@@ -765,6 +756,19 @@ function verMas() {
         // Hacer scroll hacia abajo para mostrar más elementos
         window.scrollBy(0, window.innerHeight);
     }
+
+
+
+
+
+
+
+
+    window.addEventListener('load', function() {
+            setTimeout(function() {
+                alert('¡Solicitud Enviada!');
+            }, 500); // Tiempo de retraso en milisegundos (500ms = 0.5s)
+        });
     </script>
 
 </body>
