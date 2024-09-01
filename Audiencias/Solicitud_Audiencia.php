@@ -4,7 +4,7 @@ session_start(); // Iniciar sesión
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['user_id'])) {
     // Redirigir al usuario a la página de inicio de sesión si no ha iniciado sesión
-    header("Location: Iniciar_Sesion.php");
+    header("Location: upss.php");
     exit();
 }
 
@@ -326,7 +326,7 @@ input:hover[type="submit"] {
     <label for="fecha">Fecha:</label><br><br>
     <input type="date" id="fecha" name="fecha" required><br><br>
     
-    <label for="hora">Hora:</label><br><br>
+    <label for="hora">Hora()eliominar:</label><br><br>
     <input type="time" id="hora" name="hora" required><br><br>
     
     <input type="submit" value="Guardar">
