@@ -48,7 +48,7 @@ if ($conn->connect_error) {
 }
 
 // Consulta SQL
-$sql = "SELECT id, usuario_id, juez_id, razon, fecha, hora, fecha_creacion, estado FROM solicitudes";
+$sql = "SELECT id, usuario_id, juez_id, razon, fecha_sugerida, fecha_creacion, estado FROM solicitudes";
 $result = $conn->query($sql);
 ?>
 
@@ -282,7 +282,6 @@ tr:hover {
                 <th>Juez ID</th>
                 <th>Razón</th>
                 <th>Fecha Sugerida</th>
-                <th>Hora Sugerida</th>
                 <th>Estado</th>
                 <th>Fecha de Solicitud</th>
                 <th>Acciones</th>
@@ -298,8 +297,7 @@ tr:hover {
                     echo "<td>" . $row["usuario_id"] . "</td>";
                     echo "<td>" . $row["juez_id"] . "</td>";
                     echo "<td>" . $row["razon"] . "</td>";
-                    echo "<td>" . $row["fecha"] . "</td>";
-                    echo "<td>" . $row["hora"] . "</td>";
+                    echo "<td>" . $row["fecha_sugerida"] . "</td>";
                     echo "<td>" . $row["estado"] . "</td>";
                     echo "<td>" . $row["fecha_creacion"] . "</td>";
                     if ($tipo_usuario === 'abogado' || $tipo_usuario === 'fiscal' ): ?>   

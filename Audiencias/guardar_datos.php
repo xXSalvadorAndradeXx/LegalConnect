@@ -12,25 +12,19 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-// Recoger los datos del formulario
+// Obtener los datos enviados desde el formulario
 $usuario_id = $_POST['usuario_id'];
-$juez_id = $_POST['juez_id'];
-$razon = $_POST['razon'];
+$juez_id = $_POST['juez'];
+$razon = $conn->real_escape_string($_POST['razon']);
 $fecha = $_POST['fecha'];
-$hora = $_POST['hora'];
-
-// Preparar y ejecutar la consulta SQL
-$sql = "INSERT INTO solicitudes (usuario_id, juez_id, razon, fecha, hora, estado) VALUES (?, ?, ?, ?, ?, ?)";
-
-
-
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("iissss", $usuario_id, $juez_id, $razon, $fecha, $hora, $estado);
-
 $estado = "Pendiente";
+// Insertar los datos en la base de datos
+$sql = "INSERT INTO solicitudes (usuario_id, juez_id, razon, fecha_sugerida, estado)
+        VALUES ('$usuario_id', '$juez_id', '$razon', '$fecha', '$estado')";
 
 
-if ($stmt->execute()) {
+
+if ($conn->query($sql) === TRUE) {
     header("Location: buscar_audiencias.php?mensaje=exito");
 } else {
     echo "Error al guardar los datos: " . $stmt->error;
