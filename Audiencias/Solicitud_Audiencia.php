@@ -343,6 +343,32 @@ label.strong {
 
 <script>
 
+
+document.addEventListener('DOMContentLoaded', function() {
+            const fechaInput = document.getElementById('fecha');
+
+            // Establecer la fecha mínima como hoy
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const minDate = `${yyyy}-${mm}-${dd}`;
+
+            fechaInput.setAttribute('min', minDate);
+
+            // Validar si se selecciona un sábado o domingo
+            document.getElementById('fecha').addEventListener('change', function() {
+            var fechaInput = this;
+            var fechaSeleccionada = new Date(fechaInput.value);
+            var diaSemana = fechaSeleccionada.getDay(); // 0 = Domingo, 1 = Lunes, ..., 6 = Sábado
+
+            if (diaSemana === 6 || diaSemana === -1) {
+                alert('No se pueden seleccionar los dias domingos.');
+                fechaInput.value = ''; // Limpiar el campo de fecha
+            }
+        });
+    });
+
 document.querySelector('a[href="?logout"]').addEventListener('click', function(event) {
     if (!confirm('¿Estás seguro de que deseas cerrar sesión?')) {
         event.preventDefault(); // Cancelar el evento de clic si el usuario no confirma
