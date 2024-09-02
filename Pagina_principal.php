@@ -205,9 +205,25 @@ nav {
 
     <label for="btn-nav" class="btn-nav">&#9776;</label>
     <input type="checkbox" id="btn-nav">
-    <a href="Audiencias\notifications.php" class="notification-link">
+
+    <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>  
+
+    <a href="Audiencias\mis_solicitudes.php" class="notification-link">
     <i class="fas fa-bell notification-icon"></i>
 </a>
+<?php endif; 
+
+?>
+
+<?php if ($tipo_usuario === 'juez'): ?>  
+  <a href="Audiencias\ver_solicitudes.php" class="notification-link">
+    <i class="fas fa-bell notification-icon"></i>
+</a>
+
+  <?php endif; 
+
+?>
+
 
 
     <a href="/Formularios/Perfil.php">
