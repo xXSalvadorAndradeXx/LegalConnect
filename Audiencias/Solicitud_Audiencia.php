@@ -90,6 +90,7 @@ if (isset($_GET['logout'])) {
 
 body {
   font-family: 'Roboto', sans-serif;
+  
 
 }
 
@@ -189,85 +190,82 @@ nav {
     }
 
 
-    form {
-    background-color: #ffffff;
-    border-radius: 12px;
-    padding: 20px;
-    max-width: 450px;
-    width: 100%;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-form h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 15px;
-    font-size: 22px;
-    font-weight: bold;
+    #miFormulario {
+    background: #f9f9f9; /* Color de fondo más suave */
+    border-radius: 12px; /* Bordes más redondeados */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+    max-width: 500px;
+    padding: 25px; /* Más espacio interno */
+    margin: 50px auto; /* Centrado horizontal */
+    width: 90%; /* Ancho adaptable */
 }
 
 label {
+    font-size: 18px; /* Tamaño de fuente ligeramente mayor */
+    font-weight: 500; /* Peso de fuente más ligero */
+    margin-bottom: 8px; /* Espacio debajo de las etiquetas */
     display: block;
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 6px;
-    font-weight: 600;
+    color: #333; /* Color de texto más oscuro para mejor legibilidad */
 }
 
-input[type="text"],
-input[type="date"],
-input[type="time"],
-textarea {
-    width: 100%;
-    padding: 10px 12px;
-    margin-bottom: 18px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    font-size: 14px;
-    transition: border-color 0.3s ease;
+input[type="hidden"], input[type="date"], textarea {
+    border: 1px solid #ddd; /* Borde más claro */
+    border-radius: 6px; /* Bordes más redondeados */
     box-sizing: border-box;
+    font-size: 16px;
+    padding: 12px; /* Más espacio interno */
+    width: 100%;
+    background-color: #fff; /* Fondo blanco para campos de entrada */
+}
+
+textarea {
+    height: 120px; /* Mayor altura para áreas de texto */
+    resize: vertical;
 }
 
 input[type="submit"] {
-    width: 100%;
-    padding: 12px 0;
-    background-color:white ;
-    color: black;
+    background-color: #007bff;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
+    border-radius: 6px; /* Bordes más redondeados */
+    color: #fff;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 16px;
+    padding: 12px; /* Más espacio interno */
+    width: 100%;
+    transition: background-color 0.3s, transform 0.2s; /* Transición para el hover */
 }
 
-input:hover[type="submit"] {
-    background-color: #242975;
-    color: white;
+input[type="submit"]:hover {
+    background-color: #0056b3;
+    transform: scale(1.02); /* Efecto de escala al pasar el ratón */
 }
 
+/* Negrita para las etiquetas del juez */
+label[for="juez"] {
+    font-weight: bold;
+}
 
-@media (max-width: 450px) {
-    form {
-        padding: 15px;
-    }
-
-    form h2 {
-        font-size: 18px;
-    }
-
-    label {
-        font-size: 14px;
-    }
-
-    input[type="submit"] {
-        font-size: 14px;
-    }
+/* Cursiva para el nombre del juez */
+label.juez-nombre {
+    font-style: italic;
 }
 
 
 
+.form-section {
+    margin-bottom: 25px; /* Mayor espacio entre secciones */
+}
+
+.form-section label:last-child {
+    margin-bottom: 0;
+}
+
+
+
+
+label.strong {
+    font-weight: bold;
+}
 
     </style>
 </head>
@@ -307,36 +305,43 @@ input:hover[type="submit"] {
 
 
 
+  
 
-  <center>
+
 
   <form id="miFormulario" action="guardar_datos.php" method="POST">
-    <label>Nombre de Usuario:</label><br><br>
-    <label><?php echo $nombre_usuario . ' ' . $apellido_usuario; ?></label><br><br>
-    <input type="hidden" name="usuario_id" value="<?php echo $user_id; ?>">
+        <div class="form-section">
+        <label><strong>De:</strong></label>
+            <label><em><?php echo $nombre_usuario . ' ' . $apellido_usuario; ?></em></label>
+            <input type="hidden" name="usuario_id" value="<?php echo $user_id; ?>">
+        </div>
 
-    <label for="juez">Juez:</label><br><br>
-    <label><?php echo $nombre_juez . ' ' . $apellido_juez; ?></label><br><br>
-    <input type="hidden" name="juez_id" value="<?php echo $juez_id; ?>">
-
-
-    <label for="razon">Razón:</label><br><br>
-    <textarea id="razon" name="razon" required></textarea><br><br>
     
-    <label for="fecha">Fecha:</label><br><br>
-    <input type="date" id="fecha" name="fecha" required><br><br>
-    
-   
-    <input type="submit" value="Guardar">
-</form>
+
+        <div class="form-section">
+        <label for="juez"><strong>Para:</strong></label>
+
+
+        
+        <label>Juez: <em><?php echo $nombre_juez . ' ' . $apellido_juez; ?></em></label>
+        <input type="hidden" name="juez_id" value="<?php echo $juez_id; ?>">
+
+        </div>
+        <div class="form-section">
+        <label for="razon"><strong>Razón:</strong></label>
+            <textarea id="razon" name="razon" required></textarea>
+        </div>
+      
+        
+        <div class="form-section">
+        <label for="fecha"><strong>Fecha:</strong></label>
+            <input type="date" id="fecha" name="fecha" required>
+        </div>
+        
+        <input type="submit" value="Guardar">
+    </form>
 
 <script>
-
-
-
-
-
-
 
 document.querySelector('a[href="?logout"]').addEventListener('click', function(event) {
     if (!confirm('¿Estás seguro de que deseas cerrar sesión?')) {
