@@ -4,7 +4,7 @@ session_start(); // Iniciar sesión
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['user_id'])) {
     // Redirigir al usuario a la página de inicio de sesión si no ha iniciado sesión
-    header("Location: upss.php");
+    header("Location: Iniciar_Sesion.php");
     exit();
 }
 
@@ -35,7 +35,12 @@ $stmt_user->close();
 
 
 // Consultar el juez asignado (supongamos que el juez está relacionado con el caso del usuario)
-$jueces = $conn->query("SELECT id, nombre, apellido FROM usuarios WHERE tipo = 'juez'");
+$sql_juez = "SELECT id, nombre, apellido FROM usuarios WHERE tipo = 'juez' LIMIT 1";
+$stmt_juez = $conn->prepare($sql_juez);
+$stmt_juez->execute();
+$stmt_juez->bind_result($juez_id, $nombre_juez, $apellido_juez);
+$stmt_juez->fetch();
+$stmt_juez->close();
 
 
 
@@ -56,6 +61,12 @@ if (isset($_GET['logout'])) {
 // Resto del código aquí (contenido de la página principal)
 //___________________________________________HTML Normal_____________________________________________________________________________________
 ?>
+
+
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -178,7 +189,82 @@ nav {
     }
 
 
+    form {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+}
 
+form h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"],
+textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 18px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 12px 0;
+    background-color:white ;
+    color: black;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+input:hover[type="submit"] {
+    background-color: #242975;
+    color: white;
+}
+
+
+@media (max-width: 450px) {
+    form {
+        padding: 15px;
+    }
+
+    form h2 {
+        font-size: 18px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    input[type="submit"] {
+        font-size: 14px;
+    }
+}
 
 
 
@@ -230,22 +316,18 @@ nav {
     <input type="hidden" name="usuario_id" value="<?php echo $user_id; ?>">
 
     <label for="juez">Juez:</label><br><br>
-    <select name="juez" id="juez" required>
-        <?php while ($juez = $jueces->fetch_assoc()): ?>
-            <option value="<?php echo $juez['id']; ?>">
-                <?php echo $juez['nombre'] . ' ' . $juez['apellido']; ?>
-            </option>
-        <?php endwhile; ?>
-    </select><br><br>
+    <label><?php echo $nombre_juez . ' ' . $apellido_juez; ?></label><br><br>
+    <input type="hidden" name="juez_id" value="<?php echo $juez_id; ?>">
 
-       <label for="razon">Razón:</label><br><br>
+
+    <label for="razon">Razón:</label><br><br>
     <textarea id="razon" name="razon" required></textarea><br><br>
     
-    <label for="fecha">Sugiera Fecha:</label><br><br>
+    <label for="fecha">Fecha:</label><br><br>
     <input type="date" id="fecha" name="fecha" required><br><br>
-         
-    <input type="submit" value="Guardar">
     
+   
+    <input type="submit" value="Guardar">
 </form>
 
 <script>
