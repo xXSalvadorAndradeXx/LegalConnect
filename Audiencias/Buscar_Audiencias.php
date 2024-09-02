@@ -498,9 +498,23 @@ button[type="submit"]:active {
     
     <input type="checkbox" id="btn-nav">
     
-    <a href="notifications.php" class="notification-link">
-    <i class="fas fa-bell notification-icon"></i>
+    <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>  
+
+<a href="mis_solicitudes.php" class="notification-link">
+<i class="fas fa-bell notification-icon"></i>
 </a>
+<?php endif; 
+
+?>
+
+<?php if ($tipo_usuario === 'juez'): ?>  
+<a href="ver_solicitudes.php" class="notification-link">
+<i class="fas fa-bell notification-icon"></i>
+</a>
+
+<?php endif; 
+
+?>
 
 
 
