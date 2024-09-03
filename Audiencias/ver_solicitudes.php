@@ -94,7 +94,7 @@ $result = $conn->query($sql);
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: Bahnschrift;
   overflow: hidden;
 }
 
@@ -325,16 +325,15 @@ tr:hover {
              
                     echo "<td>" . $row['nombre_usuario'] . " " . $row['apellido_usuario'] . "</td>";
                     echo "<td>" . $row['nombre_juez'] . " " . $row['apellido_juez'] . "</td>";
-                    echo "<td>" . $row["caso_id"] . "</td>";
-                
+                    
+                    echo "<td><a href='ver_audiencia.php?id=" . $row["caso_id"] . "'>" . $row["caso_id"] . "</a></td>";
                     echo "<td>" . $row["razon"] . "</td>";
                     echo "<td>" . $row["fecha_sugerida"] . "</td>";
                     echo "<td>" . $row["estado"] . "</td>";
                     echo "<td>" . $row["fecha_creacion"] . "</td>";
                     
                     if ($tipo_usuario === 'juez' ): ?>   
-                        <td><a href='responder_solicitud.php?id=" . $row["id"] . "' class='btn'>Responder Solicitud</a></td>
-                        </tr>
+                        <td><a class='edit-button' href='responder_solicitud.php?id=<?php echo $row["id"]; ?>'> Solicitud</a></tr>
                         <?php endif; 
                           
                         
