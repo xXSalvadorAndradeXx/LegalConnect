@@ -48,7 +48,7 @@ if ($conn->connect_error) {
 }
 
 // Consulta SQL
-$sql = "SELECT id, usuario_id, juez_id, razon, fecha_sugerida, fecha_creacion, estado FROM solicitudes";
+$sql = "SELECT id, usuario_id, juez_id, razon, caso_id,fecha_sugerida, fecha_creacion, estado FROM solicitudes";
 $result = $conn->query($sql);
 ?>
 
@@ -280,6 +280,7 @@ tr:hover {
                 <th>ID</th>
                 <th>Usuario ID</th>
                 <th>Juez ID</th>
+                <th>ID de Audiencia</th>
                 <th>Razón</th>
                 <th>Fecha Sugerida</th>
                 <th>Estado</th>
@@ -296,10 +297,12 @@ tr:hover {
                     echo "<td>" . $row["id"] . "</td>";
                     echo "<td>" . $row["usuario_id"] . "</td>";
                     echo "<td>" . $row["juez_id"] . "</td>";
+                    echo "<td>" . $row["caso_id"] . "</td>";
                     echo "<td>" . $row["razon"] . "</td>";
                     echo "<td>" . $row["fecha_sugerida"] . "</td>";
                     echo "<td>" . $row["estado"] . "</td>";
                     echo "<td>" . $row["fecha_creacion"] . "</td>";
+
                     if ($tipo_usuario === 'abogado' || $tipo_usuario === 'fiscal' ): ?>   
                    <td><a href='ver_detalles.php?id=" . $row["id"] . "' class='btn'>Ver Detalles</a></td>
                     </tr>
