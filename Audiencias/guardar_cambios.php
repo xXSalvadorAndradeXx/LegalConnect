@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Ejecutar la consulta
         if ($stmt->execute()) {
             // Redirigir a una página de confirmación o mostrar un mensaje de éxito
-            echo "Los cambios han sido guardados exitosamente.";
+            header("Location: ver_solicitudes.php?mensaje=exito");
         } else {
             echo "Error al actualizar la solicitud: " . $conn->error;
         }

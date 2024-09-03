@@ -352,4 +352,21 @@ tr:hover {
 
 
 </body>
+
+<script>
+
+  
+window.onload = function() {
+            // Obtener los parámetros de la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const mensaje = urlParams.get('mensaje');
+
+            // Mostrar el mensaje de éxito si el parámetro 'mensaje' es 'exito'
+            if (mensaje === 'exito') {
+                alert('La solicitud fue respondida con exito');
+                // Opcional: Redirigir a otra página después de mostrar el mensaje
+                window.location.href = 'ver_solicitudes.php';
+            }
+        }
+  </script>
 </html>
