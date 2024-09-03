@@ -13,14 +13,15 @@ if ($conn->connect_error) {
 }
 
 // Obtener los datos enviados desde el formulario
+$caso_id = $_POST['caso_id'];
 $usuario_id = $_POST['usuario_id'];
 $juez_id = $_POST['juez_id'];
 $razon = $conn->real_escape_string($_POST['razon']);
 $fecha = $_POST['fecha'];
 $estado = "Pendiente";
 // Insertar los datos en la base de datos
-$sql = "INSERT INTO solicitudes (usuario_id, juez_id, razon, fecha_sugerida, estado)
-        VALUES ('$usuario_id', '$juez_id', '$razon', '$fecha', '$estado')";
+$sql = "INSERT INTO solicitudes (caso_id ,usuario_id, juez_id, razon, fecha_sugerida, estado)
+        VALUES ('$caso_id','$usuario_id', '$juez_id', '$razon', '$fecha', '$estado')";
 
 
 
