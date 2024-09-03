@@ -47,9 +47,30 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-// Consulta SQL
-$sql = "SELECT id, usuario_id, juez_id, razon, caso_id,fecha_sugerida, fecha_creacion, estado FROM solicitudes";
+$sql = "
+    SELECT 
+        ar.id, 
+        u.nombre AS nombre_usuario, 
+        u.apellido AS apellido_usuario, 
+        j.nombre AS nombre_juez, 
+        j.apellido AS apellido_juez, 
+        ar.razon, 
+        ar.fecha_sugerida, 
+        ar.estado, 
+        ar.fecha_creacion,
+        ar.caso_id
+       
+    FROM 
+        solicitudes ar
+    JOIN 
+        usuarios u ON ar.usuario_id = u.id
+    JOIN 
+        usuarios j ON ar.juez_id = j.id
+";
+
 $result = $conn->query($sql);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -270,6 +291,7 @@ tr:hover {
 
 
 
+
 <center>
     <h1>Tabla de Solicitudes</h1>
     
@@ -278,9 +300,9 @@ tr:hover {
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Usuario ID</th>
-                <th>Juez ID</th>
-                <th>ID de Audiencia</th>
+                <th>Usuario</th>
+                <th>Juez</th>
+                <th>Audiencia ID</th>
                 <th>Razón</th>
                 <th>Fecha Sugerida</th>
                 <th>Estado</th>
@@ -295,14 +317,15 @@ tr:hover {
                 while($row = $result->fetch_assoc()) {
                     echo "<tr>";
                     echo "<td>" . $row["id"] . "</td>";
-                    echo "<td>" . $row["usuario_id"] . "</td>";
-                    echo "<td>" . $row["juez_id"] . "</td>";
+             
+                    echo "<td>" . $row['nombre_usuario'] . " " . $row['apellido_usuario'] . "</td>";
+                    echo "<td>" . $row['nombre_juez'] . " " . $row['apellido_juez'] . "</td>";
                     echo "<td>" . $row["caso_id"] . "</td>";
+                
                     echo "<td>" . $row["razon"] . "</td>";
                     echo "<td>" . $row["fecha_sugerida"] . "</td>";
                     echo "<td>" . $row["estado"] . "</td>";
                     echo "<td>" . $row["fecha_creacion"] . "</td>";
-
                     if ($tipo_usuario === 'abogado' || $tipo_usuario === 'fiscal' ): ?>   
                    <td><a href='ver_detalles.php?id=" . $row["id"] . "' class='btn'>Ver Detalles</a></td>
                     </tr>

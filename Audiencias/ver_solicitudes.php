@@ -57,7 +57,9 @@ $sql = "
         ar.razon, 
         ar.fecha_sugerida, 
         ar.estado, 
-        ar.fecha_creacion
+        ar.fecha_creacion,
+        ar.caso_id
+       
     FROM 
         solicitudes ar
     JOIN 
@@ -298,8 +300,9 @@ tr:hover {
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Usuario ID</th>
-                <th>Juez ID</th>
+                <th>Usuario</th>
+                <th>Juez</th>
+                <th>Audiencia ID</th>
                 <th>Razón</th>
                 <th>Fecha Sugerida</th>
                 <th>Estado</th>
@@ -317,7 +320,7 @@ tr:hover {
              
                     echo "<td>" . $row['nombre_usuario'] . " " . $row['apellido_usuario'] . "</td>";
                     echo "<td>" . $row['nombre_juez'] . " " . $row['apellido_juez'] . "</td>";
-          
+                    echo "<td>" . $row["caso_id"] . "</td>";
                 
                     echo "<td>" . $row["razon"] . "</td>";
                     echo "<td>" . $row["fecha_sugerida"] . "</td>";
