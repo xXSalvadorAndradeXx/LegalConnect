@@ -35,13 +35,6 @@ $stmt->fetch();
 $stmt->close();
 $conn->close();
 
-
-
-
-
-
-
-
 if (isset($_GET['logout'])) {
   // Verificar si se ha confirmado la salida
   if ($_GET['logout'] == 'confirm') {
@@ -123,7 +116,7 @@ if (isset($_GET['logout'])) {
 
 body {
   font-family: 'Roboto', sans-serif;
-  overflow: hidden;
+  
 }
 
 .main-header {
@@ -234,6 +227,97 @@ nav {
     transform: translate(50%, -50%);
 }
 
+
+
+
+
+
+
+
+/* Diseño básico del formulario */
+/* Diseño general del formulario */
+#editarFormulario {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    background-color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+#editarFormulario:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilo para las etiquetas */
+#editarFormulario label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #444;
+    font-size: 14px;
+}
+
+/* Estilo para los campos de entrada */
+#editarFormulario input[type="text"],
+#editarFormulario input[type="date"],
+#editarFormulario textarea,
+#editarFormulario select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    font-size: 15px;
+    color: #333;
+    background-color: #f8f8f8;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+#editarFormulario input[type="text"]:focus,
+#editarFormulario input[type="date"]:focus,
+#editarFormulario textarea:focus,
+#editarFormulario select:focus {
+    border-color: #007bff;
+    background-color: #ffffff;
+    outline: none;
+}
+
+/* Estilo para el área de texto */
+#editarFormulario textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+/* Estilo para el botón de enviar */
+#editarFormulario .btn {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#editarFormulario .btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+#editarFormulario .btn:active {
+    background-color: #004494;
+    transform: translateY(0);
+}
+
+
+
     </style>
 </head>
 <body>
@@ -244,17 +328,11 @@ nav {
     <label for="btn-nav" class="btn-nav">&#9776;</label>
     <input type="checkbox" id="btn-nav">
 
-    <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>  
+ 
 
-    <a href="Audiencias\mis_solicitudes.php" class="notification-link">
-    <i class="fas fa-bell notification-icon"></i>
-</a>
-<?php endif; 
-
-?>
 
 <?php if ($tipo_usuario === 'juez'): ?>  
-  <a href="Audiencias\ver_solicitudes.php" class="notification-link">
+  <a href="ver_solicitudes.php" class="notification-link">
     <i class="fas fa-bell notification-icon"></i>
 </a>
 
@@ -301,10 +379,14 @@ nav {
         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
 
         <label for="usuario_id">ID del Usuario:</label>
-        <input type="text" name="usuario_id" id="usuario_id" value="<?php echo $row['usuario_id']; ?>" required>
+<input type="text" name="usuario_id" id="usuario_id" value="<?php echo $row['usuario_id']; ?>" required readonly>
 
-        <label for="juez_id">ID del Juez:</label>
-        <input type="text" name="juez_id" id="juez_id" value="<?php echo $row['juez_id']; ?>" required>
+<label for="juez_id">ID del Juez:</label>
+<input type="text" name="juez_id" id="juez_id" value="<?php echo $row['juez_id']; ?>" required readonly>
+
+<label for="caso_id">ID del Caso:</label>
+<input type="text" name="caso_id" id="caso_id" value="<?php echo $row['caso_id']; ?>" required readonly>
+
 
         <label for="razon">Razón:</label>
         <textarea name="razon" id="razon" required><?php echo $row['razon']; ?></textarea>
@@ -320,8 +402,7 @@ nav {
         </select>
 
         
-        <label for="caso_id">ID del Caso:</label>
-        <input type="text" name="caso_id" id="caso_id" value="<?php echo $row['caso_id']; ?>" required>
+        
 
         <button type="submit" class="btn">Guardar Cambios</button>
     </form>
