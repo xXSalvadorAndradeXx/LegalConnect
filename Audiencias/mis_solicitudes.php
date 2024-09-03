@@ -307,7 +307,11 @@ tr:hover {
                 <th>Fecha Sugerida</th>
                 <th>Estado</th>
                 <th>Fecha de Solicitud</th>
-                <th>Acciones</th>
+
+                <?php if ($tipo_usuario === 'juez'): ?>   
+                             <th>Acciones</th>
+           <?php endif;  ?>
+            
             </tr>
         </thead>
         <tbody>
@@ -326,10 +330,7 @@ tr:hover {
                     echo "<td>" . $row["fecha_sugerida"] . "</td>";
                     echo "<td>" . $row["estado"] . "</td>";
                     echo "<td>" . $row["fecha_creacion"] . "</td>";
-                    if ($tipo_usuario === 'abogado' || $tipo_usuario === 'fiscal' ): ?>   
-                   <td><a href='ver_detalles.php?id=" . $row["id"] . "' class='btn'>Ver Detalles</a></td>
-                    </tr>
-                    <?php endif; 
+                   
                      if ($tipo_usuario === 'juez' ): ?>   
                         <td><a href='responder_solicitud.php?id=" . $row["id"] . "' class='btn'>Responder Solicitud</a></td>
                         </tr>
