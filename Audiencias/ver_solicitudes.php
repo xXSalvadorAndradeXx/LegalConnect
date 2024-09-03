@@ -246,6 +246,21 @@ tr:hover {
 }
 
 
+.btn-regresar {
+    background-color: #007bff; /* Cambia el color de fondo */
+    color: white; /* Cambia el color del texto */
+    border: none; /* Elimina el borde */
+    padding: 10px 20px; /* Espaciado interno */
+    text-align: center; /* Alinea el texto al centro */
+    text-decoration: none; /* Elimina el subrayado */
+    display: inline-block; /* Alinea el botón en línea */
+    font-size: 16px; /* Tamaño de la fuente */
+    margin: 4px 2px; /* Margen */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    border-radius: 4px; /* Bordes redondeados */
+}
+
+
     </style>
 </head>
 <body>
@@ -281,6 +296,8 @@ tr:hover {
    
   </header>
 
+
+  
 
 
 
@@ -349,12 +366,14 @@ tr:hover {
     </table>
 
 <a><a href="buscar_audiencias.php"><button class="btn-volver">Volver</button></a>
-
+<button onclick="goBack()" class="btn-regresar">Regresar</button>
 
 </body>
 
 <script>
-
+function goBack() {
+    window.history.back();
+}
   
 window.onload = function() {
             // Obtener los parámetros de la URL

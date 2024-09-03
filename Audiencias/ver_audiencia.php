@@ -245,6 +245,25 @@ a:hover {
             background-color: #0056b3;
             color: #fff;
         }
+
+
+
+
+
+
+        .btn-regresar {
+    background-color: #007bff; /* Cambia el color de fondo */
+    color: white; /* Cambia el color del texto */
+    border: none; /* Elimina el borde */
+    padding: 10px 20px; /* Espaciado interno */
+    text-align: center; /* Alinea el texto al centro */
+    text-decoration: none; /* Elimina el subrayado */
+    display: inline-block; /* Alinea el botón en línea */
+    font-size: 16px; /* Tamaño de la fuente */
+    margin: 4px 2px; /* Margen */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    border-radius: 4px; /* Bordes redondeados */
+}
     </style>
 </head>
 <body>
@@ -273,7 +292,7 @@ a:hover {
     </nav>
     </center>
   </header>
-
+  <button onclick="goBack()" class="btn-regresar">Regresar</button>
    
 <?php
 // Conexión a la base de datos MySQL
@@ -394,4 +413,11 @@ echo '';
 
 
 </body>
+
+<script>
+function goBack() {
+    window.history.back();
+}
+
+</script>
 </html>
