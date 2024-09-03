@@ -637,34 +637,36 @@ $sql = "SELECT * FROM audiencias ORDER BY fecha DESC";
 
     // Mostrar datos de cada audiencia
     if ($result->num_rows > 0) {
+        echo "<div class='table'>";
         while($row = $result->fetch_assoc()) {
-          echo "<center>";
-          echo "<div class='table-row'>";
-          echo "<div class='table-cell'>" . $row["titulo"] . "</a></div>";
-          echo "<div class='table-cell'>" . $row["caso"] . "</div>";
-          echo "<div class='table-cell'>" . $row["modalidad"] . "</div>";
-          echo "<div class='table-cell'>" . $row["fecha"] . "</div>";
-          echo "<div class='table-cell'>" . $row["hora"] . "</div>";
-          echo "<div class='table-cell'>" . $row["imputado"] . "</div>";
-          echo "<div class='table-cell'>" . $row["victima"] . "</div>";
-          echo "<div class='table-cell'>" . $row["delito"] . "</div>";
-          echo "<div class='table-cell'>";
-         
-                    echo "<center><a class='edit-button' href='ver_audiencia.php?id=" . $row["id"] . "'><i class='fa fa-eye'></i> Ver </a></center>";
-                     if ($tipo_usuario === 'juez'): ?>
-                        <a class='edit-button' href='#' onclick='eliminar(<?php echo $row["id"]; ?>)'><i class='fa fa-trash'></i> Eliminar</a>
-                    <?php endif; 
-
-
-        if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>         
-          <a href='Solicitud_Audiencia.php' class='edit-button'>Solicitud</a>
-        <?php endif; 
-          echo "</div>";
+            echo "<div class='table-row'>";
+            echo "<div class='table-cell'>" . $row["titulo"] . "</div>";
+            echo "<div class='table-cell'>" . $row["caso"] . "</div>";
+            echo "<div class='table-cell'>" . $row["modalidad"] . "</div>";
+            echo "<div class='table-cell'>" . $row["fecha"] . "</div>";
+            echo "<div class='table-cell'>" . $row["hora"] . "</div>";
+            echo "<div class='table-cell'>" . $row["imputado"] . "</div>";
+            echo "<div class='table-cell'>" . $row["victima"] . "</div>";
+            echo "<div class='table-cell'>" . $row["delito"] . "</div>";
+            echo "<div class='table-cell'>";
+            echo "<center><a class='edit-button' href='ver_audiencia.php?id=" . $row["id"] . "'><i class='fa fa-eye'></i> Ver</a></center>";
+    
+            if ($tipo_usuario === 'juez') {
+                echo "<center><a class='edit-button' href='#' onclick='eliminar(" . $row["id"] . ")'><i class='fa fa-trash'></i> Eliminar</a></center>";
+            }
+    
+            if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado') {
+                echo "<center><a class='edit-button' href='solicitud_audiencia.php?id=" . $row["id"] . "'> Solicitud</a></center>";
+            }
+    
+            echo "</div>";
+            echo "</div>"; // Cierra el div de la fila
         }
+        echo "</div>"; // Cierra el div de la tabla
     } else {
         echo "<center>No hay audiencias registradas.</center>";
     }
-
+    
     // Cerrar la conexión
     $conn->close();
     ?>

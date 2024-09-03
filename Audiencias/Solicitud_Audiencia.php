@@ -1,4 +1,6 @@
 <?php
+
+$caso_id = isset($_GET['caso_id']) ? $_GET['caso_id'] : null;
 session_start(); // Iniciar sesión
 
 // Verificar si el usuario está autenticado
@@ -33,17 +35,32 @@ $stmt_user->bind_result($nombre_usuario, $apellido_usuario);
 $stmt_user->fetch();
 $stmt_user->close();
 
+// Obtener el ID del caso (puede provenir de la base de datos o de un parámetro en la URL)
 
-// Consultar el juez asignado (supongamos que el juez está relacionado con el caso del usuario)
+
+
+  
+$caso_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+
+// Consulta SQL
+$sql_caso = "SELECT id FROM audiencias WHERE id = ?";
+$stmt_caso = $conn->prepare($sql_caso);
+$stmt_caso->bind_param("i", $caso_id);
+$stmt_caso->execute();
+$stmt_caso->bind_result($resultado_id);
+$stmt_caso->fetch();
+$stmt_caso->close();
+
+   
+
+
+// Consultar el juez asignado
 $sql_juez = "SELECT id, nombre, apellido FROM usuarios WHERE tipo = 'juez' LIMIT 1";
 $stmt_juez = $conn->prepare($sql_juez);
 $stmt_juez->execute();
 $stmt_juez->bind_result($juez_id, $nombre_juez, $apellido_juez);
 $stmt_juez->fetch();
 $stmt_juez->close();
-
-
-
 
 if (isset($_GET['logout'])) {
   // Verificar si se ha confirmado la salida
@@ -57,6 +74,9 @@ if (isset($_GET['logout'])) {
       exit();
   }
 }
+
+// Cerrar conexión
+$conn->close();
 
 // Resto del código aquí (contenido de la página principal)
 //___________________________________________HTML Normal_____________________________________________________________________________________
@@ -267,6 +287,9 @@ label.strong {
     font-weight: bold;
 }
 
+
+
+
     </style>
 </head>
 <body>
@@ -310,9 +333,19 @@ label.strong {
 
 
   <form id="miFormulario" action="guardar_datos.php" method="POST">
+
+
+  <div class="form-section">
+    <label><strong>ID de audiencia</strong></label>
+    <label><em><?php echo htmlspecialchars($resultado_id); ?></em></label>
+    <input type="hidden" id="caso_id" name="caso_id" value="<?php echo htmlspecialchars($resultado_id); ?>" >
+</div>
+
+
+
         <div class="form-section">
         <label><strong>De:</strong></label>
-            <label><em><?php echo $nombre_usuario . ' ' . $apellido_usuario; ?></em></label>
+          <label><em><?php echo $nombre_usuario . ' ' . $apellido_usuario; ?></em></label>
             <input type="hidden" name="usuario_id" value="<?php echo $user_id; ?>">
         </div>
 
@@ -320,8 +353,6 @@ label.strong {
 
         <div class="form-section">
         <label for="juez"><strong>Para:</strong></label>
-
-
         
         <label>Juez: <em><?php echo $nombre_juez . ' ' . $apellido_juez; ?></em></label>
         <input type="hidden" name="juez_id" value="<?php echo $juez_id; ?>">
