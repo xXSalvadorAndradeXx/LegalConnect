@@ -154,6 +154,7 @@
         const type = passwordField.type === 'password' ? 'text' : 'password';
         passwordField.type = type;
 
+        
         // Cambiar el icono
         this.classList.toggle('fa-eye');
         this.classList.toggle('fa-eye-slash');
