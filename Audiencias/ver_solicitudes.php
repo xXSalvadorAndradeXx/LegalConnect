@@ -57,6 +57,7 @@ $sql = "
         ar.razon, 
         ar.fecha_sugerida, 
         ar.estado, 
+        ar.respuesta,
         ar.fecha_creacion,
         ar.caso_id
        
@@ -323,6 +324,7 @@ tr:hover {
                 <th>Razón</th>
                 <th>Fecha Sugerida</th>
                 <th>Estado</th>
+                <th>Respuesta</th>
                 <th>Fecha de Solicitud</th>
 
                 <?php
@@ -345,8 +347,10 @@ tr:hover {
                     
                     echo "<td><a href='ver_audiencia.php?id=" . $row["caso_id"] . "'>" . $row["caso_id"] . "</a></td>";
                     echo "<td>" . $row["razon"] . "</td>";
+                    
                     echo "<td>" . $row["fecha_sugerida"] . "</td>";
                     echo "<td>" . $row["estado"] . "</td>";
+                    echo "<td>" . $row["respuesta"] . "</td>";
                     echo "<td>" . $row["fecha_creacion"] . "</td>";
                     
                     if ($tipo_usuario === 'juez' ): ?>   

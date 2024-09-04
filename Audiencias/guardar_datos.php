@@ -19,9 +19,10 @@ $juez_id = $_POST['juez_id'];
 $razon = $conn->real_escape_string($_POST['razon']);
 $fecha = $_POST['fecha'];
 $estado = "Pendiente";
-// Insertar los datos en la base de datos
-$sql = "INSERT INTO solicitudes (caso_id ,usuario_id, juez_id, razon, fecha_sugerida, estado)
-        VALUES ('$caso_id','$usuario_id', '$juez_id', '$razon', '$fecha', '$estado')";
+$respuesta = "Sin Respuesta";
+
+$sql = "INSERT INTO solicitudes (caso_id ,usuario_id, juez_id, razon, fecha_sugerida, estado, respuesta)
+        VALUES ('$caso_id','$usuario_id', '$juez_id', '$razon', '$fecha', '$estado', '$respuesta')";
 
 
 
