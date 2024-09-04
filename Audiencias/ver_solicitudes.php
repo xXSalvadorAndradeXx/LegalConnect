@@ -262,6 +262,26 @@ tr:hover {
 }
 
 
+
+.edit-button {
+  display: inline-block;
+  background-color: white; /* Color de fondo del botón */
+  color: black; /* Color del texto del botón */
+  padding: 10px 20px; /* Espaciado interno del botón */
+  text-decoration: none; /* Eliminar subrayado del enlace */
+  border: none; /* Quitar borde del botón */
+  border-radius: 5px; /* Borde redondeado */
+  cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
+  font-family: Bahnschrift;
+}
+
+/* Estilos para cuando el cursor pasa sobre el botón */
+.edit-button:hover {
+  background-color: #0056b3;
+  color: white; /* Cambiar color de fondo cuando el cursor pasa sobre el botón */
+  font-family: Bahnschrift;
+}
+
     </style>
 </head>
 <body>
@@ -354,7 +374,7 @@ tr:hover {
                     echo "<td>" . $row["fecha_creacion"] . "</td>";
                     
                     if ($tipo_usuario === 'juez' ): ?>   
-                        <td><a class='edit-button' href='responder_solicitud.php?id=<?php echo $row["id"]; ?>'> Solicitud</a></tr>
+                        <td><a class='edit-button' href='responder_solicitud.php?id=<?php echo $row["id"]; ?>'> Responder Solicitud</a></tr>
                         <?php endif; 
                           
                         

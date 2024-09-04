@@ -255,6 +255,7 @@ tr:hover {
 
 
 
+
     </style>
 </head>
 <body>
@@ -345,7 +346,7 @@ tr:hover {
                     
                    
                      if ($tipo_usuario === 'juez' ): ?>   
-                        <td><a href='responder_solicitud.php?id=" . $row["id"] . "' class='btn'>Responder Solicitud</a></td>
+                        <td><a  href='responder_solicitud.php?id=" . $row["id"] . "' class='btn-regresar'>Responder Solicitud</a></td>
                         </tr>
                         <?php endif; 
                           
