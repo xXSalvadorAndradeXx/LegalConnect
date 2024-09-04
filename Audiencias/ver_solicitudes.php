@@ -407,6 +407,10 @@ tr:hover {
 </button>
 
 
+<a href="buscar_audiencias.php" class="btn-regresar" title="Tabla de Audiencias">
+    <i class="fas fa-table"></i>
+</a>
+
 </body>
 
 <script>

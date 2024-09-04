@@ -411,10 +411,19 @@ nav {
         <button type="submit" class="btn">Guardar Cambios</button>
     </form>
 
+    <button onclick="goBack()" class="btn-regresar" title="Regresar">
+    <i class="fas fa-arrow-left"></i>
+</button>
+
 
   </body>
 
 <script>
+
+function goBack() {
+    window.history.back();
+}
+  
 
 document.addEventListener("DOMContentLoaded", function() {
     const estadoSelect = document.getElementById("estado");
