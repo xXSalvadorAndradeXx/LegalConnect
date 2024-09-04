@@ -22,13 +22,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fecha_sugerida = $_POST['fecha_sugerida'];
     $estado = $_POST['estado'];
     $caso_id = $_POST['caso_id'];
+    $respuesta = $_POST['respuesta'];
 
     // Preparar la consulta SQL para actualizar los datos
-    $sql = "UPDATE solicitudes SET usuario_id=?, juez_id=?, razon=?, fecha_sugerida=?, estado=?, caso_id=? WHERE id=?";
+    $sql = "UPDATE solicitudes SET usuario_id=?, juez_id=?, razon=?, fecha_sugerida=?, estado=?, respuesta=?, caso_id=? WHERE id=?";
 
     if ($stmt = $conn->prepare($sql)) {
         // Vincular los parámetros
-        $stmt->bind_param("iissssi", $usuario_id, $juez_id, $razon, $fecha_sugerida, $estado, $caso_id, $id);
+        $stmt->bind_param("iissssii", $usuario_id, $juez_id, $razon, $fecha_sugerida, $estado, $respuesta, $caso_id, $id);
 
         // Ejecutar la consulta
         if ($stmt->execute()) {
@@ -49,4 +50,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     echo "Método no permitido.";
 }
+
 ?>

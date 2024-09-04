@@ -402,8 +402,8 @@ nav {
         </select>
 
         <div class="form-section" id="respuestaSection" style="display: none;">
-    <label for="respuesta"><strong>Respuesta:</strong></label>
-    <textarea id="respuesta" name="respuesta"></textarea>
+          <label for="respuesta"><strong>Respuesta:</strong></label>
+        <textarea id="respuesta" name="respuesta"><?php echo $row['respuesta']; ?></textarea></textarea>
 </div>
         
         
