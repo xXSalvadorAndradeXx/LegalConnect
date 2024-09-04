@@ -197,6 +197,7 @@ nav {
 table {
     width: calc(70% - 40px); /* Ajusta el ancho para incluir el margen */
     border-collapse: collapse;
+ 
     margin: 20px auto; /* Espacio arriba y abajo, y centrado horizontalmente */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
     border-radius: 8px; /* Bordes redondeados */
@@ -205,6 +206,7 @@ table {
 
 /* Estilo para las celdas de la tabla */
 th, td {
+  
     border: 1px solid #ddd;
     padding: 12px 15px; /* Mayor padding para mejorar la legibilidad */
     text-align: left;
@@ -212,6 +214,7 @@ th, td {
 
 /* Estilo para los encabezados */
 th {
+
     background-color: #f4f4f4; /* Color de fondo más suave */
     color: #333; /* Color del texto */
     font-weight: bold; /* Negrita para los encabezados */
@@ -227,7 +230,7 @@ tr:hover {
     background-color: #f1f1f1; /* Color de fondo al pasar el mouse */
 }
 
-.btn-volver {
+.btn-regresar {
     font-family: 'Bahnschrift', sans-serif;
     background-color: #4CAF50; /* Color verde */
     color: white; /* Texto blanco */
@@ -235,31 +238,20 @@ tr:hover {
     border: none; /* Sin bordes */
     border-radius: 5px; /* Bordes redondeados */
     margin-left: 1000px;
+
     cursor: pointer; /* Manito al pasar por encima */
     text-transform: uppercase; /* Texto en mayúsculas */
     font-size: 16px; /* Tamaño de la fuente */
     transition: background-color 0.3s ease; /* Animación en el color de fondo */
 }
 
-.btn-volver:hover {
+.btn-regresar:hover {
     background-color: #45a049; /* Color verde más oscuro al pasar el mouse */
 }
 
 
 
-.btn-regresar {
-    background-color: #007bff; /* Cambia el color de fondo */
-    color: white; /* Cambia el color del texto */
-    border: none; /* Elimina el borde */
-    padding: 10px 20px; /* Espaciado interno */
-    text-align: center; /* Alinea el texto al centro */
-    text-decoration: none; /* Elimina el subrayado */
-    display: inline-block; /* Alinea el botón en línea */
-    font-size: 16px; /* Tamaño de la fuente */
-    margin: 4px 2px; /* Margen */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    border-radius: 4px; /* Bordes redondeados */
-}
+
 
 
     </style>
@@ -297,7 +289,7 @@ tr:hover {
    
   </header>
 
-  <button onclick="goBack()" class="btn-regresar">Regresar</button>
+
 
 
 
@@ -365,8 +357,8 @@ tr:hover {
         </tbody>
     </table>
 
-<a><a href="buscar_audiencias.php"><button class="btn-volver">Volver</button></a>
 
+    <a onclick="goBack()" class="btn-regresar"> Return <i class="fa fa-return">  </i></a>
 
 </body>
 
