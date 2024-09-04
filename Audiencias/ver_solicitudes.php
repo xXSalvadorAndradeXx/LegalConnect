@@ -80,6 +80,8 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabla de Solicitudes</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
 
 
@@ -257,8 +259,14 @@ tr:hover {
     display: inline-block; /* Alinea el botón en línea */
     font-size: 16px; /* Tamaño de la fuente */
     margin: 4px 2px; /* Margen */
+    margin-left: 1000px;
     cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
     border-radius: 4px; /* Bordes redondeados */
+}
+
+.btn-regresar:hover {
+  
+  background-color: #0069d9;
 }
 
 
@@ -374,7 +382,12 @@ tr:hover {
                     echo "<td>" . $row["fecha_creacion"] . "</td>";
                     
                     if ($tipo_usuario === 'juez' ): ?>   
-                        <td><a class='edit-button' href='responder_solicitud.php?id=<?php echo $row["id"]; ?>'> Responder Solicitud</a></tr>
+<td>
+    <a class='edit-button' href='responder_solicitud.php?id=<?php echo $row["id"]; ?>' title="Editar solicitud">
+        <i class="fas fa-edit"></i>
+    </a>
+</td>
+
                         <?php endif; 
                           
                         
@@ -389,8 +402,10 @@ tr:hover {
         </tbody>
     </table>
 
-<a><a href="buscar_audiencias.php"><button class="btn-volver">Volver</button></a>
-<button onclick="goBack()" class="btn-regresar">Regresar</button>
+    <button onclick="goBack()" class="btn-regresar" title="Regresar">
+    <i class="fas fa-arrow-left"></i>
+</button>
+
 
 </body>
 
