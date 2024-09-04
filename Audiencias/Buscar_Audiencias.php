@@ -649,14 +649,14 @@ $sql = "SELECT * FROM audiencias ORDER BY fecha DESC";
             echo "<div class='table-cell'>" . $row["victima"] . "</div>";
             echo "<div class='table-cell'>" . $row["delito"] . "</div>";
             echo "<div class='table-cell'>";
-            echo "<center><a class='edit-button' href='ver_audiencia.php?id=" . $row["id"] . "'><i class='fa fa-eye'></i> Ver</a></center>";
+            echo "<center><a class='edit-button' href='ver_audiencia.php?id=" . $row["id"] . "'><i class='fa fa-eye'></i></a></center>";
     
             if ($tipo_usuario === 'juez') {
-                echo "<center><a class='edit-button' href='#' onclick='eliminar(" . $row["id"] . ")'><i class='fa fa-trash'></i> Eliminar</a></center>";
+                echo "<center><a class='edit-button' href='#' onclick='eliminar(" . $row["id"] . ")'><i class='fa fa-trash'></i></a></center>";
             }
     
             if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado') {
-                echo "<center><a class='edit-button' href='solicitud_audiencia.php?id=" . $row["id"] . "'> Solicitud</a></center>";
+                echo "<center><a class='edit-button' href='solicitud_audiencia.php?id=" . $row["id"] . "'><i class='fa fa-edit'></i></a></center>";
             }
     
             echo "</div>";
