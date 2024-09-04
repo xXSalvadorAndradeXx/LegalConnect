@@ -33,6 +33,7 @@ if (isset($_GET['logout'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles del Caso</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -477,18 +478,32 @@ button:hover {
                 // Consulta para obtener el documento asociado al caso
                 $sql_documento = "SELECT * FROM documentos WHERE caso_referencia = '$referencia'";
                 $result_documento = $conn->query($sql_documento);
+                
                 if ($result_documento->num_rows > 0) {
                     echo "<div class='documento'>";
                     echo "<h3>Documento</h3>";
-                    while($row_documento = $result_documento->fetch_assoc()) {
-                        // Mostrar el documento en un iframe
-                        echo "<iframe src='" . $row_documento["ubicacion_archivo"] . "'></iframe>";
-                        
+                    while ($row_documento = $result_documento->fetch_assoc()) {
+                        // Obtener la ubicación del archivo
+                        $ubicacionArchivo = $row_documento["ubicacion_archivo"];
+                        $extension = pathinfo($ubicacionArchivo, PATHINFO_EXTENSION);
+                
+                        // Codificar URL para asegurar compatibilidad
+                        $ubicacionArchivoCodificada = urlencode($ubicacionArchivo);
+                
+                        // Mostrar el documento en un iframe según su extensión
+                        if ($extension === 'pdf') {
+                            echo "<iframe src='$ubicacionArchivo' width='100%' height='600px'></iframe>";
+                        } elseif ($extension === 'doc' || $extension === 'docx') {
+                            echo "<iframe src='https://view.officeapps.live.com/op/embed.aspx?src=$ubicacionArchivo' width='100%' height='600px'></iframe>";
+                        } else {
+                            echo "<p>Formato de archivo no compatible: $ubicacionArchivo</p>";
+                        }
                     }
                     echo "</div>";
                 } else {
                     echo "<p>No hay documento asociado a este caso.</p>";
                 }
+                
                 echo "</>"; // Cierre de la tarjeta de detalles del caso
             } else {
                 echo "<p>No se encontraron detalles para la referencia de caso proporcionada.</p>";
