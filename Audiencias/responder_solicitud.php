@@ -419,15 +419,17 @@ nav {
 document.addEventListener("DOMContentLoaded", function() {
     const estadoSelect = document.getElementById("estado");
     const respuestaSection = document.getElementById("respuestaSection");
+    const respuestaTextarea = document.getElementById("respuesta");
 
     // Función para mostrar u ocultar la sección de respuesta
     function toggleRespuestaSection() {
-        if (estadoSelect.value === "Rechazada") {
+        if (estadoSelect.value === "Rechazada" || estadoSelect.value === "Aceptada") {
             respuestaSection.style.display = "block";
-            document.getElementById("respuesta").required = true;
+            respuestaTextarea.required = true;
         } else {
             respuestaSection.style.display = "none";
-            document.getElementById("respuesta").required = false;
+            respuestaTextarea.required = false;
+            respuestaTextarea.value = "Sin Respuesta";
         }
     }
 
