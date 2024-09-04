@@ -401,6 +401,10 @@ nav {
             <option value="Rechazada" <?php if ($row['estado'] === 'Rechazada') echo 'selected'; ?>>Rechazada</option>
         </select>
 
+        <div class="form-section" id="respuestaSection" style="display: none;">
+    <label for="respuesta"><strong>Respuesta:</strong></label>
+    <textarea id="respuesta" name="respuesta"></textarea>
+</div>
         
         
 
@@ -411,6 +415,37 @@ nav {
   </body>
 
 <script>
+
+document.addEventListener("DOMContentLoaded", function() {
+    const estadoSelect = document.getElementById("estado");
+    const respuestaSection = document.getElementById("respuestaSection");
+
+    // Función para mostrar u ocultar la sección de respuesta
+    function toggleRespuestaSection() {
+        if (estadoSelect.value === "Rechazada") {
+            respuestaSection.style.display = "block";
+            document.getElementById("respuesta").required = true;
+        } else {
+            respuestaSection.style.display = "none";
+            document.getElementById("respuesta").required = false;
+        }
+    }
+
+    // Verificar el valor inicial al cargar la página
+    toggleRespuestaSection();
+
+    // Añadir un evento listener al select para cuando el usuario cambie la opción
+    estadoSelect.addEventListener("change", toggleRespuestaSection);
+});
+
+
+
+
+
+
+
+
+
 
 document.querySelector('a[href="?logout"]').addEventListener('click', function(event) {
     if (!confirm('¿Estás seguro de que deseas cerrar sesión?')) {

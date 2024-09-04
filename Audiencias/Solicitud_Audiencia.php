@@ -362,6 +362,10 @@ label.strong {
         <label for="razon"><strong>Razón:</strong></label>
             <textarea id="razon" name="razon" required></textarea>
         </div>
+
+      
+
+
       
         
         <div class="form-section">
