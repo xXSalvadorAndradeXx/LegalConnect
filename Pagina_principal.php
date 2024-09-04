@@ -241,6 +241,7 @@ nav {
         <li><a href="#">Inicio</a></li>
         <li><a href="/Audiencias/Buscar_Audiencias.php">Audiencias</a></li>
         <li><a href="/Casos/Agregar_Casos.php">Casos</a></li>
+        <li><a href="chatbot.php">Chat de asistencia</a></li>
         <li><a href="?logout">Cerrar Sesion</a></li>
 
       
