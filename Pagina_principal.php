@@ -196,6 +196,43 @@ nav {
     transform: translate(50%, -50%);
 }
 
+
+.chat {
+  display: none;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  width: 350px;
+  height: 450px;
+  overflow: hidden;
+  position: fixed;
+  margin-top: 50px;
+  margin-right: 30px;
+  top: 30px; /* Ajusta este valor según la distancia desde la parte superior que desees */
+  right: 10px; /* Ajusta este valor según la distancia desde la derecha que desees */
+  cursor: move;
+}
+
+#mostrarChat {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+    }
+    #mostrarChat:hover {
+      background-color: #242975; /* Cambio de color al pasar el cursor */
+    }
     </style>
 </head>
 <body>
@@ -241,8 +278,7 @@ nav {
         <li><a href="#">Inicio</a></li>
         <li><a href="/Audiencias/Buscar_Audiencias.php">Audiencias</a></li>
         <li><a href="/Casos/Agregar_Casos.php">Casos</a></li>
-        <li><a href="chatbot.php">Chat de asistencia</a></li>
-        <li><a href="?logout">Cerrar Sesion</a></li>
+           <li><a href="?logout">Cerrar Sesion</a></li>
 
       
       </ul>
@@ -254,7 +290,32 @@ nav {
    
   </header>
 
+  <button id="mostrarChat"><i class="fas fa-robot"></i></button>
+
+  <div id="draggable" class="chat">
+    <iframe src="/chatbot.php" width="350" height="450" frameborder="10" scrolling="no" ></iframe>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Obtener referencia al elemento de chat y al botón
+  var chat = document.getElementById("draggable");
+  var botonMostrar = document.getElementById("mostrarChat");
+
+  // Agregar evento de clic al botón
+  botonMostrar.addEventListener("click", function() {
+    // Si el chat está oculto, mostrarlo; si no, ocultarlo
+    if (chat.style.display === "none") {
+      chat.style.display = "block";
+    } else {
+      chat.style.display = "none";
+    }
+  });
+});
 
 document.querySelector('a[href="?logout"]').addEventListener('click', function(event) {
     if (!confirm('¿Estás seguro de que deseas cerrar sesión?')) {
