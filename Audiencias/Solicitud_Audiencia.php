@@ -373,7 +373,7 @@ label.strong {
             <input type="date" id="fecha" name="fecha" required>
         </div>
         
-        <input type="submit" value="Guardar">
+        <input type="submit" value="Enviar Solicitud">
     </form>
 
 <script>

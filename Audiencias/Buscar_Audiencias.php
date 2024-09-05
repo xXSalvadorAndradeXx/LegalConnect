@@ -656,7 +656,8 @@ $sql = "SELECT * FROM audiencias ORDER BY fecha DESC";
             }
     
             if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado') {
-                echo "<center><a class='edit-button' href='solicitud_audiencia.php?id=" . $row["id"] . "'><i class='fa fa-edit'></i></a></center>";
+                echo "<center><a class='edit-button' href='solicitud_audiencia.php?id=" . $row["id"] . "' title='Enviar una solicitud'><i class='fa fa-paper-plane'></i></a></center>";
+
             }
     
             echo "</div>";

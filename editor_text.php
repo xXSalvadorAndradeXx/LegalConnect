@@ -34,29 +34,21 @@
             menubar: false
         });
 
-        // Cargar archivo DOCX
-        document.getElementById('').addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const arrayBuffer = e.target.result;
-                    const docx = new docx.Docx(arrayBuffer);
-                    const text = docx.getText();
-                    tinymce.get('editor').setContent(text);
-                };
-                reader.readAsArrayBuffer(file);
-            }
-        });
-
         // Guardar contenido como DOCX
         document.getElementById('save-docx').addEventListener('click', function () {
-            const content = tinymce.get('editor').getContent();
-            const doc = new docx.Document();
-            doc.addSection({
-                children: [
-                    new docx.Paragraph(content)
-                ]
+            const content = tinymce.get('editor').getContent({format: 'text'}); // Obtener el contenido como texto sin HTML
+
+            const doc = new docx.Document({
+                sections: [{
+                    properties: {},
+                    children: [
+                        new docx.Paragraph({
+                            children: [
+                                new docx.TextRun(content) // Agregar el contenido como texto simple
+                            ]
+                        })
+                    ]
+                }]
             });
 
             docx.Packer.toBlob(doc).then(blob => {
@@ -64,9 +56,12 @@
                 a.href = URL.createObjectURL(blob);
                 a.download = 'documento.docx';
                 a.click();
+                URL.revokeObjectURL(a.href); // Liberar el objeto URL después de la descarga
             });
         });
     </script>
 </body>
 </html>
+
+
 
