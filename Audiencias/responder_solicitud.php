@@ -408,7 +408,7 @@ nav {
         
         
 
-        <button type="submit" class="btn">Guardar Cambios</button>
+        <button type="submit" class="btn" title="Enviar Respuesta"><i class="fas fa-paper-plane"></i></button>
     </form>
 
     <button onclick="goBack()" class="btn-regresar" title="Regresar">

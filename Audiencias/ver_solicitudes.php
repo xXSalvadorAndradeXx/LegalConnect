@@ -383,8 +383,8 @@ tr:hover {
                     
                     if ($tipo_usuario === 'juez' ): ?>   
 <td>
-    <a class='edit-button' href='responder_solicitud.php?id=<?php echo $row["id"]; ?>' title="Editar solicitud">
-        <i class="fas fa-edit"></i>
+    <a class='edit-button' href='responder_solicitud.php?id=<?php echo $row["id"]; ?>' title="Responder solicitud">
+        <i class="fas fa-paper-plane"></i>
     </a>
 </td>
 

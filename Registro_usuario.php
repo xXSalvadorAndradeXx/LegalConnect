@@ -201,11 +201,14 @@ $error_message = isset($_GET['mensaje']) ? $_GET['mensaje'] : null;
 
         <div class="password-container">
             <div class="password-field">
-                <label for="contrasena">Contraseña:</label>
-                <input type="password" id="contrasena" name="contrasena" required>
-                <span class="toggle-password" onclick="togglePasswordVisibility('contrasena', 'togglePassword1')">
-                    <i class="fas fa-eye" id="togglePassword1"></i>
-                </span>
+            <label for="contrasena">Contraseña:</label>
+        <input type="password" id="contrasena" name="contrasena" required 
+               minlength="8" maxlength="20" 
+               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}" 
+               title="Debe contener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial (@, #, $, %, ^, &, +, =)">
+        <span class="toggle-password" onclick="togglePasswordVisibility('contrasena', 'togglePassword1')">
+            <i class="fas fa-eye" id="togglePassword1"></i>
+        </span>
             </div>
 
             <div class="password-field">
