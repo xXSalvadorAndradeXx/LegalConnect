@@ -606,6 +606,8 @@ if ($result_evidencia->num_rows > 0) {
                     </div>
                     <?php
 
+                    echo "<div class='card2'>";
+
 if (isset($referencia)) {
     $sql_documento = "SELECT * FROM documentos WHERE caso_referencia = '$referencia'";
     $result_documento = $conn->query($sql_documento);
@@ -615,7 +617,20 @@ if (isset($referencia)) {
       
         while ($row_documento = $result_documento->fetch_assoc()) {
             // Mostrar el documento en un iframe
-            echo "<iframe src='" . $row_documento["ubicacion_archivo"] . "'></iframe>";
+            $ubicacionArchivo = $row_documento["ubicacion_archivo"];
+            $extension = pathinfo($ubicacionArchivo, PATHINFO_EXTENSION);
+    
+            // Codificar URL para asegurar compatibilidad
+            $ubicacionArchivoCodificada = urlencode($ubicacionArchivo);
+    
+            // Mostrar el documento en un iframe según su extensión
+            if ($extension === 'pdf') {
+                echo "<iframe src='$ubicacionArchivo' width='100%' height='600px'></iframe>";
+            } elseif ($extension === 'doc' || $extension === 'docx') {
+                echo "<iframe src='https://view.officeapps.live.com/op/embed.aspx?src=$ubicacionArchivo' width='100%' height='600px'></iframe>";
+            } else {
+                echo "<p>Formato de archivo no compatible: $ubicacionArchivo</p>";
+            }
         }
         echo "</div>"; // Cierre del div
     } else {
