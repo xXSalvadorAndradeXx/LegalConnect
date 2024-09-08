@@ -59,6 +59,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['documento']['name']))
     } else {
         echo "Error al cargar el archivo de documento.";
     }
+    
+
+
 
     $conn->close();
 } else {
