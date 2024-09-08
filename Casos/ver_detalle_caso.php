@@ -422,53 +422,70 @@ button:hover {
                 // Consulta para obtener la evidencia asociada al caso
                 $sql_evidencia = "SELECT * FROM evidencias WHERE caso_referencia = '$referencia'";
                 $result_evidencia = $conn->query($sql_evidencia);
+                
                 if ($result_evidencia->num_rows > 0) {
-                  echo "<div class='card2'>";
-                    echo "<div class='evidencia'>";
-                    echo "<h3>Evidencia</h3>";
-                    
+                    // Inicializar contadores
+                    $imagenes = [];
+                    $videos = [];
+                    $audios = [];
+                
+                    // Agrupar evidencias por tipo
                     while($row_evidencia = $result_evidencia->fetch_assoc()) {
-                        // Obtener la extensión del archivo
                         $extension = pathinfo($row_evidencia["nombre_archivo"], PATHINFO_EXTENSION);
-                        // Mostrar cada archivo de evidencia según su tipo
-                        if ($extension == 'jpg' || $extension == 'jpeg' || $extension == 'png' || $extension == 'gif') {
-                            // Archivo de imagen
-                            echo "<div class='card2'>";
-                            echo "<h3>Imagenes</h3>";
-                            echo "<img src='" . $row_evidencia["ubicacion_archivo"] . "' alt='Evidencia' width='200' height='200'>";
-                            echo "</div class='card2'>";
-                        } elseif ($extension == 'mp4' || $extension == 'webm' || $extension == 'ogg') {
-                            // Archivo de video
-                            echo "<div class='card2'>";
-                            echo "<h3>Video</h3>";
-                            echo "<video controls>";
-                            echo "<source src='" . $row_evidencia["ubicacion_archivo"] . "' type='video/" . $extension . " '>";
-                            echo "Your browser does not support the video tag.";
-                            echo "</video>";
-                            echo '<button id="myBtn">Abrir en grande</button>';
-
-                            echo "</div class='card2'>";
-                           
-                        } elseif ($extension == 'mp3' || $extension == 'ogg' || $extension == 'wav') {
-                            // Archivo de audio
-                            echo "<div class='card2'>";
-                            echo "<h3>Audio</h3>";
-                            echo "<center>";
-                            echo "<audio controls>";
-                            echo "<source src='" . $row_evidencia["ubicacion_archivo"] . "' type='audio/" . $extension . "'>";
-
-                            echo "Your browser does not support the audio tag.";
-                            echo "</audio>";
-                            echo "</center>";
-                            echo "</div class='card2'>";
-                          
-                            
-                        } else {
-                            // Otros tipos de archivos
-                            echo "<p>No se puede mostrar la evidencia.</p>";
+                
+                        if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif'])) {
+                            $imagenes[] = $row_evidencia;
+                        } elseif (in_array($extension, ['mp4', 'webm', 'ogg'])) {
+                            $videos[] = $row_evidencia;
+                        } elseif (in_array($extension, ['mp3', 'ogg', 'wav'])) {
+                            $audios[] = $row_evidencia;
                         }
                     }
-                    echo "</>";
+                
+                    // Mostrar evidencias agrupadas
+                    echo "<div class='evidencia'>";
+                    echo "<h3>Evidencias Registradas</h3>";
+                
+                    // Mostrar imágenes
+                    if (count($imagenes) > 0) {
+                        echo "<div class='card2'>";
+                        echo "<h3> Imágenes (" . count($imagenes) . ")</h3>";
+                        foreach ($imagenes as $img) {
+                            echo "<img src='" . $img["ubicacion_archivo"] . "' alt='Evidencia' width='200' height='200'>";
+                            echo "<a href='' id='deleteRequestLink' >Solicitud de eliminación</a>";
+                        }
+                        echo "</div>";
+                    }
+                
+                    // Mostrar videos
+                    if (count($videos) > 0) {
+                        echo "<div class='card2'>";
+                        echo "<h3> Videos (" . count($videos) . ")</h3>";
+                        foreach ($videos as $video) {
+                            echo "<video controls width='200' height='200'>";
+                            echo "<source src='" . $video["ubicacion_archivo"] . "' type='video/" . pathinfo($video["nombre_archivo"], PATHINFO_EXTENSION) . "'>";
+                            echo "Tu navegador no soporta el video.";
+                            echo "</video>";
+                            echo "<a href='' id='deleteRequestLink' >Solicitud de eliminación</a>";
+                        }
+                        echo "</div>";
+                    }
+                
+                    // Mostrar audios
+                    if (count($audios) > 0) {
+                        echo "<div class='card2'>";
+                        echo "<h3> Audios (" . count($audios) . ")</h3>";
+                        foreach ($audios as $audio) {
+                            echo "<audio controls>";
+                            echo "<source src='" . $audio["ubicacion_archivo"] . "' type='audio/" . pathinfo($audio["nombre_archivo"], PATHINFO_EXTENSION) . "'>";
+                            echo "Tu navegador no soporta el audio.";
+                            echo "</audio>";
+                            echo "<a href='' id='deleteRequestLink' >Solicitud de eliminación</a>";
+                        }
+                        echo "</div>";
+                    }
+                
+                    echo "</div>";
                 } else {
                     echo "<p>No hay evidencia asociada a este caso.</p>";
                 }
