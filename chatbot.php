@@ -36,36 +36,29 @@
             height: 300px;
             overflow-y: scroll;
             border-bottom: 1px solid #ddd;
-            
         }
         .message {
             text-align: left;
-            background-color: #ddd; /* Mantiene el azul oscuro */
+            background-color: #ddd;
             color: black;
-            border-radius: 12px; /* Redondeo más suave */
-            padding: 10px 10px; /* Espacio interno para mejorar la legibilidad */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Añade una sombra sutil para darle profundidad */
-            font-size: 16px; /* Tamaño de fuente más grande para mayor legibilidad */
-            /* Limita el ancho del mensaje para evitar que sea muy largo */
-            margin: 8px 0; /* Espaciado entre los mensajes */
-            word-wrap: break-word; /* Para que las palabras largas no se desborden */
-
-            
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            margin: 8px 0;
+            word-wrap: break-word;
         }
         .message.user {
-    text-align: right;
-    background-color: #0056b3; /* Mantiene el azul oscuro */
-    color: #fff;
-    border-radius: 12px; /* Redondeo más suave */
-    padding: 10px 10px; /* Espacio interno para mejorar la legibilidad */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Añade una sombra sutil para darle profundidad */
-    font-size: 16px; /* Tamaño de fuente más grande para mayor legibilidad */
-    /* Limita el ancho del mensaje para evitar que sea muy largo */
-    margin: 8px 0; /* Espaciado entre los mensajes */
-    word-wrap: break-word; /* Para que las palabras largas no se desborden */
-}
-
-
+            text-align: right;
+            background-color: #0056b3;
+            color: #fff;
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            margin: 8px 0;
+            word-wrap: break-word;
+        }
         .chat-input {
             display: flex;
             padding: 10px;
@@ -87,9 +80,7 @@
             cursor: pointer;
         }
         .chat-input button:hover {
-            padding: 10px 20px;
             background: #0056b3;
-           
         }
     </style>
 </head>
@@ -107,16 +98,21 @@
         const messages = document.getElementById('chat-messages');
         const userInput = document.getElementById('user-input');
 
+        // Cargar mensajes al cargar la página
+        window.onload = loadMessages;
+
         function sendMessage() {
             const userText = userInput.value;
             if (userText.trim() !== "") {
-                addMessage("user", userText);
-                respondToUser(userText);
+                const timestamp = new Date().getTime();
+                addMessage("user", userText, timestamp);
+                saveMessage("user", userText, timestamp);
+                respondToUser(userText, timestamp);
                 userInput.value = "";
             }
         }
 
-        function addMessage(sender, text) {
+        function addMessage(sender, text, timestamp) {
             const message = document.createElement('div');
             message.classList.add('message', sender);
             message.textContent = text;
@@ -124,21 +120,39 @@
             messages.scrollTop = messages.scrollHeight;
         }
 
-        function respondToUser(input) {
+        function saveMessage(sender, text, timestamp) {
+            const savedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+            savedMessages.push({ sender, text, timestamp });
+            localStorage.setItem('chatMessages', JSON.stringify(savedMessages));
+        }
+
+        function loadMessages() {
+            const savedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+            const currentTime = new Date().getTime();
+
+            const validMessages = savedMessages.filter(message => {
+                return currentTime - message.timestamp <= 24 * 60 * 60 * 1000; // 24 horas en milisegundos
+            });
+
+            // Eliminar mensajes viejos
+            localStorage.setItem('chatMessages', JSON.stringify(validMessages));
+
+            validMessages.forEach(message => {
+                addMessage(message.sender, message.text, message.timestamp);
+            });
+        }
+
+        function respondToUser(input, timestamp) {
             let response = "No entiendo lo que dices.";
 
             const keywordResponses = [
                 { keywords: ["hola", "buenas"], response: "¡Hola! ¿Cómo puedo ayudarte?" },
                 { keywords: ["cómo", "estás"], response: "Estoy bien, gracias por preguntar. ¿Y tú?" },
                 { keywords: ["adiós", "chao"], response: "¡Adiós! Que tengas un buen día." },
-                { keywords: ["nombre", "quien"], response: "Soy Legal IA, tu asistente legal. ¿En que te puedo ayudar?" },
-                { keywords: ["ayuda", "como hago"], response: "claro, que puedo ayudarte" },
+                { keywords: ["nombre", "quien"], response: "Soy Legal IA, tu asistente legal. ¿En qué te puedo ayudar?" },
+                { keywords: ["ayuda", "como hago"], response: "Claro, ¿en qué puedo ayudarte?" },
                 { keywords: ["puedes", "hacer"], response: "Puedo responder algunas preguntas básicas. ¡Inténtalo!" },
-                { keywords: ["ayuda", "caso" ], response: "Claro, dirigete al menu principal, Opcion caso y agregar caso." }
-
-
-
-                
+                { keywords: ["ayuda", "caso"], response: "Claro, dirígete al menú principal, opción caso y agrega un caso." }
             ];
 
             const normalizedInput = input.toLowerCase();
@@ -154,7 +168,10 @@
                 if (response !== "No entiendo lo que dices.") break;
             }
 
-            setTimeout(() => addMessage("bot", response), 500);
+            setTimeout(() => {
+                addMessage("bot", response, timestamp);
+                saveMessage("bot", response, timestamp);
+            }, 500);
         }
     </script>
 </body>
