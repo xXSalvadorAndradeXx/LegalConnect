@@ -59,6 +59,7 @@
                 URL.revokeObjectURL(a.href); // Liberar el objeto URL después de la descarga
             });
         });
+    
     </script>
 </body>
 </html>
