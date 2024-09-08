@@ -449,16 +449,18 @@ button:hover {
                     // Mostrar imágenes
                     if (count($imagenes) > 0) {
                         echo "<div class='card2'>";
+                       
                         echo "<h3> Imágenes (" . count($imagenes) . ")</h3>";
                         foreach ($imagenes as $img) {
                             echo "<img src='" . $img["ubicacion_archivo"] . "' alt='Evidencia' width='200' height='200'>";
-                            echo "<a href='' id='deleteRequestLink' >Solicitud de eliminación</a>";
+                          
                         }
                         echo "</div>";
                     }
                 
                     // Mostrar videos
                     if (count($videos) > 0) {
+                        
                         echo "<div class='card2'>";
                         echo "<h3> Videos (" . count($videos) . ")</h3>";
                         foreach ($videos as $video) {
@@ -466,7 +468,7 @@ button:hover {
                             echo "<source src='" . $video["ubicacion_archivo"] . "' type='video/" . pathinfo($video["nombre_archivo"], PATHINFO_EXTENSION) . "'>";
                             echo "Tu navegador no soporta el video.";
                             echo "</video>";
-                            echo "<a href='' id='deleteRequestLink' >Solicitud de eliminación</a>";
+                           
                         }
                         echo "</div>";
                     }
@@ -474,13 +476,14 @@ button:hover {
                     // Mostrar audios
                     if (count($audios) > 0) {
                         echo "<div class='card2'>";
+                        echo "<center>";
                         echo "<h3> Audios (" . count($audios) . ")</h3>";
                         foreach ($audios as $audio) {
                             echo "<audio controls>";
                             echo "<source src='" . $audio["ubicacion_archivo"] . "' type='audio/" . pathinfo($audio["nombre_archivo"], PATHINFO_EXTENSION) . "'>";
                             echo "Tu navegador no soporta el audio.";
                             echo "</audio>";
-                            echo "<a href='' id='deleteRequestLink' >Solicitud de eliminación</a>";
+                           
                         }
                         echo "</div>";
                     }

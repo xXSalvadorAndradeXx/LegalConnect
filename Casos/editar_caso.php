@@ -598,12 +598,14 @@ if ($result_evidencia->num_rows > 0) {
 
                 </div>
                 <div class="card2">
-                    <h3>Documento</h3>
-                <form action="actualizar_documento.php" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="referencia" value="<?php echo $row['referencia']; ?>">
-                    <input type="file" name="documento">
-                    <button type="submit" class="btn btn-primary">Agregar Documento</button>
-                    </div>
+    <h3>Documento</h3>
+    <form action="actualizar_documento.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="referencia" value="<?php echo $row['referencia']; ?>">
+        <input type="file" name="documento" accept=".pdf, .docx">
+        <button type="submit" class="btn btn-primary">Agregar Documento</button>
+    </form>
+</div>
+
                     <?php
 
                     echo "<div class='card2'>";
