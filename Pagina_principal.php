@@ -221,7 +221,7 @@ if (isset($_GET['logout'])) {
 
             <?php if ($tipo_usuario === 'juez'): ?>  
 
-            <li><a href="/Audiencias/mis_solicitudes.php">Solicitudes</a></li>
+            <li><a href="/Audiencias/ver_solicitudes.php">Solicitudes</a></li>
 
             <?php endif; ?>
             
