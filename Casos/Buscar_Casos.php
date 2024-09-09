@@ -557,11 +557,13 @@ body {
 <body>
 
 
+
 <nav>
         <ul>
             <li><a href="/Pagina_principal.php">Inicio</a></li>
             <li><a href="/Casos/Buscar_Casos.php">Casos</a></li>
             <li><a href="/Audiencias/Buscar_Audiencias.php">Audiencias</a></li>
+            <li><a href="/apps.php">Aplicaciones</a></li>
             <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>  
 
             <li><a href="/Audiencias/ver_solicitudes.php">Mis Solicitudes</a></li>

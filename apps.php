@@ -201,6 +201,29 @@ if (isset($_GET['logout'])) {
     #mostrarChat:hover {
       background-color: #242975; /* Cambio de color al pasar el cursor */
     }
+
+
+
+    .btn-word {
+            background-color: #2b579a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-word i {
+            font-size: 24px;
+        }
+
+        .btn-word:hover {
+            background-color: #1d3f73;
+        }
     </style>
 </head>
 <body>
@@ -242,6 +265,10 @@ if (isset($_GET['logout'])) {
     <div class="content">
         <h1>Bienvenido a la Página Principal</h1>
         <p>Explora las opciones en el menú para gestionar tus casos, audiencias y notificaciones de forma eficiente. Elige una opción para comenzar.</p>
+    
+        <button class="btn-word" onclick="window.location.href='/editor_text.php'">
+            <i class="fas fa-file-word"></i> Abrir Editor de Documentos
+        </button>
     </div>
 
 
