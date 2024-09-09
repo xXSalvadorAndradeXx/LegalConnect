@@ -263,11 +263,11 @@ if (isset($_GET['logout'])) {
 
 
     <div class="content">
-        <h1>Bienvenido a la Página Principal</h1>
-        <p>Explora las opciones en el menú para gestionar tus casos, audiencias y notificaciones de forma eficiente. Elige una opción para comenzar.</p>
+        <h1>Legal Documents</h1>
+        <p>Explora Legal Documents para editar tus documentos de manera facil y rapida</p>
     
         <button class="btn-word" onclick="window.location.href='/editor_text.php'">
-            <i class="fas fa-file-word"></i> Abrir Editor de Documentos
+            <i class="fas fa-file"></i> Abrir Legal Documents App
         </button>
     </div>
 
