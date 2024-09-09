@@ -7,7 +7,7 @@
     <!-- Incluir TinyMCE con tu API -->
     <script src="https://cdn.tiny.cloud/1/3foww2ks0exfu5njoq1sre6v2mxs80meoygho4mfhsijta6k/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <!-- Incluir docx.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@dolanmiu/docx@6.1.1/build/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docx@8.0.0/build/index.js"></script>
     <!-- Incluir Mammoth.js para la conversión de DOCX a HTML -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
     <style>
@@ -69,7 +69,7 @@
 
         // Guardar el contenido como DOCX
         document.getElementById('save-docx').addEventListener('click', function () {
-            const content = tinymce.get('editor').getContent({ format: 'html' }); // Obtener el contenido como HTML
+            const htmlContent = tinymce.get('editor').getContent({ format: 'html' }); // Obtener el contenido como HTML
             
             // Crear el documento DOCX basado en el contenido
             const doc = new docx.Document({
@@ -79,7 +79,7 @@
                         new docx.Paragraph({
                             children: [
                                 new docx.TextRun({
-                                    text: content.replace(/<\/?[^>]+(>|$)/g, ""), // Remover etiquetas HTML
+                                    text: htmlContent.replace(/<\/?[^>]+(>|$)/g, ""), // Remover etiquetas HTML
                                     break: 1 // Agregar un salto de línea
                                 })
                             ]
@@ -106,4 +106,6 @@
     </script>
 </body>
 </html>
+
+
 
