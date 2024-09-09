@@ -556,6 +556,7 @@ body {
 </head>
 <body>
 
+
 <nav>
         <ul>
             <li><a href="/Pagina_principal.php">Inicio</a></li>
@@ -569,7 +570,7 @@ body {
 
             <?php if ($tipo_usuario === 'juez'): ?>  
 
-            <li><a href="/Audiencias/mis_solicitudes.php">Solicitudes</a></li>
+            <li><a href="/Audiencias/ver_solicitudes.php">Solicitudes</a></li>
 
             <?php endif; ?>
             
