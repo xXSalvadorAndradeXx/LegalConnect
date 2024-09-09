@@ -470,7 +470,7 @@ body {
     margin-top: 60px;
     font-family: Arial, sans-serif;
     font-size: 16px;
-    margin-left: 1200px;
+    margin-left: 1000px;
     transition: background-color 0.3s, color 0.3s;
     display: inline-block; /* Asegura que el tooltip se posicione correctamente */
 }
@@ -518,7 +518,7 @@ body {
     margin-top: 60px;
     font-family: Arial, sans-serif;
     font-size: 16px;
-    margin-left: 1270px;
+    margin-left: 1070px;
     transition: background-color 0.3s, color 0.3s;
     display: inline-block; /* Asegura que el tooltip se posicione correctamente */
 }

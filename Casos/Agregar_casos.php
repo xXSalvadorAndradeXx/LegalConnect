@@ -377,7 +377,7 @@ nav {
             font-family: Bahnschrift;
             font-size: 16px;
             transition: background-color 0.3s, color 0.3s;
-            margin-left: 1280px;
+            margin-left: 1080px;
             margin-top: 80px;
         }
 
@@ -526,30 +526,7 @@ nav {
 </head>
 <body>
 
-<header class="main-header">
 
-    <label for="btn-nav" class="btn-nav">&#9776;</label>
-    <input type="checkbox" id="btn-nav">
-    <a href="/Formularios/Perfil.php">
-<div class="circle-container">
-
-    <img class="circle-image" src="/recursos/profile.png" alt="Tu imagen">
-
-   </div>
-  </a>
-    <nav>
-      <ul class="navigation">
-<center>
-
-        <li><a href="/Pagina_principal.php">Inicio</a></li>
-        <li><a href="/Audiencias/Buscar_Audiencias.php">Audiencias</a></li>
-        <li><a href="/Casos/Agregar_Casos.php">Casos</a></li>
-        <li><a href="?logout">Cerrar Sesion</a></li>
-        <h1>LegalConnect v.1</h1>
-      </ul>
-    </nav>
-    </center>
-  </header>
 
 
 
