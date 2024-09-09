@@ -330,10 +330,7 @@ tr:hover {
 
 
 
-<center>
-    <h1>Tabla de Solicitudes</h1>
-    
-</center>
+
     <table>
         <thead>
             <tr>
