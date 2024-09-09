@@ -294,37 +294,31 @@ label.strong {
 </head>
 <body>
 
-<header class="main-header">
+<nav>
+        <ul>
+            <li><a href="/Pagina_principal.php">Inicio</a></li>
+            <li><a href="/Casos/Buscar_Casos.php">Casos</a></li>
+            <li><a href="/Audiencias/Buscar_Audiencias.php">Audiencias</a></li>
+            <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>  
 
-    <label for="btn-nav" class="btn-nav">&#9776;</label>
-    <input type="checkbox" id="btn-nav">
-    <a href="/Formularios/Perfil.php">
-<div class="circle-container">
+            <li><a href="/Audiencias/ver_solicitudes.php">Mis Solicitudes</a></li>
 
-    <img class="circle-image" src="recursos/profile.png" alt="Tu imagen">
+            <?php endif; ?>
 
-   </div>
-  </a>
- 
-    <nav>
-      <ul class="navigation">
-<center>
+            <?php if ($tipo_usuario === 'juez'): ?>  
 
-        <li><a href="#">Inicio</a></li>
-        <li><a href="/Audiencias/Buscar_Audiencias.php">Audiencias</a></li>
-        <li><a href="/Casos/Agregar_Casos.php">Casos</a></li>
-        <li><a href="?logout">Cerrar Sesion</a></li>
+            <li><a href="/Audiencias/ver_solicitudes.php">Solicitudes</a></li>
 
-       
-   
-      </ul>
+            <?php endif; ?>
+            
+            <li>
+                <a href="/formularios/Perfil.php">Perfil</a>
+                <ul>
+                    <li><a href="?logout">Cerrar sesión</a></li>
+                </ul>
+            </li>
+        </ul>
     </nav>
-    </center>
-
-
-
-   
-  </header>
 
 
 
