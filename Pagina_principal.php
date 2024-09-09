@@ -1,9 +1,69 @@
+<?php
+session_start(); // Iniciar sesión
+
+// Verificar si el usuario está autenticado
+if (!isset($_SESSION['user_id'])) {
+    // Redirigir al usuario a la página de inicio de sesión si no ha iniciado sesión
+    header("Location: Iniciar_Sesion.php");
+    exit();
+}
+
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "legalcc";
+
+// Crear la conexión
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verificar la conexión
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+// Obtener la información del usuario desde la base de datos
+$user_id = $_SESSION['user_id'];
+$sql = "SELECT tipo FROM usuarios WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$stmt->bind_result($tipo_usuario);
+$stmt->fetch();
+$stmt->close();
+$conn->close();
+
+
+
+
+
+
+
+
+if (isset($_GET['logout'])) {
+  // Verificar si se ha confirmado la salida
+  if ($_GET['logout'] == 'confirm') {
+      session_destroy(); // Destruir todas las variables de sesión
+      header("Location: Iniciar_Sesion.php"); // Redirigir al usuario a la página de inicio de sesión
+      exit();
+  } else {
+      // Si no se ha confirmado, redirigir al usuario a esta misma página con un parámetro 'confirm'
+      header("Location: {$_SERVER['PHP_SELF']}?logout=confirm");
+      exit();
+  }
+}
+
+// Resto del código aquí (contenido de la página principal)
+//___________________________________________HTML Normal_____________________________________________________________________________________
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: 'Bahnschrift', sans-serif;
@@ -101,29 +161,146 @@
                 font-size: 16px;
             }
         }
+
+
+        /* Estilo del chat */
+
+        .chat {
+  display: none;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  width: 350px;
+  height: 450px;
+  overflow: hidden;
+  position: fixed;
+  margin-top: 50px;
+  margin-right: 30px;
+  top: 30px; /* Ajusta este valor según la distancia desde la parte superior que desees */
+  right: 10px; /* Ajusta este valor según la distancia desde la derecha que desees */
+  cursor: move;
+}
+
+#mostrarChat {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+    }
+    #mostrarChat:hover {
+      background-color: #242975; /* Cambio de color al pasar el cursor */
+    }
     </style>
 </head>
 <body>
 
+
+
+
     <nav>
         <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Casos</a></li>
-            <li><a href="#">Audiencias</a></li>
-            <li><a href="#">Notificaciones</a></li>
+            <li><a href="/Pagina_principal.php">Inicio</a></li>
+            <li><a href="/Casos/Buscar_Casos.php">Casos</a></li>
+            <li><a href="/Audiencias/Buscar_Audiencias.php">Audiencias</a></li>
+            <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>  
+
+            <li><a href="/Audiencias/ver_solicitudes.php">Mis Solicitudes</a></li>
+
+            <?php endif; ?>
+
+            <?php if ($tipo_usuario === 'juez'): ?>  
+
+            <li><a href="/Audiencias/mis_solicitudes.php">Solicitudes</a></li>
+
+            <?php endif; ?>
+            
             <li>
-                <a href="#">Perfil</a>
+                <a href="/formularios/Perfil.php">Perfil</a>
                 <ul>
-                    <li><a href="#">Cerrar sesión</a></li>
+                    <li><a href="?logout">Cerrar sesión</a></li>
                 </ul>
             </li>
         </ul>
     </nav>
+
+
+
+
 
     <div class="content">
         <h1>Bienvenido a la Página Principal</h1>
         <p>Explora las opciones en el menú para gestionar tus casos, audiencias y notificaciones de forma eficiente. Elige una opción para comenzar.</p>
     </div>
 
+
+
+    <button id="mostrarChat"><i class="fas fa-robot"></i></button>
+
+  <div id="draggable" class="chat">
+    <iframe src="/chatbot.php" width="350" height="450" frameborder="10" scrolling="no" ></iframe>
+</div>
+
+
+<script>
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Obtener referencia al elemento de chat y al botón
+  var chat = document.getElementById("draggable");
+  var botonMostrar = document.getElementById("mostrarChat");
+
+  // Agregar evento de clic al botón
+  botonMostrar.addEventListener("click", function() {
+    // Si el chat está oculto, mostrarlo; si no, ocultarlo
+    if (chat.style.display === "none") {
+      chat.style.display = "block";
+    } else {
+      chat.style.display = "none";
+    }
+  });
+});
+
+document.querySelector('a[href="?logout"]').addEventListener('click', function(event) {
+    if (!confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+        event.preventDefault(); // Cancelar el evento de clic si el usuario no confirma
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  const btnNav = document.getElementById("btn-nav");
+  const nav = document.querySelector("nav");
+
+  // Función para abrir/cerrar el menú de navegación
+  function toggleNav() {
+    nav.classList.toggle("open");
+  }
+
+  // Evento click en el botón de navegación
+  btnNav.addEventListener("click", function() {
+    toggleNav();
+  });
+
+  // Evento click fuera del menú para cerrarlo
+  document.addEventListener("click", function(event) {
+    if (!nav.contains(event.target) && !btnNav.contains(event.target)) {
+      nav.classList.remove("open");
+    }
+  });
+});
+
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>
