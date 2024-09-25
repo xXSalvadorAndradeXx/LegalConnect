@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            background-color: #242975;
+            background-color: #2c3e50;
             font-family: Arial, sans-serif;
             color: #fff;
             margin: 0;
@@ -21,7 +21,7 @@
         .container {
             font-family: Bahnschrift;
             border-radius: 10px;
-            background-color: #E6F0FF;
+            background-color: #ecf0f1;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 80px;
             max-width: 400px;
@@ -89,13 +89,13 @@
             border: none;
             border-radius: 5px;
             font-size: 16px;
-            background-color: #42a5f5;
+            background-color: #2c3e50;
             color: #fff;
             cursor: pointer;
         }
 
         button:hover {
-            background-color: #2196f3;
+            background-color: #374D63;
         }
 
         .error {
@@ -112,20 +112,48 @@
         }
 
         a {
-            color: #007bff;
+            color: #1B6DC1;
             text-decoration: none;
+            font-family: Bahnschrift;
+            transition: color 0.3s ease;
+
         }
 
         a:hover {
+            color: #374D63;
+            font-family: Bahnschrift;
+            transform: scale(1.1);
             text-decoration: underline;
+
+           
         }
+      
+
+        img {
+          
+            transition: transform 0.3s;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+        }
+
+        .toggle-password {
+            color: #000;
+        }
+
+        .toggle-password:hover {
+            color: #007bff;
+        }
+       
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Iniciar Sesión</h2>
-    
+    <center>
+    <img src="recursos/inicio.png" alt="Descripción de la imagen" width="190" height="150">
+    </center>
     <form action="Proceso_Sesion.php" method="POST">
         <label for="correo">Correo Electrónico:</label>
         <input type="email" id="correo" name="correo" required>
@@ -134,6 +162,7 @@
         <div class="password-container">
             <input type="password" id="contrasena" name="contrasena" required>
             <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+
         </div>
         
         <p id="error-msg" class="error"></p>

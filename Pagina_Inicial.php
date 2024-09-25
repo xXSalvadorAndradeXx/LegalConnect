@@ -68,14 +68,14 @@
         }
 
         #boton-arriba:hover {
-            background-color: #2980b9;
+            background-color: #2C3E50;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         #boton-abajo:hover {
-            background-color: #3498db;
+            background-color: #2C3E50;
             color: white;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+       
         }
 
         .barra-negra {
@@ -94,7 +94,7 @@
 <body>
     <div class="container">
         <div class="box">
-            <img src="recursos/inicio.png" alt="Descripción de la imagen" width="155" height="150">
+            <img src="recursos/inicio.png" alt="Descripción de la imagen" width="190" height="150">
             <button id="boton-arriba" onclick="window.location.href = '/Registro_usuario.php';">Registrarse</button>
             <div class="barra-negra"></div>
             <button id="boton-abajo" onclick="window.location.href = '/Iniciar_Sesion.php';">Iniciar Sesión</button>
