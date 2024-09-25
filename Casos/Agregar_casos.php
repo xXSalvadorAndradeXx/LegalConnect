@@ -4,15 +4,47 @@ session_start(); // Iniciar sesión
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['user_id'])) {
     // Redirigir al usuario a la página de inicio de sesión si no ha iniciado sesión
-    header("Location: Upss.php");
+    header("Location: Iniciar_Sesion.php");
     exit();
 }
+
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "legalcc";
+
+// Crear la conexión
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verificar la conexión
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+// Obtener la información del usuario desde la base de datos
+$user_id = $_SESSION['user_id'];
+$sql = "SELECT tipo FROM usuarios WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$stmt->bind_result($tipo_usuario);
+$stmt->fetch();
+$stmt->close();
+$conn->close();
+
+
+
+
+
+
+
 
 if (isset($_GET['logout'])) {
   // Verificar si se ha confirmado la salida
   if ($_GET['logout'] == 'confirm') {
       session_destroy(); // Destruir todas las variables de sesión
-      header("Location: Cerrardo.php"); // Redirigir al usuario a la página de inicio de sesión
+      header("Location: Iniciar_Sesion.php"); // Redirigir al usuario a la página de inicio de sesión
       exit();
   } else {
       // Si no se ha confirmado, redirigir al usuario a esta misma página con un parámetro 'confirm'
@@ -141,127 +173,101 @@ $conn->close();
   
     <style>
 
-:root {
-  --main-color: #242975; /* Cambio de color principal */
-  --accent-color: #2D6653; /* Nuevo color de acento */
-}
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
 body {
-  font-family: 'Roboto', sans-serif;
-  overflow: hidden;
-}
-
-.main-header {
-  background: var(--main-color); /* Usar el color principal */
-  width: 100%;
-  height: 50px;
-  display: flex; /* Alinear el contenido del encabezado */
-  align-items: center; /* Alinear verticalmente */
-  justify-content: space-between; /* Espacio entre los elementos */
-  padding: 0 20px; /* Agregar un poco de espacio alrededor del contenido */
-}
-
-
-
-
-
-nav {
-  position: absolute;
-  left: 0;
-  top: 50px;
-  width: 200px;
-  height: calc(100vh - 50px);
-  background: var(--accent-color); /* Usar el nuevo color de acento */
-  transform: translateX(-100%);
-  transition: .4s ease;
-  background-color: #E6F0FF;
-}
-
-.navigation li {
-  list-style: none;
-  width: 100%;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-
-  
-}
-
-.navigation a {
-  color: #242975; /* Cambiar el color del texto a blanco */
-  background-color: #E6F0FF;
-  display: block;
-  line-height: 3.5;
-  padding: 15px 20px; /* Aumentar el espacio alrededor del texto */
-  text-decoration: none;
-  transition: .4s ease;
-  font-family: Bahnschrift;
-}
-
-.navigation a:hover {
-  background-color: #242975; /* Agregar un color de fondo al pasar el cursor */
-  color: #E6F0FF;
-  font-family: Bahnschrift;
-}
-
-#btn-nav {
-  display: none;
-}
-
-#btn-nav:checked ~ nav {
-  transform: translateX(0);
-}
-
-.btn-nav {
-  color: #fff; /* Cambiar el color del botón a blanco */
-  font-size: 20px; /* Reducir un poco el tamaño del botón */
-  cursor: pointer;
-  padding: 10px 15px; /* Ajustar el espacio alrededor del botón */
-  transition: .2s ease;
-  background: transparent; /* Hacer el botón transparente */
-  border: none; /* Eliminar el borde del botón */
-  outline: none; /* Eliminar el contorno del botón al hacer clic */
-}
-
-.btn-nav:hover {
-  background: rgba(255, 255, 255, 0.1); /* Cambiar el color de fondo al pasar el cursor */
-}
-
-.circle-container {
-        width: 25px;
-        height: 25px;
-        border-radius: 50%; /* Esto hace que el borde sea redondeado, creando un círculo */
-        overflow: hidden; /* Oculta cualquier contenido fuera del círculo */
-        margin: 20px; /* Añade un margen de 10px alrededor del círculo */
-        border: 2px solid #ccc; /* Agrega un borde para mayor claridad */
-    }
-    
-    /* Estilo para la imagen */
-    .circle-image {
-        width: 100%; /* Ajusta el ancho de la imagen al 100% del contenedor */
-        height: auto; /* Mantiene la proporción de la imagen */
-    }
-    h1{
-      color: W;
-      font-size: 10px;
-      font-family: Bahnschrift;
-    }
-    h2{
-      color: white;
-      font-size: 20px;
-      font-family: Bahnschrift;
-    }
-
-
-    body {
-            font-family: Bahnschrift;
-            background-color: #f4f4f4;
+            font-family: 'Bahnschrift', sans-serif;
+            background-color: #e8f0fa;
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        nav {
+            background-color: #2c3e50;
+            padding: 15px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+        ul li {
+            position: relative;
+        }
+        ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 30px;
+            display: block;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border-radius: 8px;
+        }
+        ul li a:hover {
+            background-color:#374D63;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        /* Estilo del submenú "Cerrar sesión" */
+        ul li ul {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2c3e50;
+            border-radius: 8px;
+            display: none;
+            min-width: 180px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        ul li ul li a {
+            padding: 10px 15px;
+            font-size: 16px;
+            color: white;
+        }
+        ul li:hover ul {
+            display: block;
+        }
+        ul li ul li a:hover {
+            background-color:#374D63;
+        }
+        /* Contenido */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 48px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+        p {
+            color: #555;
+            font-size: 20px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            ul li a {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
         }
 
     .container {
@@ -525,7 +531,41 @@ nav {
 
 </head>
 <body>
+<nav>
+        <ul>
+            <li><a href="/Pagina_principal.php">Inicio</a></li>
+            <li>
+                <a href="/Casos/Buscar_Casos.php">Casos</a>
+                <ul>
+                    <li><a href="">Victimas</a></li>
+                    <li><a href="">Imputados</a></li>
+                    
+                </ul>
+            
+            
+            </li>
+            <li><a href="/Audiencias/Buscar_Audiencias.php">Audiencias</a></li>
+            <li><a href="apps.php">Aplicaciones</a></li>
+            <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>  
 
+            <li><a href="/Audiencias/ver_solicitudes.php">Mis Solicitudes</a></li>
+
+            <?php endif; ?>
+
+            <?php if ($tipo_usuario === 'juez'): ?>  
+
+            <li><a href="/Audiencias/ver_solicitudes.php">Solicitudes</a></li>
+
+            <?php endif; ?>
+            
+            <li>
+                <a href="/formularios/Perfil.php">Perfil</a>
+                <ul>
+                    <li><a href="?logout">Cerrar sesión</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
 
 
 
