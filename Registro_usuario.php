@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            background-color: #242975;
+            background-color: #2c3e50;
             font-family: Bahnschrift;
             display: flex;
             justify-content: center;
@@ -17,8 +17,8 @@
         }
 
         .box {
-            background-color: #E6F0FF;
-            border: 2px solid #1E90FF; 
+            background-color: #ecf0f1;
+          
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 50px;
@@ -58,8 +58,8 @@
         .box button {
             padding: 10px 0;
             font-size: 16px;
-            border: 2px solid #1E90FF; 
-            background-color: #1E90FF; 
+            
+            background-color: #2c3e50; 
             border-radius: 10px;
             color: white;
             cursor: pointer;
@@ -69,11 +69,11 @@
         }
 
         .box button:hover {
-            background-color: #0056b3;
+            background-color: #374D63;
         }
 
         .boton-registro {
-            background-color: #007bff;
+            background-color: #2c3e50;
             color: white;
             padding: 10px 0;
             font-size: 16px;
@@ -85,7 +85,7 @@
         }
 
         .boton-registro:hover {
-            background-color: #0056b3;
+            background-color: #374D63;
         }
 
         .barra-negra {
@@ -107,12 +107,14 @@
         }
 
         a {
-            color: #007bff;
+            color: blue;
+            
             text-decoration: none;
         }
 
         a:hover {
             text-decoration: underline;
+            color: #2c3e50;
         }
 
         .popup {
@@ -140,7 +142,7 @@
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
-            color: #007bff;
+            color: black;
             font-size: 18px;
         }
         .password-container {
