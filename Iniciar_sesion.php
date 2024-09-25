@@ -164,7 +164,7 @@
 </div>
 
 <footer> 
-    <p>Legal Conect © 2023. Todos los Derechos Reservados.</p>
+    <p>Legal Conect © 2024. Todos los Derechos Reservados.</p>
 </footer>
 
 <script>
