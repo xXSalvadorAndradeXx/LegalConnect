@@ -15,6 +15,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column; /* Cambiado para apilar el contenido verticalmente */
             height: 100vh;
         }
 
@@ -25,19 +26,16 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 80px;
             max-width: 400px;
-            max-height: 500px;
             width: 100%;
         }
 
         h2 {
-            font-family: Bahnschrift;
             text-align: center;
             margin-bottom: 20px;
             color: #000;
         }
 
         label {
-            font-family: Bahnschrift;
             display: block;
             margin-bottom: 5px;
             color: #000;
@@ -50,18 +48,8 @@
         }
 
         input[type="email"],
-        input[type="password"] {
-            font-family: Bahnschrift;
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            color: #000;
-            box-sizing: border-box;
-        }
+        input[type="password"],
         input[type="text"] {
-            font-family: Bahnschrift;
             width: 100%;
             padding: 10px;
             border: none;
@@ -69,6 +57,7 @@
             font-size: 16px;
             color: #000;
             box-sizing: border-box;
+            font-family: Bahnschrift;
         }
 
         .toggle-password {
@@ -82,7 +71,6 @@
         }
 
         button {
-            font-family: Bahnschrift;
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
@@ -92,6 +80,7 @@
             background-color: #2c3e50;
             color: #fff;
             cursor: pointer;
+            font-family: Bahnschrift;
         }
 
         button:hover {
@@ -99,10 +88,10 @@
         }
 
         .error {
-            font-family: Bahnschrift;
             color: red;
             text-align: center;
             margin-top: 10px;
+            font-family: Bahnschrift;
         }
 
         p {
@@ -116,21 +105,15 @@
             text-decoration: none;
             font-family: Bahnschrift;
             transition: color 0.3s ease;
-
         }
 
         a:hover {
             color: #374D63;
-            font-family: Bahnschrift;
             transform: scale(1.1);
             text-decoration: underline;
-
-           
         }
-      
 
         img {
-          
             transition: transform 0.3s;
         }
 
@@ -138,21 +121,29 @@
             transform: scale(1.05);
         }
 
-        .toggle-password {
-            color: #000;
+        footer {
+          
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            width: 100%;
+            position: relative;
+            bottom: 0;
         }
 
-        .toggle-password:hover {
-            color: #007bff;
+        footer p {
+            margin: 0;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
         }
-       
     </style>
 </head>
 <body>
 
 <div class="container">
     <center>
-    <img src="recursos/inicio.png" alt="Descripción de la imagen" width="190" height="150">
+        <img src="recursos/inicio.png" alt="Descripción de la imagen" width="190" height="150">
     </center>
     <form action="Proceso_Sesion.php" method="POST">
         <label for="correo">Correo Electrónico:</label>
@@ -162,17 +153,19 @@
         <div class="password-container">
             <input type="password" id="contrasena" name="contrasena" required>
             <i class="fas fa-eye toggle-password" id="togglePassword"></i>
-
         </div>
         
         <p id="error-msg" class="error"></p>
-     
         <button type="submit">Iniciar Sesión</button>
     </form>
     <center>
-    <p>¿No tienes cuenta? <a href="/Registro_usuario.php">Regístrate Ya</a></p>
+        <p>¿No tienes cuenta? <a href="/Registro_usuario.php">Regístrate Ya</a></p>
     </center>
 </div>
+
+<footer> 
+    <p>Legal Conect © 2023. Todos los Derechos Reservados.</p>
+</footer>
 
 <script>
     const togglePassword = document.getElementById('togglePassword');
@@ -183,7 +176,6 @@
         const type = passwordField.type === 'password' ? 'text' : 'password';
         passwordField.type = type;
 
-        
         // Cambiar el icono
         this.classList.toggle('fa-eye');
         this.classList.toggle('fa-eye-slash');
@@ -204,4 +196,6 @@
 
 </body>
 </html>
+
+
 
