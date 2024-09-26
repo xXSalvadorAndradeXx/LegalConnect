@@ -104,7 +104,7 @@ body {
             height: 100vh;
         }
         nav {
-            background-color: #004080;
+            background-color: #2c3e50;
             padding: 15px 0;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -130,7 +130,7 @@ body {
             border-radius: 8px;
         }
         ul li a:hover {
-            background-color: #003366;
+            background-color:#374D63;
             transform: scale(1.05);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
@@ -140,7 +140,7 @@ body {
             top: 100%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #004080;
+            background-color: #2c3e50;
             border-radius: 8px;
             display: none;
             min-width: 180px;
@@ -155,7 +155,7 @@ body {
             display: block;
         }
         ul li ul li a:hover {
-            background-color: #003366;
+            background-color:#374D63;
         }
         /* Contenido */
         .content {
@@ -168,7 +168,7 @@ body {
             padding: 40px 20px;
         }
         h1 {
-            color: #004080;
+            color: #2c3e50;
             font-size: 48px;
             margin-bottom: 20px;
             letter-spacing: 2px;
@@ -190,7 +190,6 @@ body {
                 font-size: 16px;
             }
         }
-
 
 
 
@@ -484,14 +483,23 @@ button[type="submit"]:active {
 </head>
 <body>
 
-<a id="botonArribaIzquierda" href="/Audiencias/Principal_audiencias.php">Programar Audiencias</a>
+
 
 <nav>
         <ul>
             <li><a href="/Pagina_principal.php">Inicio</a></li>
-            <li><a href="/Casos/Buscar_Casos.php">Casos</a></li>
+            <li>
+                <a href="/Casos/Buscar_Casos.php">Casos</a>
+                <ul>
+                    <li><a href="">Victimas</a></li>
+                    <li><a href="">Imputados</a></li>
+                    
+                </ul>
+            
+            
+            </li>
             <li><a href="/Audiencias/Buscar_Audiencias.php">Audiencias</a></li>
-            <li><a href="/apps.php">Aplicaciones</a></li>
+            <li><a href="apps.php">Aplicaciones</a></li>
             <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>  
 
             <li><a href="/Audiencias/ver_solicitudes.php">Mis Solicitudes</a></li>
