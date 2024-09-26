@@ -282,6 +282,8 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
+
+
 document.querySelector('a[href="?logout"]').addEventListener('click', function(event) {
     if (!confirm('¿Estás seguro de que deseas cerrar sesión?')) {
         event.preventDefault(); // Cancelar el evento de clic si el usuario no confirma
