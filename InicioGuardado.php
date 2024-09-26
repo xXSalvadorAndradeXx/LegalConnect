@@ -5,28 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cerrando sesión</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            color: white;;
-            background: #387DE4;
+      
 
-        }
-        h1 {
-            color: #fff;
-        }
-        #loading-msg {
-            display: block;
-        }
-        #redirect-msg {
-            display: none;
-        }
+        /* Estilos globales para centrar la animación en la página */
+/* Estilos globales para centrar el contenido */
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #2c3e50; /* Fondo claro elegante */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
+    color: #333; /* Color de texto oscuro */
+}
+
+/* Loader: círculo giratorio */
+.loader {
+    border: 10px solid #e0e0e0; /* Borde gris claro */
+    border-top: 10px solid #007bff; /* Borde superior azul */
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 1.2s ease-in-out infinite;
+    margin-bottom: 20px; /* Separación con el texto */
+}
+
+/* Animación de giro */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Estilos para los textos */
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: white /* Azul suave */
+}
+
+#loading-msg {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: white;
+}
+
+#redirect-msg {
+    font-size: 16px;
+    color: #666; /* Texto gris oscuro */
+    animation: fadeIn 3s ease-in-out infinite alternate;
+    color: white;
+}
+
+/* Animación de desvanecimiento para el mensaje de redirección */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+
     </style>
 </head>
 <body>
+
+<div class="loader"></div>
     <h1>Iniciando sesión</h1>
-    <img src="recursos/listo.gif" alt="GIF">
     <p id="loading-msg">Espera un momento...</p>
     <p id="redirect-msg">Redirigiendo...</p>
 

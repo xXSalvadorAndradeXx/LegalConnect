@@ -155,6 +155,16 @@
             position: relative;
             width: 48%;
         }
+
+        img {
+            transition: transform 0.3s;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+        }
+
+        
     </style>
 </head>
 <body>
@@ -169,7 +179,9 @@ $error_message = isset($_GET['mensaje']) ? $_GET['mensaje'] : null;
 <?php endif; ?>
 
 <div class="box">
-    <h2>Registro de Usuario</h2>
+<center>
+        <img src="recursos/inicio.png" alt="Descripción de la imagen" width="190" height="150">
+    </center>
     <form action="Proceso_registro.php" method="POST" enctype="multipart/form-data">
         <div style="display: flex; justify-content: space-between; width: 100%;">
             <div style="width: 48%;">
@@ -224,8 +236,13 @@ $error_message = isset($_GET['mensaje']) ? $_GET['mensaje'] : null;
         <button type="submit" class="boton-registro">Registrarse</button>
         
         <p>¿Ya tienes cuenta? <a href="/Iniciar_Sesion.php">Iniciar Sesión</a></p>
+        <center>
+        <p>Legal Conect © 2024. Todos los Derechos Reservados.</p>
+    </center>
     </form>
 </div>
+
+   
 
 <script>
     function togglePasswordVisibility(inputId, iconId) {
