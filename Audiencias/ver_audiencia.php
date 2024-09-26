@@ -216,9 +216,7 @@ a {
 }
 
 /* Cambio de estilo para el enlace al pasar el ratón por encima */
-a:hover {
-  text-decoration: underline; /* Subrayado al pasar el ratón */
-}
+
 
 #botonArribaIzquierda {
             position: fixed;
