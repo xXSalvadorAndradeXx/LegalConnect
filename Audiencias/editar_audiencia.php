@@ -196,6 +196,7 @@ $conn->close();
             }
         }
 
+        
 .container {
     background-color: #fff; /* Usamos notación más corta para colores */
     margin: 100px auto 40px; /* Simplificamos el margen y alineación */
