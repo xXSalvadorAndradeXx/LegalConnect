@@ -33,13 +33,6 @@ $stmt->fetch();
 $stmt->close();
 $conn->close();
 
-
-
-
-
-
-
-
 if (isset($_GET['logout'])) {
   // Verificar si se ha confirmado la salida
   if ($_GET['logout'] == 'confirm') {
@@ -100,7 +93,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Encriptar los datos
     $apellido_encrypted = openssl_encrypt($apellido, $ciphering, $encryption_key, $options, $encryption_iv);
     $nombre_encrypted = openssl_encrypt($nombre, $ciphering, $encryption_key, $options, $encryption_iv);
-    
     $dui_encrypted = openssl_encrypt($dui, $ciphering, $encryption_key, $options, $encryption_iv);
     $departamento_encrypted = openssl_encrypt($departamento, $ciphering, $encryption_key, $options, $encryption_iv);
     $distrito_encrypted = openssl_encrypt($distrito, $ciphering, $encryption_key, $options, $encryption_iv);
@@ -167,8 +159,6 @@ $conn->close();
 <body>
 
 
-
-
 <a href="tabladeimputados.php">Volver</a>
     <form action="" method="POST">
         <label for="apellido">Apellido:</label>
@@ -216,4 +206,3 @@ $conn->close();
     </form>
 </body>
 </html>
-
