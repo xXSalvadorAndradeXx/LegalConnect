@@ -58,8 +58,7 @@
         .box button {
             padding: 10px 0;
             font-size: 16px;
-            
-            background-color: #2c3e50; 
+            background-color: #2c3e50;
             border-radius: 10px;
             color: white;
             cursor: pointer;
@@ -164,6 +163,45 @@
             transform: scale(1.05);
         }
 
+
+
+
+
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .progress-step {
+            width: 100%;
+            height: 10px;
+            background-color: #e0e0e0;
+            position: relative;
+            margin: 0 5px;
+        }
+
+        .progress-step.active {
+            background-color: #007bff;
+        }
+
+
+
+
+
+
+
+
+
         
     </style>
 </head>
@@ -179,67 +217,91 @@ $error_message = isset($_GET['mensaje']) ? $_GET['mensaje'] : null;
 <?php endif; ?>
 
 <div class="box">
-<center>
-        <img src="recursos/inicio.png" alt="Descripción de la imagen" width="190" height="150">
-    </center>
+    <image src="recursos/inicio.png" alt="Descripción de la imagen" width="190" height="150">
+
+   
     <form action="Proceso_registro.php" method="POST" enctype="multipart/form-data">
-        <div style="display: flex; justify-content: space-between; width: 100%;">
-            <div style="width: 48%;">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
-            </div>
-            <div style="width: 48%;">
-                <label for="apellido">Apellido:</label>
-                <input type="text" id="apellido" name="apellido" required>
-            </div>
-        </div>
 
-        <div style="display: flex; justify-content: space-between; width: 100%;">
-            <div style="width: 48%;">
-                <label for="telefono">Teléfono:</label>
-                <input type="tel" id="telefono" name="telefono" required>
-            </div>
-            <div style="width: 48%;">
-                <label for="tipo">Oficio:</label>
-                <select id="tipo" name="tipo" required>
-                    <option value="" disabled selected hidden></option>
-                    <option value="abogado">Abogado</option>
-                    <option value="juez">Juez</option>
-                    <option value="fiscal">Fiscal</option>
-                </select>
-            </div>
-        </div>
-        
-        <label for="correo" style="width: 100%;">Correo Electrónico:</label>
-        <input type="email" id="correo" name="correo" required>
+<!-- Barra de progreso -->
+<div class="progress-bar">
+    <div class="progress-step"></div>
+    <div class="progress-step"></div>
+    <div class="progress-step"></div>
+</div>
 
-        <div class="password-container">
-            <div class="password-field">
+<!-- Paso 1 -->
+<div class="step active">
+    <div style="display: flex; justify-content: space-between; width: 100%;">
+        <div style="width: 48%;">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+        </div>
+        <div style="width: 48%;">
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" name="apellido" required>
+        </div>
+    </div>
+</div>
+
+<!-- Paso 2 -->
+<div class="step">
+    <div style="display: flex; justify-content: space-between; width: 100%;">
+        <div style="width: 48%;">
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" required>
+        </div>
+        <div style="width: 48%;">
+            <label for="tipo">Oficio:</label>
+            <select id="tipo" name="tipo" required>
+                <option value="" disabled selected hidden></option>
+                <option value="abogado">Abogado</option>
+                <option value="juez">Juez</option>
+                <option value="fiscal">Fiscal</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<!-- Paso 3 -->
+<div class="step">
+    <label for="correo" style="width: 100%;">Correo Electrónico:</label>
+    <input type="email" id="correo" name="correo" required>
+
+    <div class="password-container">
+        <div class="password-field">
             <label for="contrasena">Contraseña:</label>
-        <input type="password" id="contrasena" name="contrasena" required 
-               minlength="8" maxlength="20" 
-               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}" 
-               title="Debe contener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial (@, #, $, %, ^, &, +, =)">
-        <span class="toggle-password" onclick="togglePasswordVisibility('contrasena', 'togglePassword1')">
-            <i class="fas fa-eye" id="togglePassword1"></i>
-        </span>
-            </div>
+            <input type="password" id="contrasena" name="contrasena" required minlength="8" maxlength="20" 
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}" 
+                title="Debe contener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial (@, #, $, %, ^, &, +, =)">
+            <span class="toggle-password" onclick="togglePasswordVisibility('contrasena', 'togglePassword1')">
+                <i class="fas fa-eye" id="togglePassword1"></i>
+            </span>
+        </div>
 
-            <div class="password-field">
-                <label for="confirmar_contrasena">Confirmar Contraseña:</label>
-                <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" required>
-                <span class="toggle-password" onclick="togglePasswordVisibility('confirmar_contrasena', 'togglePassword2')">
-                    <i class="fas fa-eye" id="togglePassword2"></i>
-                </span>
-            </div>
-            </div>
-        <button type="submit" class="boton-registro">Registrarse</button>
-        
-        <p>¿Ya tienes cuenta? <a href="/Iniciar_Sesion.php">Iniciar Sesión</a></p>
-        <center>
-        <p>Legal Conect © 2024. Todos los Derechos Reservados.</p>
-    </center>
-    </form>
+        <div class="password-field">
+            <label for="confirmar_contrasena">Confirmar Contraseña:</label>
+            <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" required>
+            <span class="toggle-password" onclick="togglePasswordVisibility('confirmar_contrasena', 'togglePassword2')">
+                <i class="fas fa-eye" id="togglePassword2"></i>
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- Controles del formulario -->
+<div class="button-group">
+    <button type="button" id="prevBtn" onclick="changeStep(-1)">Anterior</button>
+    <button type="submit" id="nextBtn" onclick="changeStep(1)">Siguiente</button>
+</div>
+
+<p>¿Ya tienes cuenta? <a href="/Iniciar_Sesion.php">Iniciar Sesión</a></p>
+<center>
+    <p>LegalConnect © 2024. Todos los Derechos Reservados.</p>
+</center>
+</form>
+
+
+
 </div>
 
    
@@ -286,5 +348,62 @@ $error_message = isset($_GET['mensaje']) ? $_GET['mensaje'] : null;
         }
     });
 </script>
+
+<script>
+        
+
+
+
+
+        let currentStep = 0;
+
+        // Mostrar la siguiente sección
+        function showStep(step) {
+            const steps = document.querySelectorAll(".step");
+            steps.forEach((s, index) => {
+                s.classList.toggle("active", index === step);
+            });
+
+            const progressSteps = document.querySelectorAll(".progress-step");
+            progressSteps.forEach((p, index) => {
+                p.classList.toggle("active", index <= step);
+            });
+
+            currentStep = step;
+
+            document.getElementById("prevBtn").disabled = step === 0;
+            document.getElementById("nextBtn").textContent = step === steps.length - 1 ? "Registrar" : "Siguiente";
+        }
+
+        // Ir al siguiente o anterior paso
+        function changeStep(n) {
+            const steps = document.querySelectorAll(".step");
+            if (currentStep + n < 0 || currentStep + n >= steps.length) {
+                return;
+            }
+
+            if (n > 0 && !validateStep()) return; // Validar antes de avanzar
+
+            currentStep += n;
+            showStep(currentStep);
+        }
+
+        // Validar que los campos de cada paso estén completos
+        function validateStep() {
+            const activeStep = document.querySelector(".step.active");
+            const inputs = activeStep.querySelectorAll("input, select, textarea");
+            for (const input of inputs) {
+                if (!input.checkValidity()) {
+                    input.reportValidity();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            showStep(0); // Mostrar el primer paso al cargar la página
+        });
+    </script>
 </body>
 </html>
