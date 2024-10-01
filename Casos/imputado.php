@@ -108,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     '$distrito_encrypted', '$direccion_encrypted', '$madre_encrypted', '$padre_encrypted', '$pandilla_encrypted', '$alias_encrypted')";
 
     if ($conn->query($sql) === TRUE) {
-        echo "Registro guardado exitosamente con cifrado.";
+        header("Location: /Casos/impudatos.php");
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
@@ -125,8 +125,111 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Registro</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f8;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .progress-step {
+            width: 100%;
+            height: 10px;
+            background-color: #e0e0e0;
+            position: relative;
+            margin: 0 5px;
+        }
+
+        .progress-step.active {
+            background-color: #007bff;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #66afe9;
+            outline: none;
+            box-shadow: 0px 0px 5px rgba(102, 175, 233, 0.5);
+        }
+
+        textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .button-group button[disabled] {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
     <script>
-        // Función para actualizar los distritos dependiendo del departamento seleccionado
         function updateDistricts() {
             const departmentSelect = document.getElementById("departamento");
             const districtSelect = document.getElementById("distrito");
@@ -154,14 +257,74 @@ $conn->close();
                 });
             }
         }
+
+
+
+
+        let currentStep = 0;
+
+        // Mostrar la siguiente sección
+        function showStep(step) {
+            const steps = document.querySelectorAll(".step");
+            steps.forEach((s, index) => {
+                s.classList.toggle("active", index === step);
+            });
+
+            const progressSteps = document.querySelectorAll(".progress-step");
+            progressSteps.forEach((p, index) => {
+                p.classList.toggle("active", index <= step);
+            });
+
+            currentStep = step;
+
+            document.getElementById("prevBtn").disabled = step === 0;
+            document.getElementById("nextBtn").textContent = step === steps.length - 1 ? "Registrar" : "Siguiente";
+        }
+
+        // Ir al siguiente o anterior paso
+        function changeStep(n) {
+            const steps = document.querySelectorAll(".step");
+            if (currentStep + n < 0 || currentStep + n >= steps.length) {
+                return;
+            }
+
+            if (n > 0 && !validateStep()) return; // Validar antes de avanzar
+
+            currentStep += n;
+            showStep(currentStep);
+        }
+
+        // Validar que los campos de cada paso estén completos
+        function validateStep() {
+            const activeStep = document.querySelector(".step.active");
+            const inputs = activeStep.querySelectorAll("input, select, textarea");
+            for (const input of inputs) {
+                if (!input.checkValidity()) {
+                    input.reportValidity();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            showStep(0); // Mostrar el primer paso al cargar la página
+        });
     </script>
 </head>
 <body>
-
-
-<a href="tabladeimputados.php">Volver</a>
     <form action="" method="POST">
-        <label for="apellido">Apellido:</label>
+        <div class="progress-bar">
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+        </div>
+
+        <!-- Paso 1 -->
+        <div class="step active">
+            <h1>Datos Generales</h1>
+
+            <label for="apellido">Apellido:</label>
         <input type="text" id="apellido" name="apellido" required><br>
 
         <label for="nombre">Nombre:</label>
@@ -173,7 +336,14 @@ $conn->close();
         <label for="dui">DUI:</label>
         <input type="text" id="dui" name="dui" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0" required><br>
 
-        <label for="departamento">Departamento:</label>
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="step">
+        <h1>Direccion</h1>
+
+
+            <label for="departamento">Departamento:</label>
         <select id="departamento" name="departamento" onchange="updateDistricts()" required>
             <option value="">Seleccione un departamento</option>
             <option value="San Salvador">San Salvador</option>
@@ -187,22 +357,34 @@ $conn->close();
             <option value="">Seleccione un distrito</option>
         </select><br>
 
+
         <label for="direccion">Especificar Dirección:</label>
-        <textarea id="direccion" name="direccion" required></textarea><br>
+        <textarea id="direccion" name="direccion" required></textarea>
+        </div>
 
-        <label for="madre">Nombre de la Madre:</label>
-        <input type="text" id="madre" name="madre" required><br>
+        <!-- Paso 3 -->
+        <div class="step">
 
-        <label for="padre">Nombre del Padre:</label>
-        <input type="text" id="padre" name="padre" required><br>
+        <h1>Origenes</h1>
+            <label for="madre">Nombre de la Madre:</label>
+            <input type="text" id="madre" name="madre" required>
 
-        <label for="pandilla">Pandilla:</label>
-        <input type="text" id="pandilla" name="pandilla" required><br>
+            <label for="padre">Nombre del Padre:</label>
+            <input type="text" id="padre" name="padre" required>
 
-        <label for="alias">Alias:</label>
-        <input type="text" id="alias" name="alias" required><br>
+            <label for="pandilla">Pandilla:</label>
+            <input type="text" id="pandilla" name="pandilla" required>
 
-        <button type="submit">Registrar</button>
+            <label for="alias">Alias:</label>
+            <input type="text" id="alias" name="alias" required>
+        </div>
+
+        <div class="button-group">
+            <button type="button" id="prevBtn" onclick="changeStep(-1)" disabled>Anterior</button>
+            <button type="submit" id="nextBtn" onclick="changeStep(1)">Siguiente</button>
+           
+        </div>
     </form>
 </body>
 </html>
+

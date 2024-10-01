@@ -1,4 +1,56 @@
 <?php
+session_start(); // Iniciar sesión
+
+// Verificar si el usuario está autenticado
+if (!isset($_SESSION['user_id'])) {
+    // Redirigir al usuario a la página de inicio de sesión si no ha iniciado sesión
+    header("Location: Iniciar_Sesion.php");
+    exit();
+}
+
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "legalcc";
+
+// Crear la conexión
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verificar la conexión
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+// Obtener la información del usuario desde la base de datos
+$user_id = $_SESSION['user_id'];
+$sql = "SELECT tipo FROM usuarios WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$stmt->bind_result($tipo_usuario);
+$stmt->fetch();
+$stmt->close();
+$conn->close();
+
+if (isset($_GET['logout'])) {
+  // Verificar si se ha confirmado la salida
+  if ($_GET['logout'] == 'confirm') {
+      session_destroy(); // Destruir todas las variables de sesión
+      header("Location: Iniciar_Sesion.php"); // Redirigir al usuario a la página de inicio de sesión
+      exit();
+  } else {
+      // Si no se ha confirmado, redirigir al usuario a esta misma página con un parámetro 'confirm'
+      header("Location: {$_SERVER['PHP_SELF']}?logout=confirm");
+      exit();
+  }
+}
+
+// Resto del código aquí (contenido de la página principal)
+//___________________________________________HTML Normal_____________________________________________________________________________________
+?>
+
+<?php
 // Datos de conexión a la base de datos
 $servername = "localhost";
 $username = "root";
