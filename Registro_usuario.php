@@ -225,13 +225,13 @@ $error_message = isset($_GET['mensaje']) ? $_GET['mensaje'] : null;
 <!-- Barra de progreso -->
 <div class="progress-bar">
     <div class="progress-step"></div>
-    <div class="progress-step"></div>
+    
     <div class="progress-step"></div>
 </div>
 
 <!-- Paso 1 -->
 <div class="step active">
-    <div style="display: flex; justify-content: space-between; width: 100%;">
+    <div style="display: flex; justify-content: space-between; width: 95%;">
         <div style="width: 48%;">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required>
@@ -241,15 +241,15 @@ $error_message = isset($_GET['mensaje']) ? $_GET['mensaje'] : null;
             <input type="text" id="apellido" name="apellido" required>
         </div>
     </div>
-</div>
 
-<!-- Paso 2 -->
-<div class="step">
-    <div style="display: flex; justify-content: space-between; width: 100%;">
+    <div style="display: flex; justify-content: space-between; width: 95%;">
+
         <div style="width: 48%;">
             <label for="telefono">Teléfono:</label>
             <input type="tel" id="telefono" name="telefono" required>
         </div>
+
+
         <div style="width: 48%;">
             <label for="tipo">Oficio:</label>
             <select id="tipo" name="tipo" required>
@@ -259,8 +259,19 @@ $error_message = isset($_GET['mensaje']) ? $_GET['mensaje'] : null;
                 <option value="fiscal">Fiscal</option>
             </select>
         </div>
+
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
 
 <!-- Paso 3 -->
 <div class="step">
