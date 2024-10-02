@@ -154,7 +154,7 @@ $conn->close();
 
         input[type="submit"], button {
             padding: 10px;
-            background-color: #28a745;
+            background-color: #374D63;
             color: white;
             border: none;
             border-radius: 4px;
@@ -163,7 +163,7 @@ $conn->close();
         }
 
         input[type="submit"]:hover, button:hover {
-            background-color: #218838;
+            background-color: #2F455C;
         }
 
         @media (max-width: 600px) {
@@ -203,7 +203,7 @@ $conn->close();
         }
 
         .progress-step.active {
-            background-color: #007bff;
+            background-color: #374D63;
         }
 
         .button-group {

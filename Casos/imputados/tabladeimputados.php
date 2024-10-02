@@ -151,12 +151,7 @@ $result = $conn->query($sql);
         /* Contenido */
      
       
-        p {
-            color: #555;
-            font-size: 20px;
-            max-width: 600px;
-            line-height: 1.6;
-        }
+      
         /* Responsive */
         @media (max-width: 768px) {
             ul {
@@ -196,7 +191,7 @@ $result = $conn->query($sql);
             text-align: left;
         }
         th {
-            background-color: #4CAF50;
+            background-color: #374D63;
             color: white;
         }
         tr:nth-child(even) {
@@ -216,10 +211,50 @@ $result = $conn->query($sql);
             font-weight: bold;
             transition: background-color 0.3s ease;
         }
+
+
+
+
+
+
+
+
+
+        /* Estilos adicionales */
+
+
+        .alert {
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #374D63;
+            color: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            text-align: center;
+            z-index: 1000;
+            width: 300px;
+        }
+
+        
+        .hidden {
+            display: none;
+        }
     
     </style>
 </head>
 <body>
+
+
+<div id="custom-alert" class="alert hidden">
+        <p id="alert-message"></p>
+    
+    </div>
+
+
+
 <nav>
         <ul>
             <li><a href="/Pagina_principal.php">Inicio</a></li>
@@ -332,7 +367,44 @@ $conn->close();
       
         
     </div>
+
+
+
+    
 </body>
+
+
+<script>
+
+window.onload = function() {
+            // Obtener los parámetros de la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const mensaje = urlParams.get('mensaje');
+
+            // Mostrar el mensaje de éxito si el parámetro 'mensaje' es 'exito'
+            if (mensaje === 'exito') {
+                showAlert('Datos de imputados actualizadas exitosamente.');
+            }
+        };
+
+        function showAlert(message) {
+            const alertBox = document.getElementById('custom-alert');
+            const alertMessage = document.getElementById('alert-message');
+            alertMessage.textContent = message;
+            alertBox.classList.remove('hidden');
+
+            // Cerrar la alerta automáticamente después de 5 segundos
+            setTimeout(closeAlert, 2000);
+        }
+
+        function closeAlert() {
+            const alertBox = document.getElementById('custom-alert');
+            alertBox.classList.add('hidden');
+            // Opcional: Redirigir a otra página después de cerrar la alerta
+            window.location.href = 'tabladeimputados.php';
+        }
+
+</script>
 </html>
 
 
