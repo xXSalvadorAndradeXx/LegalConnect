@@ -191,7 +191,7 @@
         }
 
         .progress-step.active {
-            background-color: #007bff;
+            background-color: #374D63;
         }
 
 
@@ -301,8 +301,8 @@ $error_message = isset($_GET['mensaje']) ? $_GET['mensaje'] : null;
 </div>
 <!-- Controles del formulario -->
 <div class="button-group">
-    <button type="button" id="prevBtn" onclick="changeStep(-1)">Anterior</button>
-    <button type="submit" id="nextBtn" onclick="changeStep(1)">Siguiente</button>
+    <button type="button" id="prevBtn" onclick="changeStep(-1)"><i class="fas fa-arrow-left"></i></button>
+    <button type="submit" id="nextBtn" onclick="changeStep(1)"><i class="fas fa-arrow-right"></i></button>
 </div>
 
 <p>¿Ya tienes cuenta? <a href="/Iniciar_Sesion.php">Iniciar Sesión</a></p>
@@ -379,7 +379,8 @@ $error_message = isset($_GET['mensaje']) ? $_GET['mensaje'] : null;
             currentStep = step;
 
             document.getElementById("prevBtn").disabled = step === 0;
-            document.getElementById("nextBtn").textContent = step === steps.length - 1 ? "Registrar" : "Siguiente";
+            document.getElementById("nextBtn").innerHTML = step === steps.length - 1 ? "<i class='fas fa-check'></i>" : "<i class='fas fa-arrow-right'></i>";
+
         }
 
         // Ir al siguiente o anterior paso
