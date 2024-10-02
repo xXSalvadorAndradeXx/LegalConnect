@@ -155,6 +155,7 @@ if ($result->num_rows > 0) {
     echo "<h1>Registros</h1>";
     echo "<table border='1'>
             <tr>
+                <th>ID</th>
                 <th>Apellido</th>
                 <th>Nombre</th>
                 <th>Fecha de Nacimiento</th>
@@ -166,11 +167,13 @@ if ($result->num_rows > 0) {
                 <th>Padre</th>
                 <th>Pandilla</th>
                 <th>Alias</th>
+                <th>Acciones</th>
             </tr>";
     
     // Mostrar cada registro
     while ($row = $result->fetch_assoc()) {
         // Desencriptar los datos
+        $id = $row['id'];
         $apellido = openssl_decrypt($row['apellido'], $ciphering, $encryption_key, $options, $encryption_iv);
         $nombre = openssl_decrypt($row['nombre'], $ciphering, $encryption_key, $options, $encryption_iv);
         $fecha_nacimiento = $row['fecha_nacimiento'];
@@ -185,6 +188,7 @@ if ($result->num_rows > 0) {
         
         // Mostrar los datos desencriptados en la tabla
         echo "<tr>
+                <td>$id</td>
                 <td>$apellido</td>
                 <td>$nombre</td>
                 <td>$fecha_nacimiento</td>
@@ -196,6 +200,7 @@ if ($result->num_rows > 0) {
                 <td>$padre</td>
                 <td>$pandilla</td>
                 <td>$alias</td>
+                <td><a href='editar.php?id=$id'>Editar</a></td>
               </tr>";
     }
     echo "</table>";
