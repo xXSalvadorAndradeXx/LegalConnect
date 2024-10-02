@@ -297,8 +297,8 @@ $error_message = isset($_GET['mensaje']) ? $_GET['mensaje'] : null;
             </span>
         </div>
     </div>
-</div>
 
+</div>
 <!-- Controles del formulario -->
 <div class="button-group">
     <button type="button" id="prevBtn" onclick="changeStep(-1)">Anterior</button>
@@ -362,10 +362,6 @@ $error_message = isset($_GET['mensaje']) ? $_GET['mensaje'] : null;
 
 <script>
         
-
-
-
-
         let currentStep = 0;
 
         // Mostrar la siguiente sección

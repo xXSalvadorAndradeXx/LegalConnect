@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-09-2024 a las 21:54:24
+-- Tiempo de generación: 02-10-2024 a las 08:13:15
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -50,7 +50,7 @@ CREATE TABLE `audiencias` (
 --
 
 INSERT INTO `audiencias` (`id`, `titulo`, `caso`, `modalidad`, `fecha`, `hora`, `imputado`, `victima`, `delito`, `descripcion`, `juzgado`, `abogado`, `fiscal`, `sala`, `juez_suplente`) VALUES
-(8, 'Primera 1', '2024-08-23-08-25-14-7711', 'Virtual', '2024-09-02', '20:16:00', 'Maria', 'Salvador', 'Homicidio', 'Nada', 'Juzgado 1', 'Abogado 1', 'Fiscal 1', 'Sala 1', 'Suplente 1'),
+(8, 'Primera 1', '2024-08-25-08-46-38-1598', 'Virtual', '2024-09-02', '20:16:00', 'Maria', 'Salvador', 'Hurto', 'Se necesita mas incformacion', 'Juzgado 1', 'Abogado 1', 'Fiscal 1', 'Sala 2', 'Suplente 3'),
 (9, 'Primera', '2024-08-23-08-25-14-7711', 'Presencial', '2024-09-02', '21:20:00', 'Maria', 'Andrade', 'Violación', 'sdasdasd', 'Juzgado 1', 'Abogado 1', 'Fiscal 1', 'Sala 1', 'Suplente 1');
 
 -- --------------------------------------------------------
@@ -75,7 +75,8 @@ CREATE TABLE `casos` (
 --
 
 INSERT INTO `casos` (`id`, `referencia`, `victima`, `imputado`, `tipo_delito`, `documento`, `fecha_creacion`, `estado`) VALUES
-(135, '2024-08-25-08-46-38-1598', 'Salvador', 'Maria', 'asalto', NULL, '2024-08-25', 'activo');
+(136, '2024-08-25-08-46-38-1598', 'Salvador', 'Maria', 'asalto', NULL, '2024-08-25', 'activo'),
+(137, '2024-09-25-02-44-22-5223', 'Salvador', 'Maria', 'asalto', NULL, '2024-09-24', 'activo');
 
 -- --------------------------------------------------------
 
@@ -147,7 +148,7 @@ CREATE TABLE `documentos` (
 --
 
 INSERT INTO `documentos` (`id`, `caso_referencia`, `nombre_archivo`, `tipo_archivo`, `ubicacion_archivo`, `archivado`) VALUES
-(35, '2024-08-25-08-46-38-1598', 'Entregable planificación del sprint (1).docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'documentos/Entregable planificación del sprint (1).docx', 0);
+(40, '2024-08-25-08-46-38-1598', 'Entregable planificación del sprint (1) (1) (1).docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'documentos/Entregable planificación del sprint (1) (1) (1).docx', 0);
 
 -- --------------------------------------------------------
 
@@ -176,6 +177,15 @@ CREATE TABLE `evidencias` (
   `tipo_evidencia` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `evidencias`
+--
+
+INSERT INTO `evidencias` (`id`, `caso_referencia`, `nombre_archivo`, `tipo_archivo`, `ubicacion_archivo`, `tipo_evidencia`) VALUES
+(72, '2024-08-25-08-46-38-1598', 'H3CK0 X SR. TORTUGA X BAD BUNNY X ELADIO CARRION (IA) - Minnie (POLICIA) [MEME GTA ROLEPLAY NEXXUZ].mp3', NULL, 'uploads/H3CK0 X SR. TORTUGA X BAD BUNNY X ELADIO CARRION (IA) - Minnie (POLICIA) [MEME GTA ROLEPLAY NEXXUZ].mp3', NULL),
+(73, '2024-08-25-08-46-38-1598', 'Mi diosa del amor (Venus) -Sr Tortuga (GTA Roleplay) (IA).mp3', NULL, 'uploads/Mi diosa del amor (Venus) -Sr Tortuga (GTA Roleplay) (IA).mp3', NULL),
+(74, '2024-09-25-02-44-22-5223', '', '', 'uploads/', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -188,6 +198,34 @@ CREATE TABLE `evidencias_archivadas` (
   `tipo_evidencia` varchar(255) DEFAULT NULL,
   `descripcion` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `imputados`
+--
+
+CREATE TABLE `imputados` (
+  `id` int(6) UNSIGNED NOT NULL,
+  `apellido` varchar(50) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `fecha_nacimiento` date NOT NULL,
+  `dui` varchar(10) NOT NULL,
+  `departamento` varchar(50) NOT NULL,
+  `distrito` varchar(50) NOT NULL,
+  `direccion` text NOT NULL,
+  `madre` varchar(100) NOT NULL,
+  `padre` varchar(100) NOT NULL,
+  `pandilla` varchar(50) NOT NULL,
+  `alias` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `imputados`
+--
+
+INSERT INTO `imputados` (`id`, `apellido`, `nombre`, `fecha_nacimiento`, `dui`, `departamento`, `distrito`, `direccion`, `madre`, `padre`, `pandilla`, `alias`) VALUES
+(7, 'On2PLGkPjw==', 'On2PPWkPj+4=', '2024-09-20', 'WC7Qfz1d1w', 'On2Na1sKjOrORx3b', 'LXWQP3oClPOPEQ==', 'WC3RLnkchO3LQg==', 'JH2RImlLr+/AURvG', 'P3WAP2cZwM/OTxXIltA=', 'JE/SeA==', 'JX3DLXoCivPD');
 
 -- --------------------------------------------------------
 
@@ -229,7 +267,8 @@ CREATE TABLE `solicitudes` (
 INSERT INTO `solicitudes` (`id`, `usuario_id`, `juez_id`, `razon`, `fecha_sugerida`, `estado`, `fecha_creacion`, `caso_id`, `respuesta`) VALUES
 (10, 7, 9, 'Necesito mas tiempo para recolectar mas información', '2024-09-11', 'Rechazada', '2024-09-03 15:55:24', 8, 'Sin Respuesta'),
 (13, 7, 9, 'Tremendo', '2024-09-04', 'Pendiente', '2024-09-04 06:45:04', 8, 'Sin Respuesta'),
-(14, 7, 9, 'sdasdas', '2024-09-04', 'Pendiente', '2024-09-05 00:29:56', 8, 'Sin Respuesta');
+(14, 7, 9, 'sdasdas', '2024-09-04', 'Pendiente', '2024-09-05 00:29:56', 8, 'Sin Respuesta'),
+(15, 7, 9, 'asjhdkjdhasddsa', '2024-09-09', 'Pendiente', '2024-09-09 06:29:34', 8, 'Sin Respuesta');
 
 -- --------------------------------------------------------
 
@@ -254,7 +293,7 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `telefono`, `tipo`, `correo`, `contrasena`) VALUES
 (7, 'Salvador', 'Salgado', '1111-1111', 'abogado', 'parcial111@gmail.com', '$2y$10$xAaoM6TMmGcIb1YsIiJ9CumCMm9QAZ/DqOaMjpBEImwa.iXHh9pti'),
 (9, 'Maria', 'Salgado', '2222-2222', 'juez', 'salva@gmail.com', '$2y$10$COTDr3mZ32Pm3w10uOIhYuoM4WqNNLUeVMXWV9DL03ub/yvN7LZwW'),
-(10, 'Salvador', 'Andrade', '1111-1111', 'juez', 'maria@gmail.com', '$2y$10$xmqexZHLtL7JVT46LEIDWemn9S4pXXSDG4kn0cCe2zJ82sHGndsuu');
+(14, 'Salvador', 'Salgado Osorio', '1111-1111', 'juez', 'parcial123@gmail.com', '$2y$10$AsbhgtZt.YtmJ7EDZrQnF.B7D/vujqC31DHnydk5UM3XuRcpI3I1W');
 
 --
 -- Índices para tablas volcadas
@@ -315,6 +354,12 @@ ALTER TABLE `evidencias_archivadas`
   ADD KEY `caso_referencia` (`caso_referencia`);
 
 --
+-- Indices de la tabla `imputados`
+--
+ALTER TABLE `imputados`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `registros`
 --
 ALTER TABLE `registros`
@@ -348,13 +393,13 @@ ALTER TABLE `audiencias`
 -- AUTO_INCREMENT de la tabla `casos`
 --
 ALTER TABLE `casos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT de la tabla `casos_archivados`
 --
 ALTER TABLE `casos_archivados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT de la tabla `delete_requests`
@@ -366,7 +411,7 @@ ALTER TABLE `delete_requests`
 -- AUTO_INCREMENT de la tabla `documentos`
 --
 ALTER TABLE `documentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de la tabla `documentos_archivados`
@@ -378,13 +423,19 @@ ALTER TABLE `documentos_archivados`
 -- AUTO_INCREMENT de la tabla `evidencias`
 --
 ALTER TABLE `evidencias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT de la tabla `evidencias_archivadas`
 --
 ALTER TABLE `evidencias_archivadas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `imputados`
+--
+ALTER TABLE `imputados`
+  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `registros`
@@ -396,13 +447,13 @@ ALTER TABLE `registros`
 -- AUTO_INCREMENT de la tabla `solicitudes`
 --
 ALTER TABLE `solicitudes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Restricciones para tablas volcadas

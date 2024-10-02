@@ -42,23 +42,248 @@ $alias = openssl_decrypt($row['alias'], $ciphering, $encryption_key, $options, $
 
 ?>
 
-<h2>Editar Registro</h2>
-<form method="post" action="actualizar.php">
-    <input type="hidden" name="id" value="<?php echo $id; ?>">
-    Apellido: <input type="text" name="apellido" value="<?php echo $apellido; ?>"><br>
-    Nombre: <input type="text" name="nombre" value="<?php echo $nombre; ?>"><br>
-    Fecha de Nacimiento: <input type="text" name="fecha_nacimiento" value="<?php echo $fecha_nacimiento; ?>"><br>
-    DUI: <input type="text" name="dui" value="<?php echo $dui; ?>"><br>
-    Departamento: <input type="text" name="departamento" value="<?php echo $departamento; ?>"><br>
-    Distrito: <input type="text" name="distrito" value="<?php echo $distrito; ?>"><br>
-    Dirección: <input type="text" name="direccion" value="<?php echo $direccion; ?>"><br>
-    Madre: <input type="text" name="madre" value="<?php echo $madre; ?>"><br>
-    Padre: <input type="text" name="padre" value="<?php echo $padre; ?>"><br>
-    Pandilla: <input type="text" name="pandilla" value="<?php echo $pandilla; ?>"><br>
-    Alias: <input type="text" name="alias" value="<?php echo $alias; ?>"><br>
-    <input type="submit" value="Actualizar">
-</form>
+
 
 <?php
 $conn->close();
 ?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Registro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input[type="submit"], button {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover, button:hover {
+            background-color: #218838;
+        }
+
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 15px;
+            }
+
+            input[type="text"] {
+                font-size: 14px;
+            }
+
+            input[type="submit"] {
+                font-size: 14px;
+            }
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .progress-step {
+            width: 100%;
+            height: 10px;
+            background-color: #e0e0e0;
+            position: relative;
+            margin: 0 5px;
+        }
+
+        .progress-step.active {
+            background-color: #007bff;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="progress-bar">
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+        </div>
+
+        <h2>Editar Registro</h2>
+        <form method="post" action="actualizar.php">
+            <!-- Paso 1 -->
+            <div class="step active">
+                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" name="apellido" value="<?php echo $apellido; ?>" required>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" value="<?php echo $nombre; ?>" required>
+                <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+                <input type="text" id="fecha_nacimiento" name="fecha_nacimiento" value="<?php echo $fecha_nacimiento; ?>" required>
+            </div>
+
+            <!-- Paso 2 -->
+            <div class="step">
+                <label for="dui">DUI:</label>
+                <input type="text" id="dui" name="dui" value="<?php echo $dui; ?>" required>
+                <label for="departamento">Departamento:</label>
+                <input type="text" id="departamento" name="departamento" value="<?php echo $departamento; ?>" required>
+                <label for="distrito">Distrito:</label>
+                <input type="text" id="distrito" name="distrito" value="<?php echo $distrito; ?>" required>
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" value="<?php echo $direccion; ?>" required>
+                <label for="madre">Madre:</label>
+                <input type="text" id="madre" name="madre" value="<?php echo $madre; ?>" required>
+            </div>
+
+            <!-- Paso 3 -->
+            <div class="step">
+                <label for="padre">Padre:</label>
+                <input type="text" id="padre" name="padre" value="<?php echo $padre; ?>" required>
+                <label for="pandilla">Pandilla:</label>
+                <input type="text" id="pandilla" name="pandilla" value="<?php echo $pandilla; ?>" required>
+                <label for="alias">Alias:</label>
+                <input type="text" id="alias" name="alias" value="<?php echo $alias; ?>" required>
+            </div>   
+
+            <div class="button-group">
+                <button type="button" id="prevBtn" onclick="changeStep(-1)">Anterior</button>
+                <button type="button" id="nextBtn" onclick="changeStep(1)">Siguiente</button>
+                <input type="submit" id="submitBtn" value="Registrar" style="display:none;">
+            </div>
+        </form>
+    </div>
+
+<script>
+let currentStep = 0;
+
+function showStep(step) {
+    const steps = document.querySelectorAll(".step");
+
+    // Mostrar solo el paso actual
+    steps.forEach((s, index) => {
+        s.classList.toggle("active", index === step);
+    });
+
+    const progressSteps = document.querySelectorAll(".progress-step");
+
+    // Actualizar la barra de progreso
+    progressSteps.forEach((p, index) => {
+        p.classList.toggle("active", index <= step);
+    });
+
+    // Desactivar el botón "Anterior" si estamos en el primer paso
+    document.getElementById("prevBtn").disabled = step === 0;
+
+    // Cambiar el botón "Siguiente" en el último paso
+    if (step === steps.length - 1) {
+        document.getElementById("nextBtn").style.display = 'none';
+        document.getElementById("submitBtn").style.display = 'inline-block';
+    } else {
+        document.getElementById("nextBtn").style.display = 'inline-block';
+        document.getElementById("submitBtn").style.display = 'none';
+    }
+}
+
+// Función para cambiar el paso
+function changeStep(n) {
+    const steps = document.querySelectorAll(".step");
+
+    // Verificar límites de pasos
+    if (currentStep + n < 0 || currentStep + n >= steps.length) {
+        return;
+    }
+
+    // Validar el paso antes de avanzar
+    if (n > 0 && !validateStep()) {
+        return;
+    }
+
+    // Avanzar o retroceder en el paso
+    currentStep += n;
+    showStep(currentStep);
+}
+
+// Validar los campos del paso actual
+function validateStep() {
+    const activeStep = document.querySelector(".step.active");
+    const inputs = activeStep.querySelectorAll("input");
+
+    for (const input of inputs) {
+        if (!input.checkValidity()) {
+            input.reportValidity();
+            return false;
+        }
+    }
+    return true;
+}
+
+// Mostrar el primer paso al cargar la página
+document.addEventListener("DOMContentLoaded", function() {
+    showStep(0);
+});
+</script>
+</body>
+</html>
+
+
+
+
