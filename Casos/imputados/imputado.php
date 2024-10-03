@@ -108,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     '$distrito_encrypted', '$direccion_encrypted', '$madre_encrypted', '$padre_encrypted', '$pandilla_encrypted', '$alias_encrypted')";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: /Casos/impudatos.php");
+        header("Location: /Casos/imputados/tabladeimputados.php?mensaje=exito");
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }

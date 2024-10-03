@@ -242,6 +242,9 @@ $result = $conn->query($sql);
         .hidden {
             display: none;
         }
+
+
+
     
     </style>
 </head>
@@ -253,7 +256,7 @@ $result = $conn->query($sql);
     
     </div>
 
-
+   
 
 <nav>
         <ul>
@@ -353,11 +356,17 @@ if ($result->num_rows > 0) {
                 <td>$padre</td>
                 <td>$pandilla</td>
                 <td>$alias</td>
-                <td><a href='editar.php?id=$id'>Editar</a></td>
+                <td><a href='editar.php?id=$id'>Editar</a> 
+
+                <a href='eliminar.php?id=$id' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este registro?\");'>Eliminar</a>
+
+                </td>
+                
               </tr>";
     }
     echo "</table>";
 } else {
+    echo "<center>";
     echo "No hay registros encontrados.";
 }
 
@@ -403,6 +412,8 @@ window.onload = function() {
             // Opcional: Redirigir a otra página después de cerrar la alerta
             window.location.href = 'tabladeimputados.php';
         }
+
+
 
 </script>
 </html>
