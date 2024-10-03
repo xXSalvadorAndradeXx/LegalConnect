@@ -301,6 +301,37 @@ $result = $conn->query($sql);
     transform: scale(0.95);
 }
 
+
+
+
+.btn-navega {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: black;
+    background-color: white;
+    border: none;
+    margin-top: 100px;
+    margin: auto;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-navega:hover {
+    background-color: white;
+    color: #2c3e50;
+    transform: scale(1.05);
+}
+
+.btn-navega:active {
+    background-color: white;
+    color: #2c3e50;
+    transform: scale(0.95);
+}
+
     
     </style>
 </head>
@@ -352,7 +383,7 @@ $result = $conn->query($sql);
 
 
 
-
+   
 
 
 
@@ -435,7 +466,9 @@ $conn->close();
     </div>
 
 
-
+    <a class='btn-navega' href='/Casos/imputados/imputado.php' title="Añadir"><i class='fas fa-plus'></i> </a>
+    
+  
     
 </body>
 
