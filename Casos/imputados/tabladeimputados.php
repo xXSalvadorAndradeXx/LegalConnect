@@ -84,6 +84,8 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registros Imputados</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
        body {
             font-family: 'Bahnschrift', sans-serif;
@@ -245,6 +247,60 @@ $result = $conn->query($sql);
 
 
 
+        .btn-eliminar {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: black;
+    margin-top: 5px;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-eliminar:hover {
+    background-color: white;
+    color: red;
+    transform: scale(1.05);
+}
+
+.btn-eliminar:active {
+    background-color: white;
+    color: red;
+    transform: scale(0.95);
+}
+
+
+.btn-editar {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: black;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-editar:hover {
+    background-color: white;
+    color: green;
+    transform: scale(1.05);
+}
+
+.btn-editar:active {
+    background-color: white;
+    color: green;
+    transform: scale(0.95);
+}
+
     
     </style>
 </head>
@@ -356,9 +412,10 @@ if ($result->num_rows > 0) {
                 <td>$padre</td>
                 <td>$pandilla</td>
                 <td>$alias</td>
-                <td><a href='editar.php?id=$id'>Editar</a> 
+                <td><a class='btn-editar' href='editar.php?id=$id'>      <i class='fas fa-edit'></i></a> 
 
-                <a href='eliminar.php?id=$id' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este registro?\");'>Eliminar</a>
+               <a class='btn-eliminar' href='eliminar.php?id=$id' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este registro?\");'><i class='fas fa-trash-alt'></i></a>
+
 
                 </td>
                 
