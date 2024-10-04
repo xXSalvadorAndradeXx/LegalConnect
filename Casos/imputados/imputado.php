@@ -331,13 +331,14 @@ $conn->close();
         }
 
         .btn-navega {
+            position: fixed;
     display: inline-block;
     padding: 10px 20px;
     font-size: 16px;
     color: black;
     background-color: white;
     border: none;
-  margin-top: 10px;
+  margin-top: 100px;
  margin-right: 1000px;
  margin-left: 200px;
     border-radius: 5px;
