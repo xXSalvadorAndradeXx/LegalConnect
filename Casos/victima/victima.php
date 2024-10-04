@@ -73,9 +73,6 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-
-
-
 // Procesar el formulario cuando se envíe
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Obtener los datos del formulario
@@ -108,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     '$distrito_encrypted', '$direccion_encrypted', '$madre_encrypted', '$padre_encrypted')";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: /Casos/victima/victima.php?mensaje=exito");
+        header("Location: /Casos/victima/tabla_de_victima.php?mensaje=exito");
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
@@ -412,7 +409,7 @@ h2 {
         </ul>
     </nav>
 
-    <a class="btn-navega" href="/Casos/imputados/tabladeimputados.php" title="Volver"><i class="fas fa-arrow-left"></i></a></li>
+    <a class="btn-navega" href="/Casos/victima/tabla_de_victima.php" title="Volver"><i class="fas fa-arrow-left"></i></a></li>
 
    
     <form action="" method="POST">
