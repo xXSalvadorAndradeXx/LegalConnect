@@ -429,10 +429,6 @@ if ($result->num_rows > 0) {
     echo "<table border='1'>
             <tr>
                 <th>ID</th>
-                <th>Apellido</th>
-                <th>Nombre</th>
-                <th>Fecha de Nacimiento</th>
-                <th>DUI</th>
                 <th>Departamento</th>
                 <th>Distrito</th>
                 <th>Dirección</th>
@@ -462,10 +458,7 @@ if ($result->num_rows > 0) {
         // Mostrar los datos desencriptados en la tabla
         echo "<tr>
                 <td>$id</td>
-                <td>$apellido</td>
-                <td>$nombre</td>
-                <td>$fecha_nacimiento</td>
-                <td>$dui</td>
+                
                 <td>$departamento</td>
                 <td>$distrito</td>
                 <td>$direccion</td>
