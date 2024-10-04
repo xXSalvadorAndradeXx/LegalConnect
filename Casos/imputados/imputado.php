@@ -125,6 +125,8 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Registro</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
          body {
             font-family: 'Bahnschrift', sans-serif;
@@ -327,7 +329,162 @@ $conn->close();
                 font-size: 16px;
             }
         }
+
+        .btn-navega {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: black;
+    background-color: white;
+    border: none;
+  margin-top: 10px;
+ margin-right: 1000px;
+ margin-left: 200px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-navega:hover {
+    background-color: white;
+    color: #2c3e50;
+    transform: scale(1.05);
+}
+
+.btn-navega:active {
+    background-color: white;
+    color: #2c3e50;
+    transform: scale(0.95);
+}
     </style>
+
+</head>
+<body>
+    
+
+<nav>
+        <ul>
+            <li><a href="/Pagina_principal.php">Inicio</a></li>
+            <li>
+                <a href="/Casos/Buscar_Casos.php">Casos</a>
+                <ul>
+                    <li><a href="casos/victima.php">Victimas</a></li>
+                    <li><a href="casos/imputado.php">Imputados</a></li>
+                    
+                </ul>
+            
+            
+            </li>
+            <li><a href="/Audiencias/Buscar_Audiencias.php">Audiencias</a></li>
+            <li><a href="apps.php">Aplicaciones</a></li>
+            <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>  
+
+            <li><a href="/Audiencias/ver_solicitudes.php">Mis Solicitudes</a></li>
+
+            <?php endif; ?>
+
+            <?php if ($tipo_usuario === 'juez'): ?>  
+
+            <li><a href="/Audiencias/ver_solicitudes.php">Solicitudes</a></li>
+
+            <?php endif; ?>
+            
+            <li>
+                <a href="/formularios/Perfil.php">Perfil</a>
+                <ul>
+                    <li><a href="?logout">Cerrar sesión</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <a class="btn-navega" href="/Casos/imputados/tabladeimputados.php" title="Volver"><i class="fas fa-arrow-left"></i></a></li>
+
+    
+    <form action="" method="POST">
+        <div class="progress-bar">
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+        </div>
+
+        <!-- Paso 1 -->
+        <div class="step active">
+            <h1>Datos Generales</h1>
+
+            <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" required><br>
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required><br>
+
+        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br>
+
+        <label for="dui">DUI:</label>
+        <input type="text" id="dui" name="dui" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0" required><br>
+
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="step">
+        <h1>Direccion</h1>
+            <label for="departamento">Departamento:</label>
+            <select id="departamento" name="departamento" onchange="updateDistricts()" required>
+            <option value="">Seleccione un departamento</option>
+            <option value="San Salvador">San Salvador</option>
+            <option value="La Libertad">La Libertad</option>
+            <option value="Santa Ana">Santa Ana</option>
+            <!-- Agregar los otros 11 departamentos de El Salvador -->
+        </select><br>
+
+        <label for="distrito">Distrito:</label>
+        <select id="distrito" name="distrito" required>
+            <option value="">Seleccione un distrito</option>
+        </select><br>
+
+
+        <label for="direccion">Especificar Dirección:</label>
+        <textarea id="direccion" name="direccion" required></textarea>
+        </div>
+
+
+        <div class="step">
+
+        <h1>Familia</h1>
+            <label for="madre">Nombre de la Madre:</label>
+            <input type="text" id="madre" name="madre" required>
+
+            <label for="padre">Nombre del Padre:</label>
+            <input type="text" id="padre" name="padre" required>
+
+          
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="step">
+
+        <h1>Origenes</h1>
+            <label for="pandilla">Pandilla:</label>
+            <input type="text" id="pandilla" name="pandilla" required>
+
+            <label for="alias">Alias:</label>
+            <input type="text" id="alias" name="alias" required>
+        </div>
+
+        <div class="button-group">
+            <button type="button" id="prevBtn" onclick="changeStep(-1)" disabled>Anterior</button>
+            <button type="submit" id="nextBtn" onclick="changeStep(1)">Siguiente</button>
+           
+        </div>
+    </form>
+
+   
+
+
     <script>
         function updateDistricts() {
             const departmentSelect = document.getElementById("departamento");
@@ -415,119 +572,6 @@ $conn->close();
             showStep(0); // Mostrar el primer paso al cargar la página
         });
     </script>
-</head>
-<body>
-    
-
-
-<nav>
-        <ul>
-            <li><a href="/Pagina_principal.php">Inicio</a></li>
-            <li>
-                <a href="/Casos/Buscar_Casos.php">Casos</a>
-                <ul>
-                    <li><a href="casos/victima.php">Victimas</a></li>
-                    <li><a href="casos/imputado.php">Imputados</a></li>
-                    
-                </ul>
-            
-            
-            </li>
-            <li><a href="/Audiencias/Buscar_Audiencias.php">Audiencias</a></li>
-            <li><a href="apps.php">Aplicaciones</a></li>
-            <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>  
-
-            <li><a href="/Audiencias/ver_solicitudes.php">Mis Solicitudes</a></li>
-
-            <?php endif; ?>
-
-            <?php if ($tipo_usuario === 'juez'): ?>  
-
-            <li><a href="/Audiencias/ver_solicitudes.php">Solicitudes</a></li>
-
-            <?php endif; ?>
-            
-            <li>
-                <a href="/formularios/Perfil.php">Perfil</a>
-                <ul>
-                    <li><a href="?logout">Cerrar sesión</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-
-    <form action="" method="POST">
-        <div class="progress-bar">
-            <div class="progress-step"></div>
-            <div class="progress-step"></div>
-            <div class="progress-step"></div>
-        </div>
-
-        <!-- Paso 1 -->
-        <div class="step active">
-            <h1>Datos Generales</h1>
-
-            <label for="apellido">Apellido:</label>
-        <input type="text" id="apellido" name="apellido" required><br>
-
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required><br>
-
-        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br>
-
-        <label for="dui">DUI:</label>
-        <input type="text" id="dui" name="dui" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0" required><br>
-
-        </div>
-
-        <!-- Paso 2 -->
-        <div class="step">
-        <h1>Direccion</h1>
-
-
-            <label for="departamento">Departamento:</label>
-        <select id="departamento" name="departamento" onchange="updateDistricts()" required>
-            <option value="">Seleccione un departamento</option>
-            <option value="San Salvador">San Salvador</option>
-            <option value="La Libertad">La Libertad</option>
-            <option value="Santa Ana">Santa Ana</option>
-            <!-- Agregar los otros 11 departamentos de El Salvador -->
-        </select><br>
-
-        <label for="distrito">Distrito:</label>
-        <select id="distrito" name="distrito" required>
-            <option value="">Seleccione un distrito</option>
-        </select><br>
-
-
-        <label for="direccion">Especificar Dirección:</label>
-        <textarea id="direccion" name="direccion" required></textarea>
-        </div>
-
-        <!-- Paso 3 -->
-        <div class="step">
-
-        <h1>Origenes</h1>
-            <label for="madre">Nombre de la Madre:</label>
-            <input type="text" id="madre" name="madre" required>
-
-            <label for="padre">Nombre del Padre:</label>
-            <input type="text" id="padre" name="padre" required>
-
-            <label for="pandilla">Pandilla:</label>
-            <input type="text" id="pandilla" name="pandilla" required>
-
-            <label for="alias">Alias:</label>
-            <input type="text" id="alias" name="alias" required>
-        </div>
-
-        <div class="button-group">
-            <button type="button" id="prevBtn" onclick="changeStep(-1)" disabled>Anterior</button>
-            <button type="submit" id="nextBtn" onclick="changeStep(1)">Siguiente</button>
-           
-        </div>
-    </form>
 </body>
 </html>
 

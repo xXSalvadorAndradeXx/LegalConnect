@@ -107,6 +107,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Registro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: 'Bahnschrift', sans-serif;
@@ -131,6 +132,11 @@ $conn->close();
         h2 {
             text-align: center;
             color: #333;
+        }
+
+        h3 {
+            text-align: left;
+            color: #374D63;
         }
 
         form {
@@ -180,6 +186,9 @@ $conn->close();
             }
         }
 
+
+      
+
         .step {
             display: none;
         }
@@ -203,13 +212,70 @@ $conn->close();
         }
 
         .progress-step.active {
-            background-color: #374D63;
+            background-color: #007bff;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        select:focus,
+        textarea:focus {
+           
+            border-color: #66afe9;
+            outline: none;
+            box-shadow: 0px 0px 5px rgba(102, 175, 233, 0.5);
+        }
+
+        textarea {
+            height: 100px;
+            resize: none;
         }
 
         .button-group {
             display: flex;
             justify-content: space-between;
         }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .button-group button[disabled] {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+
+
+
 
 
 
@@ -308,7 +374,34 @@ $conn->close();
 
 
 
+        .btn-navega {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: black;
+    background-color: white;
+    border: none;
+  margin-top: 10px;
+ margin-right: 1000px;
+ margin-left: 200px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
 
+.btn-navega:hover {
+    background-color: white;
+    color: #2c3e50;
+    transform: scale(1.05);
+}
+
+.btn-navega:active {
+    background-color: white;
+    color: #2c3e50;
+    transform: scale(0.95);
+}
 
 
 
@@ -362,7 +455,7 @@ $conn->close();
 
 
 
-
+    <a class="btn-navega" href="/Casos/imputados/tabladeimputados.php" title="Volver"><i class="fas fa-arrow-left"></i></a></li>
 
 
 
@@ -373,39 +466,53 @@ $conn->close();
             <div class="progress-step"></div>
             <div class="progress-step"></div>
             <div class="progress-step"></div>
+            <div class="progress-step"></div>
         </div>
 
         <h2>Editar Registro</h2>
         <form method="post" action="actualizar.php">
             <!-- Paso 1 -->
             <div class="step active">
+                <h3>Información Personal</h3>
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <label for="apellido">Apellido:</label>
                 <input type="text" id="apellido" name="apellido" value="<?php echo $apellido; ?>" required>
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" value="<?php echo $nombre; ?>" required>
                 <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-                <input type="text" id="fecha_nacimiento" name="fecha_nacimiento" value="<?php echo $fecha_nacimiento; ?>" required>
+                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?php echo $fecha_nacimiento; ?>" required>
+                <label for="dui">DUI:</label>
+                <input type="text" id="dui" name="dui" value="<?php echo $dui; ?>" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0" required>
             </div>
 
             <!-- Paso 2 -->
             <div class="step">
-                <label for="dui">DUI:</label>
-                <input type="text" id="dui" name="dui" value="<?php echo $dui; ?>" required>
+                <h3>Direccion</h3>
+
+                
                 <label for="departamento">Departamento:</label>
                 <input type="text" id="departamento" name="departamento" value="<?php echo $departamento; ?>" required>
                 <label for="distrito">Distrito:</label>
                 <input type="text" id="distrito" name="distrito" value="<?php echo $distrito; ?>" required>
                 <label for="direccion">Dirección:</label>
-                <input type="text" id="direccion" name="direccion" value="<?php echo $direccion; ?>" required>
+                <textarea id="direccion" name="direccion" required><?php echo $direccion; ?></textarea>
+                
+                
+            </div>
+
+
+            <div class="step">
+                <h3>Familia</h3>
+
                 <label for="madre">Madre:</label>
                 <input type="text" id="madre" name="madre" value="<?php echo $madre; ?>" required>
+                <label for="padre">Padre:</label>
+                <input type="text" id="padre" name="padre" value="<?php echo $padre; ?>" required>
             </div>
 
             <!-- Paso 3 -->
             <div class="step">
-                <label for="padre">Padre:</label>
-                <input type="text" id="padre" name="padre" value="<?php echo $padre; ?>" required>
+                <h3>Estrutura Organizacional</h3>
                 <label for="pandilla">Pandilla:</label>
                 <input type="text" id="pandilla" name="pandilla" value="<?php echo $pandilla; ?>" required>
                 <label for="alias">Alias:</label>

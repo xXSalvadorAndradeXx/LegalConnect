@@ -4,7 +4,7 @@ session_start(); // Iniciar sesión
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['user_id'])) {
     // Redirigir al usuario a la página de inicio de sesión si no ha iniciado sesión
-    header("Location: Iniciar_Sesion.php");
+    header("Location: /Iniciar_Sesion.php");
     exit();
 }
 
@@ -332,10 +332,31 @@ $result = $conn->query($sql);
     transform: scale(0.95);
 }
 
+
+
+.message-success {
+    position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #374D63;
+            color: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            text-align: center;
+            z-index: 1000;
+            width: 300px;
+}
+
+
     
     </style>
 </head>
 <body>
+
+
+
 
 
 <div id="custom-alert" class="alert hidden">
@@ -385,7 +406,11 @@ $result = $conn->query($sql);
 
    
 
-
+    <?php
+if (isset($_GET['message']) && $_GET['message'] == 'exito') {
+    echo '<div class="message-success" id="message"l>Los datos del imputado se ha actualizado correctamente.</div>';
+}
+?>
 
 
 
@@ -472,6 +497,20 @@ $conn->close();
     
 </body>
 
+<script>
+    // Espera 5 segundos y luego hace que el mensaje desaparezca
+    setTimeout(function() {
+        var message = document.getElementById("message");
+        if (message) {
+            message.style.opacity = "0";
+        }
+    }, 2000);
+
+    // Después de 5.5 segundos (para darle tiempo a desaparecer), redirige a otra página
+    setTimeout(function() {
+        window.location.href = "/Casos/imputados/tabladeimputados.php"; // Cambia esto por la URL a la que quieras redirigir
+    }, 5500);
+</script>
 
 <script>
 
@@ -482,7 +521,7 @@ window.onload = function() {
 
             // Mostrar el mensaje de éxito si el parámetro 'mensaje' es 'exito'
             if (mensaje === 'exito') {
-                showAlert('Datos de imputados actualizadas exitosamente.');
+                showAlert('Datos de imputados agregados con exito');
             }
         };
 

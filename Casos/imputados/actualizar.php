@@ -37,7 +37,8 @@ $alias = openssl_encrypt($_POST['alias'], $ciphering, $encryption_key, $options,
 $sql = "UPDATE imputados SET apellido='$apellido', nombre='$nombre', fecha_nacimiento='$fecha_nacimiento', dui='$dui', departamento='$departamento', distrito='$distrito', direccion='$direccion', madre='$madre', padre='$padre', pandilla='$pandilla', alias='$alias' WHERE id='$id'";
 
 if ($conn->query($sql) === TRUE) {
-    header("Location: /Casos/imputados/tabladeimputados.php?mensaje=exito");
+    header("Location: /Casos/imputados/tabladeimputados.php?message=exito");
+
 } else {
     echo "Error al actualizar el registro: " . $conn->error;
 }
