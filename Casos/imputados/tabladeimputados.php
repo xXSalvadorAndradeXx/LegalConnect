@@ -309,9 +309,10 @@ $result = $conn->query($sql);
     color: black;
     background-color: white;
     border: 2px solid #2c3e50; /* Borde añadido */
- 
-    margin-right: 1000px;
-    margin-left: 35px;
+    margin-top: 100px;
+   margin-left: 40px;
+   
+   
     border-radius: 5px;
     text-decoration: none;
     text-align: center;
@@ -412,13 +413,13 @@ if (isset($_GET['message']) && $_GET['message'] == 'exito') {
     echo '<div class="message-success" id="message"l>Los datos del imputado se ha actualizado correctamente.</div>';
 }
 ?>
-
+<a class='btn-navega' href='/Casos/imputados/imputado.php' title="Añadir"><i class='fas fa-plus'></i> </a>
 
 
 
     <div class="container">
         <h1>Registros de Imputados</h1>
-        <a class='btn-navega' href='/Casos/imputados/imputado.php' title="Añadir"><i class='fas fa-plus'></i> </a>
+        
 <?php
 
 if ($result->num_rows > 0) {
