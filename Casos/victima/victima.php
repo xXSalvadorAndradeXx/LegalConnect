@@ -50,6 +50,7 @@ if (isset($_GET['logout'])) {
 //___________________________________________HTML Normal_____________________________________________________________________________________
 ?>
 
+
 <?php
 // Datos de conexión a la base de datos
 $servername = "localhost";
@@ -99,16 +100,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $direccion_encrypted = openssl_encrypt($direccion, $ciphering, $encryption_key, $options, $encryption_iv);
     $madre_encrypted = openssl_encrypt($madre, $ciphering, $encryption_key, $options, $encryption_iv);
     $padre_encrypted = openssl_encrypt($padre, $ciphering, $encryption_key, $options, $encryption_iv);
-    $pandilla_encrypted = openssl_encrypt($pandilla, $ciphering, $encryption_key, $options, $encryption_iv);
-    $alias_encrypted = openssl_encrypt($alias, $ciphering, $encryption_key, $options, $encryption_iv);
+    
 
     // Preparar y ejecutar la consulta SQL
-    $sql = "INSERT INTO imputados (apellido, nombre, fecha_nacimiento, dui, departamento, distrito, direccion, madre, padre, pandilla, alias) 
+    $sql = "INSERT INTO victimas (apellido, nombre, fecha_nacimiento, dui, departamento, distrito, direccion, madre, padre) 
             VALUES ('$apellido_encrypted', '$nombre_encrypted', '$fecha_nacimiento', '$dui_encrypted', '$departamento_encrypted', 
-                    '$distrito_encrypted', '$direccion_encrypted', '$madre_encrypted', '$padre_encrypted', '$pandilla_encrypted', '$alias_encrypted')";
+                    '$distrito_encrypted', '$direccion_encrypted', '$madre_encrypted', '$padre_encrypted')";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: /Casos/imputados/tabladeimputados.php?mensaje=exito");
+        header("Location: /Casos/victima/victima.php?mensaje=exito");
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
@@ -118,6 +118,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -359,6 +361,15 @@ $conn->close();
     color: #2c3e50;
     transform: scale(0.95);
 }
+
+h2 {
+    color: #2c3e50;
+            font-size: 12px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+    
+}
+
     </style>
 
 </head>
@@ -403,12 +414,14 @@ $conn->close();
 
     <a class="btn-navega" href="/Casos/imputados/tabladeimputados.php" title="Volver"><i class="fas fa-arrow-left"></i></a></li>
 
-    
+   
     <form action="" method="POST">
+    <h2> Registro de victima </h2>
         <div class="progress-bar">
+        
             <div class="progress-step"></div>
             <div class="progress-step"></div>
-            <div class="progress-step"></div>
+           
             <div class="progress-step"></div>
         </div>
 
@@ -465,16 +478,10 @@ $conn->close();
           
         </div>
 
-        <!-- Paso 4 -->
-        <div class="step">
+   
+       
 
-        <h1>Estrutura Organizacional</h1>
-            <label for="pandilla">Pandilla:</label>
-            <input type="text" id="pandilla" name="pandilla" required autocomplete="off">
-
-            <label for="alias">Alias:</label>
-            <input type="text" id="alias" name="alias" required autocomplete="off">
-        </div>
+    
 
         <div class="button-group">
             <button type="button" id="prevBtn" onclick="changeStep(-1)" disabled>Anterior</button>
