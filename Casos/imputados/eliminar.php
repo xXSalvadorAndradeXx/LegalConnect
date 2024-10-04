@@ -20,7 +20,7 @@ $id = $_GET['id'];
 $sql = "DELETE FROM imputados WHERE id='$id'";
 
 if ($conn->query($sql) === TRUE) {
-    header("Location: tabladeimputados.php?mensaje=exito2");
+    header("Location: tabladeimputados.php?message=deleted");
 } else {
     echo "Error al eliminar el registro: " . $conn->error;
 }

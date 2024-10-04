@@ -351,6 +351,23 @@ $result = $conn->query($sql);
 }
 
 
+.message-deleted {
+    position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #374D63;
+            color: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            text-align: center;
+            z-index: 1000;
+            width: 300px;
+}
+
+
+
     
     </style>
 </head>
@@ -404,11 +421,14 @@ $result = $conn->query($sql);
     </nav>
 
 
-    
+    <?php
+if (isset($_GET['message']) && $_GET['message'] == 'deleted') {
+    echo '<div class="message-deleted" id="message"l>El imputado se ha eliminado correctamente.</div>';
+} 
     
    
 
-    <?php
+  
 if (isset($_GET['message']) && $_GET['message'] == 'exito') {
     echo '<div class="message-success" id="message"l>Los datos del imputado se ha actualizado correctamente.</div>';
 }
