@@ -420,7 +420,7 @@ $conn->close();
         <input type="text" id="apellido" name="apellido" required autocomplete="off"><br>
 
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required><br>
+        <input type="text" id="nombre" name="nombre" required autocomplete="off"><br>
 
         <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
         <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br>
@@ -457,23 +457,23 @@ $conn->close();
 
         <h1>Familia</h1>
             <label for="madre">Nombre de la Madre:</label>
-            <input type="text" id="madre" name="madre" required>
+            <input type="text" id="madre" name="madre" required autocomplete="off">
 
             <label for="padre">Nombre del Padre:</label>
-            <input type="text" id="padre" name="padre" required>
+            <input type="text" id="padre" name="padre" required autocomplete="off">
 
           
         </div>
 
-        <!-- Paso 3 -->
+        <!-- Paso 4 -->
         <div class="step">
 
-        <h1>Origenes</h1>
+        <h1>Estrutura Organizacional</h1>
             <label for="pandilla">Pandilla:</label>
-            <input type="text" id="pandilla" name="pandilla" required>
+            <input type="text" id="pandilla" name="pandilla" required autocomplete="off">
 
             <label for="alias">Alias:</label>
-            <input type="text" id="alias" name="alias" required>
+            <input type="text" id="alias" name="alias" required autocomplete="off">
         </div>
 
         <div class="button-group">
@@ -492,10 +492,14 @@ $conn->close();
             const districtSelect = document.getElementById("distrito");
 
             const districtsByDepartment = {
+
                 "San Salvador": ["Distrito 1", "Distrito 2", "Distrito 3"],
                 "La Libertad": ["Distrito 1", "Distrito 2"],
                 "Santa Ana": ["Distrito 1", "Distrito 2", "Distrito 3"],
-                // Agregar los distritos según cada departamento
+
+                
+
+
             };
 
             // Obtener el departamento seleccionado
