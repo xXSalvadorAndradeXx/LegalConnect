@@ -214,7 +214,7 @@ if (isset($_GET['logout'])) {
             <li>
                 <a href="/Casos/Buscar_Casos.php">Casos</a>
                 <ul>
-                    <li><a href="casos/victima.php">Victimas</a></li>
+                    <li><a href="casos/victima/victima.php">Victimas</a></li>
                     <li><a href="casos/imputados/tabladeimputados.php">Imputados</a></li>
                     
                 </ul>

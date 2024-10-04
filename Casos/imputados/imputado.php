@@ -359,6 +359,15 @@ $conn->close();
     color: #2c3e50;
     transform: scale(0.95);
 }
+
+
+h2 {
+    color: #2c3e50;
+            font-size: 12px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+    
+}
     </style>
 
 </head>
@@ -405,6 +414,7 @@ $conn->close();
 
     
     <form action="" method="POST">
+    <h2> Registro de Imputado </h2>
         <div class="progress-bar">
             <div class="progress-step"></div>
             <div class="progress-step"></div>
