@@ -305,20 +305,23 @@ $result = $conn->query($sql);
 
 
 .btn-navega {
+    position: fixed;
     display: inline-block;
     padding: 10px 20px;
     font-size: 16px;
     color: black;
     background-color: white;
-    border: none;
-    margin-top: 100px;
-    margin: auto;
+    border: 2px solid #2c3e50; /* Borde añadido */
+ 
+    margin-right: 1000px;
+    margin-left: 35px;
     border-radius: 5px;
     text-decoration: none;
     text-align: center;
     transition: background-color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
 }
+
 
 .btn-navega:hover {
     background-color: white;
@@ -403,7 +406,8 @@ $result = $conn->query($sql);
     </nav>
 
 
-
+    
+    
    
 
     <?php
@@ -417,6 +421,7 @@ if (isset($_GET['message']) && $_GET['message'] == 'exito') {
 
     <div class="container">
         <h1>Registros de Imputados</h1>
+        <a class='btn-navega' href='/Casos/imputados/imputado.php' title="Añadir"><i class='fas fa-plus'></i> </a>
 <?php
 
 if ($result->num_rows > 0) {
@@ -491,8 +496,7 @@ $conn->close();
     </div>
 
 
-    <a class='btn-navega' href='/Casos/imputados/imputado.php' title="Añadir"><i class='fas fa-plus'></i> </a>
-    
+   
   
     
 </body>
