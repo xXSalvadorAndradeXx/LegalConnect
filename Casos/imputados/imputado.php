@@ -417,7 +417,7 @@ $conn->close();
             <h1>Datos Generales</h1>
 
             <label for="apellido">Apellido:</label>
-        <input type="text" id="apellido" name="apellido" required><br>
+        <input type="text" id="apellido" name="apellido" required autocomplete="off"><br>
 
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required><br>
