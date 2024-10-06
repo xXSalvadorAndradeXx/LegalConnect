@@ -89,6 +89,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $padre = $_POST['padre'];
     $pandilla = $_POST['pandilla'];
     $alias = $_POST['alias'];
+    $cargo = $_POST['cargo'];
+    
 
     // Encriptar los datos
     $apellido_encrypted = openssl_encrypt($apellido, $ciphering, $encryption_key, $options, $encryption_iv);
@@ -101,11 +103,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $padre_encrypted = openssl_encrypt($padre, $ciphering, $encryption_key, $options, $encryption_iv);
     $pandilla_encrypted = openssl_encrypt($pandilla, $ciphering, $encryption_key, $options, $encryption_iv);
     $alias_encrypted = openssl_encrypt($alias, $ciphering, $encryption_key, $options, $encryption_iv);
+    $cargo_encrypted = openssl_encrypt($cargo, $ciphering, $encryption_key, $options, $encryption_iv);
+ 
 
     // Preparar y ejecutar la consulta SQL
-    $sql = "INSERT INTO imputados (apellido, nombre, fecha_nacimiento, dui, departamento, distrito, direccion, madre, padre, pandilla, alias) 
+    $sql = "INSERT INTO imputados (apellido, nombre, fecha_nacimiento, dui, departamento, distrito, direccion, madre, padre, pandilla, alias,   cargo)
             VALUES ('$apellido_encrypted', '$nombre_encrypted', '$fecha_nacimiento', '$dui_encrypted', '$departamento_encrypted', 
-                    '$distrito_encrypted', '$direccion_encrypted', '$madre_encrypted', '$padre_encrypted', '$pandilla_encrypted', '$alias_encrypted')";
+                    '$distrito_encrypted', '$direccion_encrypted', '$madre_encrypted', '$padre_encrypted', '$pandilla_encrypted', '$alias_encrypted' , '$cargo_encrypted')";
 
     if ($conn->query($sql) === TRUE) {
         header("Location: /Casos/imputados/tabladeimputados.php?mensaje=exito");
@@ -118,6 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -484,7 +489,24 @@ h2 {
 
             <label for="alias">Alias:</label>
             <input type="text" id="alias" name="alias" required autocomplete="off">
+
+            <label for="cargo">Delito:</label>
+            <select id="cargo" name="cargo" required>
+                <option value="">Seleccione Delito</option>
+                <option value="Homicidio">Homicidio</option>
+                <option value="Violación">Violación</option>
+                <option value="Hurto">Hurto</option>
+                
+
+
+            </select><br>
+
         </div>
+
+
+        
+
+        
 
         <div class="button-group">
             <button type="button" id="prevBtn" onclick="changeStep(-1)" disabled>Anterior</button>

@@ -428,7 +428,7 @@ $result = $conn->query($sql);
 
 
     <div class="container">
-        <h1>Registros de Imputados</h1>
+        <h1>Registros de victimas </h1>
         
 <?php
 

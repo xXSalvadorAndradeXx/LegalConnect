@@ -436,7 +436,7 @@ h2 {
         <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br>
 
         <label for="dui">DUI:</label>
-        <input type="text" id="dui" name="dui" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0" required><br>
+        <input type="text" id="dui" name="dui" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0"  ><br>
 
         </div>
 

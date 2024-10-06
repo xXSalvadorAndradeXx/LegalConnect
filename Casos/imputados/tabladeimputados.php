@@ -454,7 +454,9 @@ if ($result->num_rows > 0) {
                 <th>Padre</th>
                 <th>Pandilla</th>
                 <th>Alias</th>
+                <th>Cargo</th>
                 <th>Acciones</th>
+
             </tr>";
     
     // Mostrar cada registro
@@ -472,6 +474,7 @@ if ($result->num_rows > 0) {
         $padre = openssl_decrypt($row['padre'], $ciphering, $encryption_key, $options, $encryption_iv);
         $pandilla = openssl_decrypt($row['pandilla'], $ciphering, $encryption_key, $options, $encryption_iv);
         $alias = openssl_decrypt($row['alias'], $ciphering, $encryption_key, $options, $encryption_iv);
+        $cargo = openssl_decrypt($row['cargo'], $ciphering, $encryption_key, $options, $encryption_iv);
         
         // Mostrar los datos desencriptados en la tabla
         echo "<tr>
@@ -484,6 +487,7 @@ if ($result->num_rows > 0) {
                 <td>$padre</td>
                 <td>$pandilla</td>
                 <td>$alias</td>
+                <td>$cargo</td>
                 <td><a class='btn-editar' href='editar.php?id=$id' title='Editar'>      <i class='fas fa-edit'></i></a>
 
                <a class='btn-eliminar' href='eliminar.php?id=$id' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este registro?\");' title='Eliminar'><i class='fas fa-trash-alt'></i></a>

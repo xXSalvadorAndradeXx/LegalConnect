@@ -1,0 +1,6 @@
+projectKey=LegalConnect
+serverUrl=http://localhost:9000
+serverVersion=10.6.0.92116
+dashboardUrl=http://localhost:9000/dashboard?id=LegalConnect
+ceTaskId=b66c40a9-c293-4624-8585-4bd9c8718542
+ceTaskUrl=http://localhost:9000/api/ce/task?id=b66c40a9-c293-4624-8585-4bd9c8718542
