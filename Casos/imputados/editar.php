@@ -92,7 +92,8 @@ $madre = openssl_decrypt($row['madre'], $ciphering, $encryption_key, $options, $
 $padre = openssl_decrypt($row['padre'], $ciphering, $encryption_key, $options, $encryption_iv);
 $pandilla = openssl_decrypt($row['pandilla'], $ciphering, $encryption_key, $options, $encryption_iv);
 $alias = openssl_decrypt($row['alias'], $ciphering, $encryption_key, $options, $encryption_iv);
-$cargo = openssl_decrypt($row['cargo'], $ciphering, $encryption_key, $options, $encryption_iv);
+$cargo_desencriptado = openssl_decrypt($row['cargo'], $ciphering, $encryption_key, $options, $encryption_iv);
+$cargos = explode(", ", $cargo_desencriptado); // Convertir la cadena de cargos en un arreglo
 
 ?>
 
@@ -519,17 +520,16 @@ $conn->close();
                 <input type="text" id="pandilla" name="pandilla" value="<?php echo $pandilla; ?>" required readonly>
                 <label for="alias">Alias:</label>
                 <input type="text" id="alias" name="alias" value="<?php echo $alias; ?>" required readonly >
-                <label for="cargo">Cargo:</label>
-                <select  id="cargo" name="cargo" required>
-                    <option value="">Seleccione un delito</option>
-                   
-                    <option value="Homicidio" <?php if ($cargo === 'Homicidio') echo 'selected'; ?>>Homicidio</option>
-                    <option value="Violación" <?php if ($cargo === 'Violación') echo 'selected'; ?>>Violación</option>
-                    <option value="Hurto" <?php if ($cargo === 'Hurto') echo 'selected'; ?>>Hurto</option>
-
-                    
+                
+                <label for="cargo">Cargo:</label>  <select id="cargo" name="cargo[]" multiple required>
+                <option value="">Seleccione delitos</option>
+                    <option value="Homicidio" <?php if (in_array('Homicidio', $cargos)) echo 'selected'; ?>>Homicidio</option>
+                    <option value="Violación" <?php if (in_array('Violación', $cargos)) echo 'selected'; ?>>Violación</option>
+                    <option value="Hurto" <?php if (in_array('Hurto', $cargos)) echo 'selected'; ?>>Hurto</option>
                 </select>
-            </div>   
+              
+
+            </div>
 
             <div class="button-group">
                 <button type="button" id="prevBtn" onclick="changeStep(-1)">Anterior</button>

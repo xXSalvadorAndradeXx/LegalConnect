@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $padre = $_POST['padre'];
     $pandilla = $_POST['pandilla'];
     $alias = $_POST['alias'];
-    $cargo = $_POST['cargo'];
+    $cargos = $_POST['cargo'];
     
 
     // Encriptar los datos
@@ -103,7 +103,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $padre_encrypted = openssl_encrypt($padre, $ciphering, $encryption_key, $options, $encryption_iv);
     $pandilla_encrypted = openssl_encrypt($pandilla, $ciphering, $encryption_key, $options, $encryption_iv);
     $alias_encrypted = openssl_encrypt($alias, $ciphering, $encryption_key, $options, $encryption_iv);
-    $cargo_encrypted = openssl_encrypt($cargo, $ciphering, $encryption_key, $options, $encryption_iv);
+    $cargos_str = implode(", ", $cargos);
+    $cargo_encrypted = openssl_encrypt($cargos_str, $ciphering, $encryption_key, $options, $encryption_iv);
+    
  
 
     // Preparar y ejecutar la consulta SQL
@@ -490,16 +492,14 @@ h2 {
             <label for="alias">Alias:</label>
             <input type="text" id="alias" name="alias" required autocomplete="off">
 
-            <label for="cargo">Delito:</label>
-            <select id="cargo" name="cargo" required>
-                <option value="">Seleccione Delito</option>
-                <option value="Homicidio">Homicidio</option>
-                <option value="Violación">Violación</option>
-                <option value="Hurto">Hurto</option>
-                
+            <label for="cargo">Delitos:</label>
+<select id="cargo" name="cargo[]" multiple required>
+    <option value="">Seleccione Delito</option>
+    <option value="Homicidio">Homicidio</option>
+    <option value="Violación">Violación</option>
+    <option value="Hurto">Hurto</option>
+</select><br>
 
-
-            </select><br>
 
         </div>
 
