@@ -32,9 +32,10 @@ $madre = openssl_encrypt($_POST['madre'], $ciphering, $encryption_key, $options,
 $padre = openssl_encrypt($_POST['padre'], $ciphering, $encryption_key, $options, $encryption_iv);
 $pandilla = openssl_encrypt($_POST['pandilla'], $ciphering, $encryption_key, $options, $encryption_iv);
 $alias = openssl_encrypt($_POST['alias'], $ciphering, $encryption_key, $options, $encryption_iv);
+$cargo = openssl_encrypt($_POST['cargo'], $ciphering, $encryption_key, $options, $encryption_iv);
 
 // Actualizar los datos en la base de datos
-$sql = "UPDATE imputados SET apellido='$apellido', nombre='$nombre', fecha_nacimiento='$fecha_nacimiento', dui='$dui', departamento='$departamento', distrito='$distrito', direccion='$direccion', madre='$madre', padre='$padre', pandilla='$pandilla', alias='$alias' WHERE id='$id'";
+$sql = "UPDATE imputados SET apellido='$apellido', nombre='$nombre', fecha_nacimiento='$fecha_nacimiento', dui='$dui', departamento='$departamento', distrito='$distrito', direccion='$direccion', madre='$madre', padre='$padre', pandilla='$pandilla', alias='$alias', cargo='$cargo' WHERE id='$id'";
 
 if ($conn->query($sql) === TRUE) {
     header("Location: /Casos/imputados/tabladeimputados.php?message=exito");

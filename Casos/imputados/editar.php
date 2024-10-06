@@ -92,6 +92,7 @@ $madre = openssl_decrypt($row['madre'], $ciphering, $encryption_key, $options, $
 $padre = openssl_decrypt($row['padre'], $ciphering, $encryption_key, $options, $encryption_iv);
 $pandilla = openssl_decrypt($row['pandilla'], $ciphering, $encryption_key, $options, $encryption_iv);
 $alias = openssl_decrypt($row['alias'], $ciphering, $encryption_key, $options, $encryption_iv);
+$cargo = openssl_decrypt($row['cargo'], $ciphering, $encryption_key, $options, $encryption_iv);
 
 ?>
 
@@ -477,13 +478,13 @@ $conn->close();
                 <h3>Información Personal</h3>
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <label for="apellido">Apellido:</label>
-                <input type="text" id="apellido" name="apellido" value="<?php echo $apellido; ?>" required>
+                <input type="text" id="apellido" name="apellido" value="<?php echo $apellido; ?>" required readonly>
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" value="<?php echo $nombre; ?>" required>
+                <input type="text" id="nombre" name="nombre" value="<?php echo $nombre; ?>" required readonly>
                 <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?php echo $fecha_nacimiento; ?>" required>
+                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?php echo $fecha_nacimiento; ?>" required readonly>
                 <label for="dui">DUI:</label>
-                <input type="text" id="dui" name="dui" value="<?php echo $dui; ?>" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0" required>
+                <input type="text" id="dui" name="dui" value="<?php echo $dui; ?>" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0" required readonly>
             </div>
 
             <!-- Paso 2 -->
@@ -506,18 +507,28 @@ $conn->close();
                 <h3>Familia</h3>
 
                 <label for="madre">Madre:</label>
-                <input type="text" id="madre" name="madre" value="<?php echo $madre; ?>" required>
+                <input type="text" id="madre" name="madre" value="<?php echo $madre; ?>" required readonly>
                 <label for="padre">Padre:</label>
-                <input type="text" id="padre" name="padre" value="<?php echo $padre; ?>" required>
+                <input type="text" id="padre" name="padre" value="<?php echo $padre; ?>" required readonly>
             </div>
 
             <!-- Paso 3 -->
             <div class="step">
                 <h3>Estrutura Organizacional</h3>
                 <label for="pandilla">Pandilla:</label>
-                <input type="text" id="pandilla" name="pandilla" value="<?php echo $pandilla; ?>" required>
+                <input type="text" id="pandilla" name="pandilla" value="<?php echo $pandilla; ?>" required readonly>
                 <label for="alias">Alias:</label>
-                <input type="text" id="alias" name="alias" value="<?php echo $alias; ?>" required>
+                <input type="text" id="alias" name="alias" value="<?php echo $alias; ?>" required readonly >
+                <label for="cargo">Cargo:</label>
+                <select  id="cargo" name="cargo" required>
+                    <option value="">Seleccione un delito</option>
+                   
+                    <option value="Homicidio" <?php if ($cargo === 'Homicidio') echo 'selected'; ?>>Homicidio</option>
+                    <option value="Violación" <?php if ($cargo === 'Violación') echo 'selected'; ?>>Violación</option>
+                    <option value="Hurto" <?php if ($cargo === 'Hurto') echo 'selected'; ?>>Hurto</option>
+
+                    
+                </select>
             </div>   
 
             <div class="button-group">
