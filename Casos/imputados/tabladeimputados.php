@@ -423,7 +423,7 @@ $result = $conn->query($sql);
 
     <?php
 if (isset($_GET['message']) && $_GET['message'] == 'deleted') {
-    echo '<div class="message-deleted" id="message"l>El imputado se ha eliminado correctamente.</div>';
+    echo '<div class="message-deleted" id="message"l>El imputado se ha Archivado correctamente.</div>';
 } 
     
    
