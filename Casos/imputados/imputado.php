@@ -443,11 +443,11 @@ h2 {
         <input type="text" id="nombre" name="nombre" required autocomplete="off"><br>
 
         <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" ><br>
-        <span id="error" style="color: red;"></span>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" onchange="validarEdad()"><br>
+        <span id="error" style="color: red;"></span><br>
 
         <label for="dui">DUI:</label>
-        <input type="text" id="dui" name="dui" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0" required><br>
+        <input type="text" id="dui" name="dui" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0" disabled><br>
 
         </div>
 
@@ -455,7 +455,7 @@ h2 {
         <div class="step">
         <h1>Direccion</h1>
             <label for="departamento">Departamento:</label>
-            <select id="departamento" name="departamento" onchange="updateDistricts()" required>
+            <select id="departamento" name="departamento" onchange="updateDistricts()" >
             <option value="">Seleccione un departamento</option>
             <option value="San Salvador">San Salvador</option>
             <option value="La Libertad">La Libertad</option>
@@ -464,13 +464,13 @@ h2 {
         </select><br>
 
         <label for="distrito">Distrito:</label>
-        <select id="distrito" name="distrito" required>
+        <select id="distrito" name="distrito" >
             <option value="">Seleccione un distrito</option>
         </select><br>
 
 
         <label for="direccion">Especificar Dirección:</label>
-        <textarea id="direccion" name="direccion" required></textarea>
+        <textarea id="direccion" name="direccion" ></textarea>
         </div>
 
 
@@ -478,10 +478,10 @@ h2 {
 
         <h1>Familia</h1>
             <label for="madre">Nombre de la Madre:</label>
-            <input type="text" id="madre" name="madre" required autocomplete="off">
+            <input type="text" id="madre" name="madre"  autocomplete="off">
 
             <label for="padre">Nombre del Padre:</label>
-            <input type="text" id="padre" name="padre" required autocomplete="off">
+            <input type="text" id="padre" name="padre" autocomplete="off">
 
           
         </div>
@@ -491,10 +491,10 @@ h2 {
 
         <h1>Estrutura Organizacional</h1>
             <label for="pandilla">Pandilla:</label>
-            <input type="text" id="pandilla" name="pandilla" required autocomplete="off">
+            <input type="text" id="pandilla" name="pandilla"  autocomplete="off">
 
             <label for="alias">Alias:</label>
-            <input type="text" id="alias" name="alias" required autocomplete="off">
+            <input type="text" id="alias" name="alias"  autocomplete="off">
 
             
         </div>
@@ -515,6 +515,38 @@ h2 {
 
 
     <script>
+
+
+function validarEdad() {
+            const fechaNacimiento = new Date(document.getElementById("fecha_nacimiento").value);
+            const hoy = new Date();
+            const errorElement = document.getElementById("error");
+            const duiElement = document.getElementById("dui");
+
+            if (isNaN(fechaNacimiento)) {
+                errorElement.textContent = "Por favor, ingrese una fecha válida.";
+                duiElement.disabled = true;
+                return;
+            }
+
+            // Cálculo de la edad
+            let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+            const mes = hoy.getMonth() - fechaNacimiento.getMonth();
+            const dia = hoy.getDate() - fechaNacimiento.getDate();
+
+            if (mes < 0 || (mes === 0 && dia < 0)) {
+                edad--;
+            }
+
+            // Validación
+            if (edad >= 18) {
+                errorElement.textContent = "";
+                duiElement.disabled = false;  // Habilitar el campo DUI
+            } else {
+                errorElement.textContent = "Debe ser mayor de 18 años para ingresar el DUI.";
+                duiElement.disabled = true;  // Deshabilitar el campo DUI
+            }
+        }
 
 document.getElementById("fecha_nacimiento").addEventListener("change", function() {
         const fechaNacimiento = new Date(this.value);
@@ -581,7 +613,9 @@ document.getElementById("fecha_nacimiento").addEventListener("change", function(
 </script>
 
 <script>
-        
+
+
+
 
 
 
