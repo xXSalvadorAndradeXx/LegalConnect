@@ -375,6 +375,32 @@ h2 {
             letter-spacing: 2px;
     
 }
+
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: #fff;
+    font-size: 1em;
+    appearance: none; /* Eliminar el estilo predeterminado del select */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><polygon points="0,0 10,0 5,5" style="fill:gray;"/></svg>'); /* Personalizar la flecha */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+select:focus {
+    outline: none;
+    border-color: #007BFF;
+}
+
+option {
+    padding: 10px;
+}
+
+option:hover {
+    background-color: #f1f1f1;
+}
     </style>
 
 </head>

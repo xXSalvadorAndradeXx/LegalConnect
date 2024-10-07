@@ -490,7 +490,7 @@ if ($result->num_rows > 0) {
                 <td>$cargo</td>
                 <td><a class='btn-editar' href='editar.php?id=$id' title='Editar'>      <i class='fas fa-edit'></i></a>
 
-               <a class='btn-eliminar' href='eliminar.php?id=$id' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este registro?\");' title='Eliminar'><i class='fas fa-trash-alt'></i></a>
+               <a class='btn-eliminar' href='archivar.php?id=$id' onclick='return confirm(\"¿Estás seguro de que deseas archivar este registro?\");' title='Archivar'><i class='fas fa-archive'></i></a>
 
 
                 </td>
