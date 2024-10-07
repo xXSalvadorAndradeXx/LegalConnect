@@ -491,7 +491,7 @@ h2 {
 
         <h1>Estrutura Organizacional</h1>
             <label for="pandilla">Pandilla:</label>
-            <input type="text" id="pandilla" name="pandilla"  autocomplete="off">
+            <input type="text" id="pandilla" name="pandilla" required autocomplete="off">
 
             <label for="alias">Alias:</label>
             <input type="text" id="alias" name="alias"  autocomplete="off">
