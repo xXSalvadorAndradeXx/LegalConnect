@@ -35,10 +35,10 @@ if ($result->num_rows > 0) {
     $padre = $row['padre'];
     $pandilla = $row['pandilla'];
     $alias = $row['alias'];
-    $cargo = $row['cargo'];
+    
 
     // Insertar en la tabla archivados
-    $sql_insert = "INSERT INTO archivados (apellido, nombre, fecha_nacimiento, dui, departamento, distrito, direccion, madre, padre, pandilla, alias, cargo) VALUES ('$apellido', '$nombre', '$fecha_nacimiento', '$dui', '$departamento', '$distrito', '$direccion', '$madre', '$padre', '$pandilla', '$alias', '$cargo')";
+    $sql_insert = "INSERT INTO archivados (apellido, nombre, fecha_nacimiento, dui, departamento, distrito, direccion, madre, padre, pandilla, alias) VALUES ('$apellido', '$nombre', '$fecha_nacimiento', '$dui', '$departamento', '$distrito', '$direccion', '$madre', '$padre', '$pandilla', '$alias'";
     
     $sql_delete = "DELETE FROM imputados WHERE id='$id'";
     

@@ -32,12 +32,9 @@ $madre = $conn->real_escape_string(openssl_encrypt($_POST['madre'], $ciphering, 
 $padre = $conn->real_escape_string(openssl_encrypt($_POST['padre'], $ciphering, $encryption_key, $options, $encryption_iv));
 $pandilla = $conn->real_escape_string(openssl_encrypt($_POST['pandilla'], $ciphering, $encryption_key, $options, $encryption_iv));
 $alias = $conn->real_escape_string(openssl_encrypt($_POST['alias'], $ciphering, $encryption_key, $options, $encryption_iv));
-$cargos = $_POST['cargo']; // Recibir los cargos seleccionados
-$cargos_str = implode(", ", $cargos); // Convertir a cadena
-$cargo_encrypted = $conn->real_escape_string(openssl_encrypt($cargos_str, $ciphering, $encryption_key, $options, $encryption_iv)); // Encriptar los cargos
 
 // Actualizar los datos en la base de datos
-$sql = "UPDATE imputados SET apellido='$apellido', nombre='$nombre', fecha_nacimiento='$fecha_nacimiento', dui='$dui', departamento='$departamento', distrito='$distrito', direccion='$direccion', madre='$madre', padre='$padre', pandilla='$pandilla', alias='$alias', cargo='$cargo_encrypted' WHERE id='$id'";
+$sql = "UPDATE imputados SET apellido='$apellido', nombre='$nombre', fecha_nacimiento='$fecha_nacimiento', dui='$dui', departamento='$departamento', distrito='$distrito', direccion='$direccion', madre='$madre', padre='$padre', pandilla='$pandilla', alias='$alias' WHERE id='$id'";
 
 if ($conn->query($sql) === TRUE) {
     header("Location: /Casos/imputados/tabladeimputados.php?message=exito");

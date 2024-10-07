@@ -92,8 +92,7 @@ $madre = openssl_decrypt($row['madre'], $ciphering, $encryption_key, $options, $
 $padre = openssl_decrypt($row['padre'], $ciphering, $encryption_key, $options, $encryption_iv);
 $pandilla = openssl_decrypt($row['pandilla'], $ciphering, $encryption_key, $options, $encryption_iv);
 $alias = openssl_decrypt($row['alias'], $ciphering, $encryption_key, $options, $encryption_iv);
-$cargo_desencriptado = openssl_decrypt($row['cargo'], $ciphering, $encryption_key, $options, $encryption_iv);
-$cargos = explode(", ", $cargo_desencriptado); // Convertir la cadena de cargos en un arreglo
+
 
 ?>
 
@@ -521,12 +520,7 @@ $conn->close();
                 <label for="alias">Alias:</label>
                 <input type="text" id="alias" name="alias" value="<?php echo $alias; ?>" required readonly >
                 
-                <label for="cargo">Cargo:</label>  <select id="cargo" name="cargo[]" multiple required>
-                <option value="">Seleccione delitos</option>
-                    <option value="Homicidio" <?php if (in_array('Homicidio', $cargos)) echo 'selected'; ?>>Homicidio</option>
-                    <option value="Violación" <?php if (in_array('Violación', $cargos)) echo 'selected'; ?>>Violación</option>
-                    <option value="Hurto" <?php if (in_array('Hurto', $cargos)) echo 'selected'; ?>>Hurto</option>
-                </select>
+               
               
 
             </div>
