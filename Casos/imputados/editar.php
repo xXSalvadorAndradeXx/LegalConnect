@@ -478,13 +478,15 @@ $conn->close();
                 <h3>Información Personal</h3>
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <label for="apellido">Apellido:</label>
-                <input type="text" id="apellido" name="apellido" value="<?php echo $apellido; ?>" required readonly>
+                <input type="text" id="apellido" name="apellido" value="<?php echo $apellido; ?>" >
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" value="<?php echo $nombre; ?>" required readonly>
+                <input type="text" id="nombre" name="nombre" value="<?php echo $nombre; ?>"  >
                 <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?php echo $fecha_nacimiento; ?>" required readonly>
-                <label for="dui">DUI:</label>
-                <input type="text" id="dui" name="dui" value="<?php echo $dui; ?>" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0" required readonly>
+    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?php echo $fecha_nacimiento; ?>"  onchange="validarEdad()">
+    <span id="error" style="color: red;"></span><br>
+
+    <label for="dui">DUI:</label>
+    <input type="text" id="dui" name="dui" value="<?php echo $dui; ?>" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0"  disabled><br>
             </div>
 
             <!-- Paso 2 -->
@@ -493,11 +495,11 @@ $conn->close();
 
                 
                 <label for="departamento">Departamento:</label>
-                <input type="text" id="departamento" name="departamento" value="<?php echo $departamento; ?>" required>
+                <input type="text" id="departamento" name="departamento" value="<?php echo $departamento; ?>" >
                 <label for="distrito">Distrito:</label>
-                <input type="text" id="distrito" name="distrito" value="<?php echo $distrito; ?>" required>
-                <label for="direccion">Dirección:</label>
-                <textarea id="direccion" name="direccion" required><?php echo $direccion; ?></textarea>
+                <input type="text" id="distrito" name="distrito" value="<?php echo $distrito; ?>" >
+                <label for="direccion">Especificar Dirección:</label>
+                <textarea id="direccion" name="direccion" ><?php echo $direccion; ?></textarea>
                 
                 
             </div>
@@ -507,18 +509,18 @@ $conn->close();
                 <h3>Familia</h3>
 
                 <label for="madre">Madre:</label>
-                <input type="text" id="madre" name="madre" value="<?php echo $madre; ?>" required readonly>
+                <input type="text" id="madre" name="madre" value="<?php echo $madre; ?>" >
                 <label for="padre">Padre:</label>
-                <input type="text" id="padre" name="padre" value="<?php echo $padre; ?>" required readonly>
+                <input type="text" id="padre" name="padre" value="<?php echo $padre; ?>" >
             </div>
 
             <!-- Paso 3 -->
             <div class="step">
                 <h3>Estrutura Organizacional</h3>
                 <label for="pandilla">Pandilla:</label>
-                <input type="text" id="pandilla" name="pandilla" value="<?php echo $pandilla; ?>" required readonly>
+                <input type="text" id="pandilla" name="pandilla" value="<?php echo $pandilla; ?>" >
                 <label for="alias">Alias:</label>
-                <input type="text" id="alias" name="alias" value="<?php echo $alias; ?>" required readonly >
+                <input type="text" id="alias" name="alias" value="<?php echo $alias; ?>"  >
                 
                
               
@@ -534,6 +536,114 @@ $conn->close();
     </div>
 
 <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+        verificarCampos();
+    });
+
+    function verificarCampos() {
+        const fields = [
+            document.getElementById('apellido'),
+            document.getElementById('nombre'),
+            document.getElementById('fecha_nacimiento'),
+            
+            document.getElementById('departamento'),
+            document.getElementById('distrito'),
+            document.getElementById('direccion'),
+            document.getElementById('madre'),
+            document.getElementById('padre'),
+            document.getElementById('pandilla'),
+            document.getElementById('alias')
+        ];
+
+        fields.forEach(field => {
+            if (field.tagName === 'INPUT' || field.tagName === 'TEXTAREA') {
+                if (field.value.trim() === '') {
+                    field.disabled = false; // Habilitar el campo si está vacío
+                } else {
+                    field.disabled = true; // Deshabilitar el campo si tiene valor
+                }
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function validarEdad() {
+            const fechaNacimiento = new Date(document.getElementById("fecha_nacimiento").value);
+            const hoy = new Date();
+            const errorElement = document.getElementById("error");
+            const duiElement = document.getElementById("dui");
+
+            if (isNaN(fechaNacimiento)) {
+                errorElement.textContent = "Por favor, ingrese una fecha válida.";
+                duiElement.disabled = true;
+                return;
+            }
+
+            // Cálculo de la edad
+            let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+            const mes = hoy.getMonth() - fechaNacimiento.getMonth();
+            const dia = hoy.getDate() - fechaNacimiento.getDate();
+
+            if (mes < 0 || (mes === 0 && dia < 0)) {
+                edad--;
+            }
+
+            // Validación
+            if (edad >= 18) {
+                errorElement.textContent = "";
+                duiElement.disabled = false;  // Habilitar el campo DUI
+            } else {
+                errorElement.textContent = "Debe ser mayor de 18 años para ingresar el DUI.";
+                duiElement.disabled = true;  // Deshabilitar el campo DUI
+            }
+        }
+
+document.getElementById("fecha_nacimiento").addEventListener("change", function() {
+        const fechaNacimiento = new Date(this.value);
+        const fechaActual = new Date();
+        
+        // Calcular la edad
+        const edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
+        const mes = fechaActual.getMonth() - fechaNacimiento.getMonth();
+        const dia = fechaActual.getDate() - fechaNacimiento.getDate();
+        
+        if (edad < 12 || (edad === 12 && (mes < 0 || (mes === 0 && dia < 0)))) {
+            const errorMsg = document.getElementById("error");
+            errorMsg.textContent = "Debes tener al menos 12 años.";
+            this.value = ''; // Vaciar el campo si la edad es menor de 15 años
+            
+            // Hacer que el mensaje desaparezca después de 5 segundos
+            setTimeout(function() {
+                errorMsg.textContent = "";
+            }, 5000);
+        } else {
+            document.getElementById("error").textContent = ""; // Limpiar el mensaje de error inmediatamente si es válido
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
 let currentStep = 0;
 
 function showStep(step) {

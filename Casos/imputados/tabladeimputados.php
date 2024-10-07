@@ -451,7 +451,7 @@ if ($result->num_rows > 0) {
                
                 <th>Departamento</th>
                 <th>Distrito</th>
-                <th>Dirección</th>
+                
                 
                 <th>Pandilla</th>
                 <th>Alias</th>
@@ -482,7 +482,7 @@ if ($result->num_rows > 0) {
                 <td>$codigo</td>
                 <td>$departamento</td>
                 <td>$distrito</td>
-                <td>$direccion</td>
+                
              
                 <td>$pandilla</td>
                 <td>$alias</td>
