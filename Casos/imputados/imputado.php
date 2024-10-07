@@ -72,7 +72,13 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-
+// Función para generar un código en el formato IMP 000-0000-000
+function generarCodigoImputado() {
+    $codigo = 'IMP ' . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT) . '-' . 
+                      str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT) . '-' . 
+                      str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
+    return $codigo;
+}
 
 
 // Procesar el formulario cuando se envíe
@@ -89,8 +95,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $padre = $_POST['padre'];
     $pandilla = $_POST['pandilla'];
     $alias = $_POST['alias'];
-   
-    
 
     // Encriptar los datos
     $apellido_encrypted = openssl_encrypt($apellido, $ciphering, $encryption_key, $options, $encryption_iv);
@@ -103,14 +107,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $padre_encrypted = openssl_encrypt($padre, $ciphering, $encryption_key, $options, $encryption_iv);
     $pandilla_encrypted = openssl_encrypt($pandilla, $ciphering, $encryption_key, $options, $encryption_iv);
     $alias_encrypted = openssl_encrypt($alias, $ciphering, $encryption_key, $options, $encryption_iv);
-   
-   
-    
- 
+
+    // Generar el código del imputado
+    $codigo_imputado = generarCodigoImputado();
 
     // Preparar y ejecutar la consulta SQL
-    $sql = "INSERT INTO imputados (apellido, nombre, fecha_nacimiento, dui, departamento, distrito, direccion, madre, padre, pandilla, alias)
-            VALUES ('$apellido_encrypted', '$nombre_encrypted', '$fecha_nacimiento', '$dui_encrypted', '$departamento_encrypted', 
+    $sql = "INSERT INTO imputados (codigo, apellido, nombre, fecha_nacimiento, dui, departamento, distrito, direccion, madre, padre, pandilla, alias)
+            VALUES ('$codigo_imputado', '$apellido_encrypted', '$nombre_encrypted', '$fecha_nacimiento', '$dui_encrypted', '$departamento_encrypted', 
                     '$distrito_encrypted', '$direccion_encrypted', '$madre_encrypted', '$padre_encrypted', '$pandilla_encrypted', '$alias_encrypted')";
 
     if ($conn->query($sql) === TRUE) {
@@ -118,12 +121,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
-
-  
 }
 
 $conn->close();
 ?>
+
 
 
 <!DOCTYPE html>
@@ -441,7 +443,8 @@ h2 {
         <input type="text" id="nombre" name="nombre" required autocomplete="off"><br>
 
         <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" ><br>
+        <span id="error" style="color: red;"></span>
 
         <label for="dui">DUI:</label>
         <input type="text" id="dui" name="dui" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0" required><br>
@@ -512,6 +515,37 @@ h2 {
 
 
     <script>
+
+document.getElementById("fecha_nacimiento").addEventListener("change", function() {
+        const fechaNacimiento = new Date(this.value);
+        const fechaActual = new Date();
+        
+        // Calcular la edad
+        const edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
+        const mes = fechaActual.getMonth() - fechaNacimiento.getMonth();
+        const dia = fechaActual.getDate() - fechaNacimiento.getDate();
+        
+        if (edad < 12 || (edad === 12 && (mes < 0 || (mes === 0 && dia < 0)))) {
+            const errorMsg = document.getElementById("error");
+            errorMsg.textContent = "Debes tener al menos 12 años.";
+            this.value = ''; // Vaciar el campo si la edad es menor de 15 años
+            
+            // Hacer que el mensaje desaparezca después de 5 segundos
+            setTimeout(function() {
+                errorMsg.textContent = "";
+            }, 5000);
+        } else {
+            document.getElementById("error").textContent = ""; // Limpiar el mensaje de error inmediatamente si es válido
+        }
+    });
+
+
+
+
+
+
+
+
         function updateDistricts() {
             const departmentSelect = document.getElementById("departamento");
             const districtSelect = document.getElementById("distrito");
@@ -604,4 +638,3 @@ h2 {
     </script>
 </body>
 </html>
-

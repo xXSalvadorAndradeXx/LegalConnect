@@ -447,14 +447,14 @@ if ($result->num_rows > 0) {
     echo "<table border='1'>
             <tr>
                 <th>ID</th>
+                <th>Codigo</th>
+               
                 <th>Departamento</th>
                 <th>Distrito</th>
                 <th>Dirección</th>
-                <th>Madre</th>
-                <th>Padre</th>
+                
                 <th>Pandilla</th>
                 <th>Alias</th>
-              
                 <th>Acciones</th>
 
             </tr>";
@@ -463,10 +463,11 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         // Desencriptar los datos
         $id = $row['id'];
-        $apellido = openssl_decrypt($row['apellido'], $ciphering, $encryption_key, $options, $encryption_iv);
-        $nombre = openssl_decrypt($row['nombre'], $ciphering, $encryption_key, $options, $encryption_iv);
-        $fecha_nacimiento = $row['fecha_nacimiento'];
-        $dui = openssl_decrypt($row['dui'], $ciphering, $encryption_key, $options, $encryption_iv);
+       
+        $codigo = $row['codigo'];
+   
+       
+        
         $departamento = openssl_decrypt($row['departamento'], $ciphering, $encryption_key, $options, $encryption_iv);
         $distrito = openssl_decrypt($row['distrito'], $ciphering, $encryption_key, $options, $encryption_iv);
         $direccion = openssl_decrypt($row['direccion'], $ciphering, $encryption_key, $options, $encryption_iv);
@@ -478,12 +479,11 @@ if ($result->num_rows > 0) {
         // Mostrar los datos desencriptados en la tabla
         echo "<tr>
                 <td>$id</td>
-                
+                <td>$codigo</td>
                 <td>$departamento</td>
                 <td>$distrito</td>
                 <td>$direccion</td>
-                <td>$madre</td>
-                <td>$padre</td>
+             
                 <td>$pandilla</td>
                 <td>$alias</td>
              
