@@ -451,7 +451,7 @@ if ($result->num_rows > 0) {
                
                 <th>Departamento</th>
                 <th>Distrito</th>
-                
+                <th>Sexo</th>
                 
                 <th>Pandilla</th>
                 <th>Alias</th>
@@ -475,6 +475,8 @@ if ($result->num_rows > 0) {
         $padre = openssl_decrypt($row['padre'], $ciphering, $encryption_key, $options, $encryption_iv);
         $pandilla = openssl_decrypt($row['pandilla'], $ciphering, $encryption_key, $options, $encryption_iv);
         $alias = openssl_decrypt($row['alias'], $ciphering, $encryption_key, $options, $encryption_iv);
+        $sexo = openssl_decrypt($row['sexo'], $ciphering, $encryption_key, $options, $encryption_iv);
+
         
         // Mostrar los datos desencriptados en la tabla
         echo "<tr>
@@ -482,6 +484,7 @@ if ($result->num_rows > 0) {
                 <td>$codigo</td>
                 <td>$departamento</td>
                 <td>$distrito</td>
+                <td>$sexo</td>
                 
              
                 <td>$pandilla</td>

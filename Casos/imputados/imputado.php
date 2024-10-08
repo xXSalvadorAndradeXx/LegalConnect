@@ -96,6 +96,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pandilla = $_POST['pandilla'];
     $alias = $_POST['alias'];
 
+    // Verificar el valor de 'sexo'
+    if ($_POST['sexo'] === 'Otro') {
+        $sexo = $_POST['otroSexo'];  // Si selecciona "Otro", se guarda el valor del campo adicional
+    } else {
+        $sexo = $_POST['sexo'];  // Si no, se guarda la opción seleccionada en el campo 'sexo'
+    }
+
     // Encriptar los datos
     $apellido_encrypted = openssl_encrypt($apellido, $ciphering, $encryption_key, $options, $encryption_iv);
     $nombre_encrypted = openssl_encrypt($nombre, $ciphering, $encryption_key, $options, $encryption_iv);
@@ -108,13 +115,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pandilla_encrypted = openssl_encrypt($pandilla, $ciphering, $encryption_key, $options, $encryption_iv);
     $alias_encrypted = openssl_encrypt($alias, $ciphering, $encryption_key, $options, $encryption_iv);
 
+    // Encriptar el campo 'sexo'
+    $sexo_encrypted = openssl_encrypt($sexo, $ciphering, $encryption_key, $options, $encryption_iv);
+
     // Generar el código del imputado
     $codigo_imputado = generarCodigoImputado();
 
     // Preparar y ejecutar la consulta SQL
-    $sql = "INSERT INTO imputados (codigo, apellido, nombre, fecha_nacimiento, dui, departamento, distrito, direccion, madre, padre, pandilla, alias)
+    $sql = "INSERT INTO imputados (codigo, apellido, nombre, fecha_nacimiento, dui, departamento, distrito, direccion, madre, padre, pandilla, alias, sexo)
             VALUES ('$codigo_imputado', '$apellido_encrypted', '$nombre_encrypted', '$fecha_nacimiento', '$dui_encrypted', '$departamento_encrypted', 
-                    '$distrito_encrypted', '$direccion_encrypted', '$madre_encrypted', '$padre_encrypted', '$pandilla_encrypted', '$alias_encrypted')";
+                    '$distrito_encrypted', '$direccion_encrypted', '$madre_encrypted', '$padre_encrypted', '$pandilla_encrypted', '$alias_encrypted', '$sexo_encrypted')";
 
     if ($conn->query($sql) === TRUE) {
         header("Location: /Casos/imputados/tabladeimputados.php?mensaje=exito");
@@ -125,6 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
+
 
 
 
@@ -449,6 +460,20 @@ h2 {
         <label for="dui">DUI:</label>
         <input type="text" id="dui" name="dui" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0" disabled><br>
 
+        <label for="sexo">Sexo:</label>
+        <select id="sexo" name="sexo" onchange="mostrarCampoOtro()">
+            <option value="">Seleccione un sexo</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+            <option value="Otro">Otro</option>
+        </select><br>
+
+            <div id="campoOtro" style="display:none;">
+        <label for="otroSexo">Especifique:</label>
+        <input type="text" id="otroSexo" name="otroSexo">
+</div>
+
+
         </div>
 
         <!-- Paso 2 -->
@@ -515,6 +540,20 @@ h2 {
 
 
     <script>
+
+
+
+
+function mostrarCampoOtro() {
+        var select = document.getElementById("sexo");
+        var campoOtro = document.getElementById("campoOtro");
+        
+        if (select.value === "Otro") {
+            campoOtro.style.display = "block";
+        } else {
+            campoOtro.style.display = "none";
+        }
+    }
 
 
 function validarEdad() {
