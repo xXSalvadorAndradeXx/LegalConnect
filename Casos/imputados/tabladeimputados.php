@@ -442,6 +442,9 @@ if (isset($_GET['message']) && $_GET['message'] == 'exito') {
         
 <?php
 
+
+
+
 if ($result->num_rows > 0) {
     echo "<h1>Registros</h1>";
     echo "<table border='1'>
