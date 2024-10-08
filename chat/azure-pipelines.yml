@@ -1,0 +1,42 @@
+trigger:
+  branches:
+    include:
+      - main  # Ajusta el nombre de la rama si es necesario
+
+pool:
+  vmImage: 'windows-latest'  # Usa una VM de Windows
+
+steps:
+  # Preparar el análisis de SonarQube
+  - task: SonarQubePrepare@5
+    inputs:
+      SonarQube: 'SonarQubeServiceConnection'  # Define tu conexión de servicio SonarQube
+      scannerMode: 'CLI'
+      configMode: 'manual'
+      cliProjectKey: 'LegalConnect'
+      cliProjectName: 'LegalConnect'
+      cliProjectVersion: '1.0'
+      extraProperties: |
+        sonar.language=php
+        sonar.sources=.
+        sonar.php.coverage.reportPaths=tests/coverage/coverage.xml
+        sonar.login=sqa_b1161342163b34dcff98a5e3a47c1d42698aedf3
+
+  # Instalar dependencias de PHP (usando Composer en Windows)
+  - script: |
+      echo "Instalando dependencias de PHP..."
+      php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+      php composer-setup.php
+      php -r "unlink('composer-setup.php');"
+      php composer.phar install
+    displayName: 'Instalar dependencias de PHP'
+
+  # Ejecutar el análisis de SonarQube
+  - task: SonarQubeAnalyze@5
+    displayName: 'Ejecutar análisis de SonarQube'
+
+  # Publicar los resultados del análisis
+  - task: SonarQubePublish@5
+    inputs:
+      pollingTimeoutSec: '300'
+    displayName: 'Publicar resultados en SonarQube'
