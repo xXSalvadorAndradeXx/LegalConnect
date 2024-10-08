@@ -5,6 +5,8 @@ trigger:
 
 pool:
   name: 'LegalCC'
+  demands:
+    - java
 
 steps:
   - task: UseDotNet@2
