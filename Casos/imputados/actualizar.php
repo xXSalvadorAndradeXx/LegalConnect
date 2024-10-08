@@ -19,6 +19,7 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
+
 // Recibir los datos del formulario
 $id = $_POST['id'];
 $apellido = $conn->real_escape_string(openssl_encrypt($_POST['apellido'], $ciphering, $encryption_key, $options, $encryption_iv));
@@ -33,8 +34,19 @@ $padre = $conn->real_escape_string(openssl_encrypt($_POST['padre'], $ciphering, 
 $pandilla = $conn->real_escape_string(openssl_encrypt($_POST['pandilla'], $ciphering, $encryption_key, $options, $encryption_iv));
 $alias = $conn->real_escape_string(openssl_encrypt($_POST['alias'], $ciphering, $encryption_key, $options, $encryption_iv));
 
+
+if ($_POST['genero'] === 'Otro') {
+    $sexo = $_POST['otroGenero'];  // Si selecciona "Otro", se guarda el valor del campo adicional
+} else {
+    $sexo = $_POST['genero'];  // Si no, se guarda la opción seleccionada en el campo 'sexo'
+}
+
+$sexo = openssl_encrypt($sexo, $ciphering, $encryption_key, $options, $encryption_iv);
+
+
+
 // Actualizar los datos en la base de datos
-$sql = "UPDATE imputados SET apellido='$apellido', nombre='$nombre', fecha_nacimiento='$fecha_nacimiento', dui='$dui', departamento='$departamento', distrito='$distrito', direccion='$direccion', madre='$madre', padre='$padre', pandilla='$pandilla', alias='$alias' WHERE id='$id'";
+$sql = "UPDATE imputados SET apellido='$apellido', nombre='$nombre', fecha_nacimiento='$fecha_nacimiento', dui='$dui', departamento='$departamento', distrito='$distrito', direccion='$direccion', madre='$madre', padre='$padre', pandilla='$pandilla', alias='$alias', sexo='$sexo' WHERE id='$id'";
 
 if ($conn->query($sql) === TRUE) {
     header("Location: /Casos/imputados/tabladeimputados.php?message=exito");

@@ -489,8 +489,20 @@ $conn->close();
             <label for="dui">DUI:</label>
             <input type="text" id="dui" name="dui" value="<?php echo $dui; ?>" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0"  readonly><br>
                         
-        <label for="genero">Genero:</label>
-        <input type="text" id="genero" name="genero" value="<?php echo $sexo; ?>" required readonly>
+        <label for="genero">Género:</label>
+<select id="genero" name="genero" required onchange="mostrarCampoOtro()">
+    <option value="" disabled selected hidden></option>
+    <option value= "<?php echo $sexo; ?>" selected><?php echo $sexo; ?></option>
+    <option value="Masculino" <?php if ($sexo === 'Masculino') echo 'selected'; ?>>Masculino</option>
+    <option value="Femenino" <?php if ($sexo === 'Femenino') echo 'selected'; ?>>Femenino</option>
+    <option value="Otro" <?php if ($sexo === 'Otro') echo 'selected'; ?>>Otro</option>
+</select><br>
+
+<div id="campoOtro" style="display:none;">
+    <label for="otroGenero">Especifique:</label>
+    <input type="text" id="otroGenero" name="otroGenero" value="<?php echo isset($otroGenero) ? htmlspecialchars($otroGenero) : ''; ?>">
+</div>
+
         </div>
 
             
@@ -542,6 +554,18 @@ $conn->close();
     </div>
 
 <script>
+
+
+function mostrarCampoOtro() {
+    var select = document.getElementById("genero");
+    var campoOtro = document.getElementById("campoOtro");
+    if (select.value === "Otro") {
+        campoOtro.style.display = "block";
+    } else {
+        campoOtro.style.display = "none";
+    }
+}
+
 
 function verificarCampos() {
         const fechaNacimiento = new Date(document.getElementById("fecha_nacimiento").value);
