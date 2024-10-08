@@ -92,6 +92,7 @@ $madre = openssl_decrypt($row['madre'], $ciphering, $encryption_key, $options, $
 $padre = openssl_decrypt($row['padre'], $ciphering, $encryption_key, $options, $encryption_iv);
 $pandilla = openssl_decrypt($row['pandilla'], $ciphering, $encryption_key, $options, $encryption_iv);
 $alias = openssl_decrypt($row['alias'], $ciphering, $encryption_key, $options, $encryption_iv);
+$sexo = openssl_decrypt($row['sexo'], $ciphering, $encryption_key, $options, $encryption_iv);
 
 
 ?>
@@ -482,12 +483,17 @@ $conn->close();
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" value="<?php echo $nombre; ?>" required readonly>
                 <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-<input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?php echo $fecha_nacimiento; ?>" onchange="verificarCampos();">
-<span id="error" style="color: red;"></span><br>
+                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?php echo $fecha_nacimiento; ?>" onchange="verificarCampos();">
+                <span id="error" style="color: red;"></span><br>
 
-<label for="dui">DUI:</label>
-<input type="text" id="dui" name="dui" value="<?php echo $dui; ?>" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0" required readonly><br>
-            </div>
+            <label for="dui">DUI:</label>
+            <input type="text" id="dui" name="dui" value="<?php echo $dui; ?>" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0"  readonly><br>
+                        
+        <label for="genero">Genero:</label>
+        <input type="text" id="genero" name="genero" value="<?php echo $sexo; ?>" required readonly>
+        </div>
+
+            
 
             <!-- Paso 2 -->
             <div class="step">
@@ -544,7 +550,7 @@ function verificarCampos() {
         const duiElement = document.getElementById("dui");
 
         if (isNaN(fechaNacimiento.getTime())) {
-            errorElement.textContent = "Por favor, ingrese una fecha válida.";
+            errorElement.textContent = "";
             duiElement.readOnly = true;
             return;
         }
