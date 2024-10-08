@@ -4,7 +4,7 @@ trigger:
       - main  # Ajusta el nombre de la rama si es necesario
 
 pool:
-  vmImage: 'ubuntu-latest'
+  name: 'LegalCC'
 
 steps:
   - task: UseDotNet@2
