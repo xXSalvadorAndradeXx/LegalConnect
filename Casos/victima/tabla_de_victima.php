@@ -73,7 +73,7 @@ if ($conn->connect_error) {
 }
 
 // Consultar los registros
-$sql = "SELECT * FROM victimas";
+$sql = "SELECT * FROM victumas";
 $result = $conn->query($sql);
 ?>
 
@@ -442,6 +442,7 @@ if ($result->num_rows > 0) {
                 <th>Dirección</th>
                 <th>Madre</th>
                 <th>Padre</th>
+                <th>Genero</th>
                 
                 <th>Acciones</th>
             </tr>";
@@ -450,15 +451,18 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         // Desencriptar los datos
         $id = $row['id'];
-        $apellido = openssl_decrypt($row['apellido'], $ciphering, $encryption_key, $options, $encryption_iv);
-        $nombre = openssl_decrypt($row['nombre'], $ciphering, $encryption_key, $options, $encryption_iv);
-        $fecha_nacimiento = $row['fecha_nacimiento'];
-        $dui = openssl_decrypt($row['dui'], $ciphering, $encryption_key, $options, $encryption_iv);
+
         $departamento = openssl_decrypt($row['departamento'], $ciphering, $encryption_key, $options, $encryption_iv);
         $distrito = openssl_decrypt($row['distrito'], $ciphering, $encryption_key, $options, $encryption_iv);
         $direccion = openssl_decrypt($row['direccion'], $ciphering, $encryption_key, $options, $encryption_iv);
         $madre = openssl_decrypt($row['madre'], $ciphering, $encryption_key, $options, $encryption_iv);
         $padre = openssl_decrypt($row['padre'], $ciphering, $encryption_key, $options, $encryption_iv);
+        $sexo = openssl_decrypt($row['sexo'], $ciphering, $encryption_key, $options, $encryption_iv);
+        
+        
+       
+        
+       
         
         // Mostrar los datos desencriptados en la tabla
         echo "<tr>
@@ -469,6 +473,7 @@ if ($result->num_rows > 0) {
                 <td>$direccion</td>
                 <td>$madre</td>
                 <td>$padre</td>
+                <td>$sexo</td>
                 
                 <td><a class='btn-editar' href='' title='Editar'>      <i class='fas fa-edit'></i></a>
 
