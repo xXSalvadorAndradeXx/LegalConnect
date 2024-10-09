@@ -4,13 +4,20 @@ trigger:
       - main  # Ajusta el nombre de la rama si es necesario
 
 pool:
-  vmImage: 'windows-latest'  # Usa una VM de Windows
+  name: 'LegalCC'
+  demands:
+    - java
 
 steps:
-  # Preparar el análisis de SonarQube
+  - task: UseDotNet@2
+    displayName: 'Instalar .NET Core SDK' # Opcional si tu proyecto lo requiere
+    inputs:
+      packageType: 'sdk'
+      version: '6.x.x' # Ajusta según tu versión de .NET si es necesario
+
   - task: SonarQubePrepare@5
     inputs:
-      SonarQube: 'SonarQubeServiceConnection'  # Define tu conexión de servicio SonarQube
+      SonarQube: 'SonarQubeServiceConnection' # Nombre del servicio de conexión en Azure DevOps
       scannerMode: 'CLI'
       configMode: 'manual'
       cliProjectKey: 'LegalConnect'
@@ -20,22 +27,17 @@ steps:
         sonar.language=php
         sonar.sources=.
         sonar.php.coverage.reportPaths=tests/coverage/coverage.xml
-        sonar.login=sqa_b1161342163b34dcff98a5e3a47c1d42698aedf3
-
-  # Instalar dependencias de PHP (usando Composer en Windows)
+  
   - script: |
-      echo "Instalando dependencias de PHP..."
-      php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-      php composer-setup.php
-      php -r "unlink('composer-setup.php');"
-      php composer.phar install
-    displayName: 'Instalar dependencias de PHP'
-
-  # Ejecutar el análisis de SonarQube
+      # Comandos de construcción de tu proyecto
+      echo "Compiling the project..."
+      # Ejemplo de PHP
+      composer install
+    displayName: 'Compilar proyecto'
+  
   - task: SonarQubeAnalyze@5
     displayName: 'Ejecutar análisis de SonarQube'
 
-  # Publicar los resultados del análisis
   - task: SonarQubePublish@5
     inputs:
       pollingTimeoutSec: '300'
