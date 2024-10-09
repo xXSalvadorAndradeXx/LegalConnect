@@ -24,6 +24,8 @@ if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
 
     // Preparar los datos para insertar en la tabla archivados
+
+    $codigo = $row['codigo'];
     $apellido = $row['apellido'];
     $codigo = $row['codigo'];
     $nombre = $row['nombre'];
@@ -36,9 +38,11 @@ if ($result->num_rows > 0) {
     $padre = $row['padre'];
     $pandilla = $row['pandilla'];
     $alias = $row['alias'];
+    $sexo = $row['sexo'];
 
     // Insertar en la tabla archivados
-    $sql_insert = "INSERT INTO archivados (codigo, apellido, nombre, fecha_nacimiento, dui, departamento, distrito, direccion, madre, padre, pandilla, alias) VALUES ('$codigo', '$apellido', '$nombre', '$fecha_nacimiento', '$dui', '$departamento', '$distrito', '$direccion', '$madre', '$padre', '$pandilla', '$alias')";
+    $sql_insert = "INSERT INTO imputados_archivados (codigo, apellido, nombre, fecha_nacimiento, dui, departamento, distrito, direccion, madre, padre, pandilla, alias, sexo) VALUES ('$codigo', '$apellido', '$nombre', '$fecha_nacimiento', '$dui', '$departamento', '$distrito', '$direccion', '$madre', '$padre', '$pandilla', '$alias', '$sexo')";
+
     
     $sql_delete = "DELETE FROM imputados WHERE id='$id'";
     
