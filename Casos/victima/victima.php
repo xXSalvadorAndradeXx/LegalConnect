@@ -50,55 +50,9 @@ if (isset($_GET['logout'])) {
 //___________________________________________HTML Normal_____________________________________________________________________________________
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario con Guardado en Base de Datos</title>
-    <style>
-        .hidden { display: none; }
-    </style>
-    <script>
-        function showSpecifyField(value) {
-            const specifyField = document.getElementById("specifyGender");
-            if (value === "otro") {
-                specifyField.classList.remove("hidden");
-            } else {
-                specifyField.classList.add("hidden");
-            }
-        }
 
-        function validateDOB() {
-            const dob = new Date(document.getElementById("dob").value);
-            const today = new Date();
-            const age = today.getFullYear() - dob.getFullYear();
-            const minAge = 12;
 
-            if (age < minAge || (age === minAge && today < new Date(today.getFullYear(), dob.getMonth(), dob.getDate()))) {
-                alert("Debes tener al menos 12 años.");
-                return false;
-            }
-            return true;
-        }
-
-        function validateDUI() {
-            const duiPattern = /^\d{8}-\d{1}$/;
-            const dui = document.getElementById("dui").value;
-            if (!duiPattern.test(dui)) {
-                alert("Formato de DUI incorrecto. Debe ser 00000000-0.");
-                return false;
-            }
-            return true;
-        }
-
-        function validateForm() {
-            return validateDOB() && validateDUI();
-        }
-    </script>
-</head>
-<body>
-    <?php
+<?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Conexión a la base de datos
         $servername = "localhost";
@@ -186,19 +140,286 @@ $encryption_iv = '1234567891011121';
     }
     ?>
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario con Guardado en Base de Datos</title>
+    <style>
+
+body {
+            font-family: 'Bahnschrift', sans-serif;
+            background-color: #e8f0fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        nav {
+            background-color: #2c3e50;
+            padding: 15px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+        ul li {
+            position: relative;
+        }
+        ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 30px;
+            display: block;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border-radius: 8px;
+        }
+        ul li a:hover {
+            background-color:#374D63;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        /* Estilo del submenú "Cerrar sesión" */
+        ul li ul {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2c3e50;
+            border-radius: 8px;
+            display: none;
+            min-width: 180px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        ul li ul li a {
+            padding: 10px 15px;
+            font-size: 16px;
+            color: white;
+        }
+        ul li:hover ul {
+            display: block;
+        }
+        ul li ul li a:hover {
+            background-color:#374D63;
+        }
+        /* Contenido */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 48px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+        p {
+            color: #555;
+            font-size: 20px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            ul li a {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+        }
+
+
+
+
+
+
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            margin-top: 30px;
+            align-self: center;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .progress-step {
+            width: 100%;
+            height: 10px;
+            background-color: #e0e0e0;
+            position: relative;
+            margin: 0 5px;
+        }
+
+        .progress-step.active {
+            background-color: #007bff;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        select:focus,
+        textarea:focus {
+           
+            border-color: #66afe9;
+            outline: none;
+            box-shadow: 0px 0px 5px rgba(102, 175, 233, 0.5);
+        }
+
+        textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .button-group button[disabled] {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+     
+        .hidden { display: none; }
+    </style>
+
+</head>
+<body>
+
+<nav>
+        <ul>
+            <li><a href="/Pagina_principal.php">Inicio</a></li>
+            <li>
+                <a href="/Casos/Buscar_Casos.php">Casos</a>
+                <ul>
+                    <li><a href="casos/victima/tabla_de_victima.php">Victimas</a></li>
+                    <li><a href="casos/imputados/tabladeimputados.php">Imputados</a></li>
+                    
+                </ul>
+            
+            
+            </li>
+            <li><a href="/Audiencias/Buscar_Audiencias.php">Audiencias</a></li>
+            <li><a href="apps.php">Aplicaciones</a></li>
+            <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>  
+
+            <li><a href="/Audiencias/ver_solicitudes.php">Mis Solicitudes</a></li>
+
+            <?php endif; ?>
+
+            <?php if ($tipo_usuario === 'juez'): ?>  
+
+            <li><a href="/Audiencias/ver_solicitudes.php">Solicitudes</a></li>
+
+            <?php endif; ?>
+            
+            <li>
+                <a href="/formularios/Perfil.php">Perfil</a>
+                <ul>
+                    <li><a href="?logout">Cerrar sesión</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+
+
+
+
     <form method="post" onsubmit="return validateForm()">
-        <h2>Paso 1</h2>
+
+
+    <h2> Registro de Victima </h2>
+        <div class="progress-bar">
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+        </div>
+
+
+        <div class="step active">
+            <h1>Datos Generales</h1>
+
+       
         <label for="apellido">Apellido:</label>
         <input type="text" id="apellido" name="apellido" required><br><br>
 
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required><br><br>
+        <input type="text" id="nombre" name="nombre" ><br><br>
+        
 
-        <label for="dob">Fecha de nacimiento:</label>
-        <input type="date" id="dob" name="dob" required><br><br>
+        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" onchange="validarEdad()"><br>
+        <span id="error" style="color: red;"></span><br>
 
         <label for="dui">DUI:</label>
-        <input type="text" id="dui" name="dui" required pattern="\d{8}-\d{1}" title="Formato: 00000000-0"><br><br>
+        <input type="text" id="dui" name="dui" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0" disabled><br>
 
         <label for="genero">Género:</label>
         <select id="genero" name="genero" onchange="showSpecifyField(this.value)" required>
@@ -211,8 +432,17 @@ $encryption_iv = '1234567891011121';
             <label for="otroGenero">Especificar género:</label>
             <input type="text" id="otroGenero" name="otroGenero"><br><br>
         </div>
+        </div>
 
-        <h2>Paso 2</h2>
+
+
+
+
+
+
+        <div class="step">
+        <h1>Direccion</h1>
+
         <label for="departamento">Departamento:</label>
         <input type="text" id="departamento" name="departamento" required><br><br>
 
@@ -221,15 +451,152 @@ $encryption_iv = '1234567891011121';
 
         <label for="direccion">Especificar dirección:</label>
         <input type="text" id="direccion" name="direccion" required><br><br>
+</div>
 
-        <h2>Paso 3</h2>
+
+<div class="step">
+
+<h1>Familia</h1>
         <label for="madre">Nombre de la madre:</label>
         <input type="text" id="madre" name="madre" required><br><br>
 
         <label for="padre">Nombre del padre:</label>
         <input type="text" id="padre" name="padre" required><br><br>
+</div>
 
-        <button type="submit">Enviar</button>
+
+<div class="button-group">
+            <button type="button" id="prevBtn" onclick="changeStep(-1)" disabled>Anterior</button>
+            <button type="submit" id="nextBtn" onclick="changeStep(1)">Siguiente</button>
+           
+        </div>
     </form>
 </body>
+
+
+<script>
+        function showSpecifyField(value) {
+            const specifyField = document.getElementById("specifyGender");
+            if (value === "otro") {
+                specifyField.classList.remove("hidden");
+            } else {
+                specifyField.classList.add("hidden");
+            }
+        }
+
+        function validarEdad() {
+            const fechaNacimiento = new Date(document.getElementById("fecha_nacimiento").value);
+            const hoy = new Date();
+            const errorElement = document.getElementById("error");
+            const duiElement = document.getElementById("dui");
+
+            if (isNaN(fechaNacimiento)) {
+                errorElement.textContent = "Por favor, ingrese una fecha válida.";
+                duiElement.disabled = true;
+                return;
+            }
+
+            // Cálculo de la edad
+            let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+            const mes = hoy.getMonth() - fechaNacimiento.getMonth();
+            const dia = hoy.getDate() - fechaNacimiento.getDate();
+
+            if (mes < 0 || (mes === 0 && dia < 0)) {
+                edad--;
+            }
+
+            // Validación
+            if (edad >= 18) {
+                errorElement.textContent = "";
+                duiElement.disabled = false;  // Habilitar el campo DUI
+            } else {
+                errorElement.textContent = "Debe ser mayor de 18 años para ingresar el DUI.";
+                duiElement.disabled = true;  // Deshabilitar el campo DUI
+            }
+        }
+
+document.getElementById("fecha_nacimiento").addEventListener("change", function() {
+        const fechaNacimiento = new Date(this.value);
+        const fechaActual = new Date();
+        
+        // Calcular la edad
+        const edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
+        const mes = fechaActual.getMonth() - fechaNacimiento.getMonth();
+        const dia = fechaActual.getDate() - fechaNacimiento.getDate();
+        
+        if (edad < 12 || (edad === 12 && (mes < 0 || (mes === 0 && dia < 0)))) {
+            const errorMsg = document.getElementById("error");
+            errorMsg.textContent = "Debes tener al menos 12 años.";
+            this.value = ''; // Vaciar el campo si la edad es menor de 15 años
+            
+            // Hacer que el mensaje desaparezca después de 5 segundos
+            setTimeout(function() {
+                errorMsg.textContent = "";
+            }, 5000);
+        } else {
+            document.getElementById("error").textContent = ""; // Limpiar el mensaje de error inmediatamente si es válido
+        }
+    });
+
+
+
+        
+
+
+
+
+
+
+
+
+        let currentStep = 0;
+
+        // Mostrar la siguiente sección
+        function showStep(step) {
+            const steps = document.querySelectorAll(".step");
+            steps.forEach((s, index) => {
+                s.classList.toggle("active", index === step);
+            });
+
+            const progressSteps = document.querySelectorAll(".progress-step");
+            progressSteps.forEach((p, index) => {
+                p.classList.toggle("active", index <= step);
+            });
+
+            currentStep = step;
+
+            document.getElementById("prevBtn").disabled = step === 0;
+            document.getElementById("nextBtn").textContent = step === steps.length - 1 ? "Registrar" : "Siguiente";
+        }
+
+        // Ir al siguiente o anterior paso
+        function changeStep(n) {
+            const steps = document.querySelectorAll(".step");
+            if (currentStep + n < 0 || currentStep + n >= steps.length) {
+                return;
+            }
+
+            if (n > 0 && !validateStep()) return; // Validar antes de avanzar
+
+            currentStep += n;
+            showStep(currentStep);
+        }
+
+        // Validar que los campos de cada paso estén completos
+        function validateStep() {
+            const activeStep = document.querySelector(".step.active");
+            const inputs = activeStep.querySelectorAll("input, select, textarea");
+            for (const input of inputs) {
+                if (!input.checkValidity()) {
+                    input.reportValidity();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            showStep(0); // Mostrar el primer paso al cargar la página
+        });
+    </script>
 </html>
