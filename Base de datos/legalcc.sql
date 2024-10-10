@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-10-2024 a las 08:13:15
+-- Tiempo de generación: 10-10-2024 a las 08:18:48
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -102,6 +102,29 @@ CREATE TABLE `casos_archivados` (
 INSERT INTO `casos_archivados` (`id`, `referencia`, `victima`, `imputado`, `tipo_delito`, `archivos_documento`, `fecha_creacion`, `fecha_expiracion`) VALUES
 (81, '2024-08-23-16-57-04-8065', 'Maria', 'Salvador', 'fraude', NULL, '2024-08-23', '2025-08-23'),
 (87, '2024-08-23-08-25-14-7711', 'Salvador', 'Juan', 'homicidio', NULL, '2024-08-23', '2025-08-23');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `declaraciones`
+--
+
+CREATE TABLE `declaraciones` (
+  `id` int(11) NOT NULL,
+  `apellido` varchar(255) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `casos` int(11) NOT NULL,
+  `declaracion` text NOT NULL,
+  `fecha_creacion` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `declaraciones`
+--
+
+INSERT INTO `declaraciones` (`id`, `apellido`, `nombre`, `casos`, `declaracion`, `fecha_creacion`) VALUES
+(2, 'On2PLGkPjw==', 'JH2RImk=', 0, 'CHiQLXsPhg==', '2024-10-10 00:17:23'),
+(3, 'On2PLGkPjw==', 'JH2RImk=', 0, 'GniCOGwN', '2024-10-10 00:17:42');
 
 -- --------------------------------------------------------
 
@@ -207,6 +230,7 @@ CREATE TABLE `evidencias_archivadas` (
 
 CREATE TABLE `imputados` (
   `id` int(6) UNSIGNED NOT NULL,
+  `codigo` varchar(20) NOT NULL,
   `apellido` varchar(50) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `fecha_nacimiento` date NOT NULL,
@@ -217,15 +241,47 @@ CREATE TABLE `imputados` (
   `madre` varchar(100) NOT NULL,
   `padre` varchar(100) NOT NULL,
   `pandilla` varchar(50) NOT NULL,
-  `alias` varchar(50) NOT NULL
+  `alias` varchar(50) NOT NULL,
+  `sexo` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `imputados`
 --
 
-INSERT INTO `imputados` (`id`, `apellido`, `nombre`, `fecha_nacimiento`, `dui`, `departamento`, `distrito`, `direccion`, `madre`, `padre`, `pandilla`, `alias`) VALUES
-(7, 'On2PLGkPjw==', 'On2PPWkPj+4=', '2024-09-20', 'WC7Qfz1d1w', 'On2Na1sKjOrORx3b', 'LXWQP3oClPOPEQ==', 'WC3RLnkchO3LQg==', 'JH2RImlLr+/AURvG', 'P3WAP2cZwM/OTxXIltA=', 'JE/SeA==', 'JX3DLXoCivPD');
+INSERT INTO `imputados` (`id`, `codigo`, `apellido`, `nombre`, `fecha_nacimiento`, `dui`, `departamento`, `distrito`, `direccion`, `madre`, `padre`, `pandilla`, `alias`, `sexo`) VALUES
+(8, 'IMP 148-5874-102', 'KHKHOWkPhQ==', 'On2PPWkPj+4=', '2002-11-14', 'UCTUfTxY0q', 'On2Na1sKjOrORx3b', 'LXWQP3oClPOPEQ==', '', '', '', 'JE/SeA==', 'Ok8=', 'K3WNKnoCjw=='),
+(9, 'IMP 288-4603-956', 'KHKHOWkPhQ==', 'On2PPWkPj+4=', '0000-00-00', '', '', '', '', '', '', 'BC0=', 'BSQ=', 'JH2QKH0HifLA');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `imputados_archivados`
+--
+
+CREATE TABLE `imputados_archivados` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(20) DEFAULT NULL,
+  `apellido` varchar(255) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `fecha_nacimiento` date NOT NULL,
+  `dui` varchar(10) NOT NULL,
+  `departamento` varchar(255) NOT NULL,
+  `distrito` varchar(255) NOT NULL,
+  `direccion` text NOT NULL,
+  `madre` varchar(255) DEFAULT NULL,
+  `padre` varchar(255) DEFAULT NULL,
+  `pandilla` varchar(255) DEFAULT NULL,
+  `alias` varchar(255) DEFAULT NULL,
+  `sexo` char(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `imputados_archivados`
+--
+
+INSERT INTO `imputados_archivados` (`id`, `codigo`, `apellido`, `nombre`, `fecha_nacimiento`, `dui`, `departamento`, `distrito`, `direccion`, `madre`, `padre`, `pandilla`, `alias`, `sexo`) VALUES
+(1, 'IMP 000-0000-000', 'On2PLGkPjw==', 'On2PPWkPj+4=', '2024-09-20', 'WC7Qfz1d1w', 'On2Na1sKjOrORx3b', 'LXWQP3oClPOPEQ==', 'WC3RLnkchO3LQg==', 'JH2RImlLr+/AURvG', 'P3WAP2cZwM/OTxXIltA=', 'JE/SeA==', 'JX3DLXoCivPD', 'B');
 
 -- --------------------------------------------------------
 
@@ -295,6 +351,63 @@ INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `telefono`, `tipo`, `correo`
 (9, 'Maria', 'Salgado', '2222-2222', 'juez', 'salva@gmail.com', '$2y$10$COTDr3mZ32Pm3w10uOIhYuoM4WqNNLUeVMXWV9DL03ub/yvN7LZwW'),
 (14, 'Salvador', 'Salgado Osorio', '1111-1111', 'juez', 'parcial123@gmail.com', '$2y$10$AsbhgtZt.YtmJ7EDZrQnF.B7D/vujqC31DHnydk5UM3XuRcpI3I1W');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `victimas`
+--
+
+CREATE TABLE `victimas` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(20) DEFAULT NULL,
+  `apellido` varchar(255) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `fecha_nacimiento` date NOT NULL,
+  `dui` varchar(20) NOT NULL,
+  `sexo` varchar(20) NOT NULL,
+  `departamento` varchar(255) NOT NULL,
+  `distrito` varchar(255) NOT NULL,
+  `direccion` text NOT NULL,
+  `madre` varchar(255) DEFAULT NULL,
+  `padre` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `victimas`
+--
+
+INSERT INTO `victimas` (`id`, `codigo`, `apellido`, `nombre`, `fecha_nacimiento`, `dui`, `sexo`, `departamento`, `distrito`, `direccion`, `madre`, `padre`) VALUES
+(2, 'VIC 001-1868-566', 'KHKHOWkPhQ==', 'On2PPWkPj+4=', '0000-00-00', '', 'K3WNKnoCjw==', 'PG+WJ30fgfI=', 'PG+WJ30fgfKPZgHdlw==', 'WG6Ga0sEjPPBShOJsc1mKw==', 'LX2KOHFLufPDQhzNk59DNDjpkg==', 'Jm+AKnpLpe7BRgHdnZ9SP58qkmh1'),
+(3, 'VIC 953-6560-972', 'On2PLGkPjw==', 'JH2RImk=', '0000-00-00', '', 'BH2QKH0HifLA', 'PG+WJ30fgfI=', 'PG+WJ30fgfKPZgHdlw==', 'WG6Ga0sEjPPBShOJsc1mKw==', 'JH2RImlLr+/AURvG', 'P3WAP2cZwM/OTxXIltA=');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `victimas_archivados`
+--
+
+CREATE TABLE `victimas_archivados` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(225) DEFAULT NULL,
+  `apellido` varchar(100) DEFAULT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
+  `fecha_nacimiento` date DEFAULT NULL,
+  `dui` varchar(10) DEFAULT NULL,
+  `departamento` varchar(100) DEFAULT NULL,
+  `distrito` varchar(100) DEFAULT NULL,
+  `direccion` text DEFAULT NULL,
+  `madre` varchar(100) DEFAULT NULL,
+  `padre` varchar(100) DEFAULT NULL,
+  `sexo` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `victimas_archivados`
+--
+
+INSERT INTO `victimas_archivados` (`id`, `codigo`, `apellido`, `nombre`, `fecha_nacimiento`, `dui`, `departamento`, `distrito`, `direccion`, `madre`, `padre`, `sexo`) VALUES
+(1, 'VIC 914-7407-792', 'On2PLGkPjw==', 'On2PPWkPj+4=', '2002-11-14', 'UCTUfTxY0q', 'On2Na1sKjOrORx3b', 'PG+WJ30fgfKPZgHdlw==', 'WG6Ga0sEjPPBShOJsc1mKw==', 'LX2KOHFLufPDQhzNk59DNDjpkg==', 'P3WAP2cZwM/OTxXIltA=', 'K3WNKnoCjw==');
+
 --
 -- Índices para tablas volcadas
 --
@@ -318,6 +431,12 @@ ALTER TABLE `casos`
 ALTER TABLE `casos_archivados`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `referencia` (`referencia`);
+
+--
+-- Indices de la tabla `declaraciones`
+--
+ALTER TABLE `declaraciones`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `delete_requests`
@@ -360,6 +479,13 @@ ALTER TABLE `imputados`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `imputados_archivados`
+--
+ALTER TABLE `imputados_archivados`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `dui` (`dui`);
+
+--
 -- Indices de la tabla `registros`
 --
 ALTER TABLE `registros`
@@ -377,6 +503,18 @@ ALTER TABLE `solicitudes`
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `victimas`
+--
+ALTER TABLE `victimas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `victimas_archivados`
+--
+ALTER TABLE `victimas_archivados`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -400,6 +538,12 @@ ALTER TABLE `casos`
 --
 ALTER TABLE `casos_archivados`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+
+--
+-- AUTO_INCREMENT de la tabla `declaraciones`
+--
+ALTER TABLE `declaraciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `delete_requests`
@@ -435,7 +579,13 @@ ALTER TABLE `evidencias_archivadas`
 -- AUTO_INCREMENT de la tabla `imputados`
 --
 ALTER TABLE `imputados`
-  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `imputados_archivados`
+--
+ALTER TABLE `imputados_archivados`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `registros`
@@ -454,6 +604,18 @@ ALTER TABLE `solicitudes`
 --
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `victimas`
+--
+ALTER TABLE `victimas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `victimas_archivados`
+--
+ALTER TABLE `victimas_archivados`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
