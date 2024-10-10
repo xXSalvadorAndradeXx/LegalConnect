@@ -73,7 +73,7 @@ if ($conn->connect_error) {
 }
 
 // Consultar los registros
-$sql = "SELECT * FROM victumas";
+$sql = "SELECT * FROM victimas";
 $result = $conn->query($sql);
 ?>
 
@@ -473,7 +473,7 @@ if ($result->num_rows > 0) {
               
                 <td>$sexo</td>
                 
-                <td><a class='btn-editar' href='' title='Editar'>      <i class='fas fa-edit'></i></a>
+                <td><a class='btn-editar' href='editar.php?id=$id'>      <i class='fas fa-edit'></i></a>
 
                <a class='btn-eliminar' href='' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este registro?\");' title='Eliminar'><i class='fas fa-trash-alt'></i></a>
 

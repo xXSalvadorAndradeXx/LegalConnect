@@ -125,7 +125,7 @@ $encryption_iv = '1234567891011121';
 
 
         // Insertar datos en la tabla
-        $sql = "INSERT INTO victumas ( codigo, apellido, nombre, fecha_nacimiento, dui, sexo, departamento, distrito, direccion, madre, padre )
+        $sql = "INSERT INTO victimas ( codigo, apellido, nombre, fecha_nacimiento, dui, sexo, departamento, distrito, direccion, madre, padre )
         VALUES ('$codigo_imputado', '$apellido_encrypted', '$nombre_encrypted', '$fecha_nacimiento', '$dui_encrypted', '$sexo_encrypted', 
                 '$departamento_encrypted', '$distrito_encrypted', '$direccion_encrypted', '$madre_encrypted', '$padre_encrypted')";
 
