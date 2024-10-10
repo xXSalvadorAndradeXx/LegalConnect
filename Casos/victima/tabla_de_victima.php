@@ -367,6 +367,34 @@ $result = $conn->query($sql);
 }
 
 
+.btn-declarar {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: black;
+    margin-top: 5px;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-declarar:hover {
+    background-color: white;
+    color: cadetblue;
+    transform: scale(1.05);
+}
+
+.btn-declarar:active {
+    background-color: white;
+    color: cadetblue;
+    transform: scale(0.95);
+}
+
+
 
     
     </style>
@@ -473,10 +501,11 @@ if ($result->num_rows > 0) {
               
                 <td>$sexo</td>
                 
-                <td><a class='btn-editar' href='editar.php?id=$id'>      <i class='fas fa-edit'></i></a>
+                <td><a class='btn-editar' href='editar.php?id=$id' onclick='return confirm(\"¿Quieres archivar de esta victimas?\");'  >      <i class='fas fa-edit'></i></a>
 
                <a class='btn-eliminar' href='archivar.php?id=$id' onclick='return confirm(\"¿Estás seguro de que deseas Archivar este registro?\");' title='Archivar'><i class='fas fa-archive'></i></a>
-
+                <br>
+               <a class='btn-declarar' href='declaracion.php?id=$id'  title='Tomar declaracion'><i class='fas fa-message'></i></a>
 
                 </td>
                 
