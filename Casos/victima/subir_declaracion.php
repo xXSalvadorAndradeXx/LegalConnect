@@ -1,58 +1,57 @@
 <?php
+// Conexión a la base de datos
+$servername = "localhost";  // Cambia según tu configuración
+$username = "root";         // Cambia según tu configuración
+$password = "";             // Cambia según tu configuración
+$dbname = "legalcc"; // Cambia según tu configuración
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "legalcc";
-
-// Clave y método de cifrado
-$encryption_key = 'LegalCC'; // Debe coincidir con la clave utilizada para el cifrado
-$ciphering = "AES-128-CTR";
-$options = 0;
-$encryption_iv = '1234567891011121'; // Debe coincidir con el IV utilizado para el cifrado
+// Parámetros de cifrado
+$encryption_key = 'LegalCC';  // Clave de cifrado
+$ciphering = "AES-128-CTR";   // Algoritmo de cifrado
+$options = 0;                 // Opciones para openssl
+$encryption_iv = '1234567891011121';  // Vector de inicialización (IV)
 
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Comprobar la conexión
+// Verificar conexión
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-// Procesar el formulario después de que se envía
+// Comprobar si el formulario fue enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Recibir datos del formulario
+
+
     $id = $_POST['id'];
     $apellido = $_POST['apellido'];
     $nombre = $_POST['nombre'];
-    $casos = $_POST['casos'];
+    $casos_id = (int)$_POST['casos'];
 
     $declaracion = $_POST['declaracion'];
 
-    // Cifrar los datos
     $id_encrypted = openssl_encrypt($id, $ciphering, $encryption_key, $options, $encryption_iv);
     $apellido_encrypted = openssl_encrypt($apellido, $ciphering, $encryption_key, $options, $encryption_iv);
     $nombre_encrypted = openssl_encrypt($nombre, $ciphering, $encryption_key, $options, $encryption_iv);
-    $casos_encrypted = openssl_encrypt($casos, $ciphering, $encryption_key, $options, $encryption_iv);
     $declaracion_encrypted = openssl_encrypt($declaracion, $ciphering, $encryption_key, $options, $encryption_iv);
 
-    // Prepara la consulta SQL
-    $sql = "INSERT INTO declaraciones (id, apellido, nombre, casos, declaracion) VALUES (?, ?, ?, ?, ?)";
 
-    // Usar declaraciones preparadas para evitar inyecciones SQL
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssis", $id_encrypted, $apellido_encrypted, $nombre_encrypted, $casos_encrypted, $declaracion_encrypted);
 
-    // Ejecutar la consulta
-    if ($stmt->execute()) {
-        echo "Registro guardado exitosamente.";
+    $sql = "INSERT INTO declaraciones (apellido, nombre, casos_id, declaracion) 
+                VALUES ('$apellido_encrypted', '$nombre_encrypted', $casos_id, '$declaracion_encrypted')";
+
+
+        if ($conn->query($sql) === TRUE) {
+            header("Location: /Casos/victima/tabla_de_victima.php?declaracion=exito");
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     } else {
-        echo "Error: " . $stmt->error;
+        echo "Debe seleccionar un caso válido.";
     }
 
-    // Cerrar la declaración y la conexión
-    $stmt->close();
-    $conn->close();
-}
 
-
+// Cerrar conexión
+$conn->close();
 ?>

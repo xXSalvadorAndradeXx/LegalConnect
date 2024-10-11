@@ -489,6 +489,7 @@ $result = $conn->query($sql);
                 <label for="casos">Casos</label>
                 <select id="casos" name="casos" required>
                     <option value="">Seleccione</option>
+                                      
 
                     <?php
                     if ($result->num_rows > 0) {

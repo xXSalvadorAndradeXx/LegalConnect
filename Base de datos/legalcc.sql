@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-10-2024 a las 08:18:48
+-- Tiempo de generación: 11-10-2024 a las 08:15:43
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -113,18 +113,18 @@ CREATE TABLE `declaraciones` (
   `id` int(11) NOT NULL,
   `apellido` varchar(255) NOT NULL,
   `nombre` varchar(255) NOT NULL,
-  `casos` int(11) NOT NULL,
+  `casos_id` int(11) NOT NULL,
   `declaracion` text NOT NULL,
-  `fecha_creacion` datetime DEFAULT current_timestamp()
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `declaraciones`
 --
 
-INSERT INTO `declaraciones` (`id`, `apellido`, `nombre`, `casos`, `declaracion`, `fecha_creacion`) VALUES
-(2, 'On2PLGkPjw==', 'JH2RImk=', 0, 'CHiQLXsPhg==', '2024-10-10 00:17:23'),
-(3, 'On2PLGkPjw==', 'JH2RImk=', 0, 'GniCOGwN', '2024-10-10 00:17:42');
+INSERT INTO `declaraciones` (`id`, `apellido`, `nombre`, `casos_id`, `declaracion`, `fecha`) VALUES
+(6, 'On2PLGkPjw==', 'JH2RImk=', 136, 'DXqQLQ==', '2024-10-11 06:13:15'),
+(7, 'KHKHOWkPhQ==', 'On2PPWkPj+4=', 137, 'CG+COGkY', '2024-10-11 06:15:05');
 
 -- --------------------------------------------------------
 
@@ -436,7 +436,8 @@ ALTER TABLE `casos_archivados`
 -- Indices de la tabla `declaraciones`
 --
 ALTER TABLE `declaraciones`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `casos_id` (`casos_id`);
 
 --
 -- Indices de la tabla `delete_requests`
@@ -543,7 +544,7 @@ ALTER TABLE `casos_archivados`
 -- AUTO_INCREMENT de la tabla `declaraciones`
 --
 ALTER TABLE `declaraciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `delete_requests`
@@ -620,6 +621,12 @@ ALTER TABLE `victimas_archivados`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `declaraciones`
+--
+ALTER TABLE `declaraciones`
+  ADD CONSTRAINT `declaraciones_ibfk_1` FOREIGN KEY (`casos_id`) REFERENCES `casos` (`id`);
 
 --
 -- Filtros para la tabla `documentos`
