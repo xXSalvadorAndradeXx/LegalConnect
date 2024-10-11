@@ -550,6 +550,25 @@ body {
     opacity: 1;
 }
 
+.filter-options {
+ background-color: white;
+ padding: 10px;
+ border-radius: 5px;
+ margin-top: 10px;
+ margin-bottom: 10px;
+  font-size: 16px;
+ 
+}
+
+
+  
+
+ 
+
+
+
+
+
     </style>
 </head>
 <body>
@@ -612,9 +631,21 @@ body {
  
   </center>
   <div class="container">
-<center>                                                     
+<center>
   <input type="text" id="inputBusqueda" onkeyup="buscarCasos()" placeholder="Buscar casos..." >
-  </center>
+  
+
+
+  <div class="filter-options">
+        <label><input  type="checkbox" id="checkboxReferencia"> Referencia</label>
+        <label><input type="checkbox" id="checkboxVictima"> Víctima</label>
+        <label><input type="checkbox" id="checkboxImputado"> Imputado</label>
+        <label><input type="checkbox" id="checkboxDelito"> Tipo de Delito</label>
+        <label><input type="checkbox" id="checkboxDocumentos"> Documentos</label>
+        <label><input type="checkbox" id="checkboxFecha"> Fecha</label>
+    </div>
+    </center>
+
   <div class="table-container">
     <div class="custom-table" id="casosTabla">
         <div class="table-header">
@@ -794,6 +825,108 @@ body {
 
 <script>
 
+// Función para mostrar/ocultar columnas según el checkbox
+function toggleColumn(columnClass) {
+    var checkBox = document.getElementById('checkbox' + capitalizeFirstLetter(columnClass));
+    var elements = document.getElementsByClassName(columnClass);
+    
+    // Mostrar u ocultar columna basada en el estado del checkbox
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].style.display = checkBox.checked ? '' : 'none';
+    }
+}
+
+// Función para capitalizar la primera letra de una cadena (para encontrar el id de los checkboxes)
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// Función para realizar la búsqueda filtrando solo por las columnas seleccionadas
+function buscarCasos() {
+    var input, filter, table, rows, cells, i, j, cellValue, shouldDisplay;
+    var checkboxReferencia = document.getElementById("checkboxReferencia").checked;
+    var checkboxVictima = document.getElementById("checkboxVictima").checked;
+    var checkboxImputado = document.getElementById("checkboxImputado").checked;
+    var checkboxDelito = document.getElementById("checkboxDelito").checked;
+    var checkboxDocumentos = document.getElementById("checkboxDocumentos").checked;
+    var checkboxFecha = document.getElementById("checkboxFecha").checked;
+
+    // Validar si al menos un checkbox está marcado
+    if (!checkboxReferencia && !checkboxVictima && !checkboxImputado && !checkboxDelito && !checkboxDocumentos && !checkboxFecha) {
+        alert("Por favor, selecciona al menos un filtro de columna.");
+        return;
+    }
+
+    input = document.getElementById("inputBusqueda");
+    filter = input.value.toLowerCase();
+    table = document.getElementById("casosTabla");
+    rows = table.getElementsByClassName("table-row");
+
+    for (i = 0; i < rows.length; i++) {
+        cells = rows[i].getElementsByClassName("table-cell");
+        shouldDisplay = false;
+
+        // Filtra por columnas seleccionadas
+        if (checkboxReferencia && cells[0]) {
+            cellValue = cells[0].textContent || cells[0].innerText;
+            if (cellValue.toLowerCase().indexOf(filter) > -1) {
+                shouldDisplay = true;
+            }
+        }
+        if (checkboxVictima && cells[1]) {
+            cellValue = cells[1].textContent || cells[1].innerText;
+            if (cellValue.toLowerCase().indexOf(filter) > -1) {
+                shouldDisplay = true;
+            }
+        }
+        if (checkboxImputado && cells[2]) {
+            cellValue = cells[2].textContent || cells[2].innerText;
+            if (cellValue.toLowerCase().indexOf(filter) > -1) {
+                shouldDisplay = true;
+            }
+        }
+        if (checkboxDelito && cells[3]) {
+            cellValue = cells[3].textContent || cells[3].innerText;
+            if (cellValue.toLowerCase().indexOf(filter) > -1) {
+                shouldDisplay = true;
+            }
+        }
+        if (checkboxDocumentos && cells[4]) {
+            cellValue = cells[4].textContent || cells[4].innerText;
+            if (cellValue.toLowerCase().indexOf(filter) > -1) {
+                shouldDisplay = true;
+            }
+        }
+        if (checkboxFecha && cells[5]) {
+            cellValue = cells[5].textContent || cells[5].innerText;
+            if (cellValue.toLowerCase().indexOf(filter) > -1) {
+                shouldDisplay = true;
+            }
+        }
+
+        if (shouldDisplay) {
+            rows[i].style.display = "";
+        } else {
+            rows[i].style.display = "none";
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function archivarCaso(referencia) {
     // Mostrar el modal
@@ -893,35 +1026,6 @@ window.onload = function() {
 
 
 
-
-function buscarCasos() {
-    var input, filter, table, rows, cells, i, j, cellValue, shouldDisplay;
-    input = document.getElementById("inputBusqueda");
-    filter = input.value.toLowerCase();
-    table = document.getElementById("casosTabla");
-    rows = table.getElementsByClassName("table-row");
-
-    for (i = 0; i < rows.length; i++) {
-        cells = rows[i].getElementsByClassName("table-cell");
-        shouldDisplay = false;
-
-        for (j = 0; j < cells.length; j++) {
-            if (cells[j]) {
-                cellValue = cells[j].textContent || cells[j].innerText;
-                if (cellValue.toLowerCase().indexOf(filter) > -1) {
-                    shouldDisplay = true;
-                    break;
-                }
-            }
-        }
-
-        if (shouldDisplay) {
-            rows[i].style.display = "";
-        } else {
-            rows[i].style.display = "none";
-        }
-    }
-}
 
 
 function eliminarCaso(referencia) {
