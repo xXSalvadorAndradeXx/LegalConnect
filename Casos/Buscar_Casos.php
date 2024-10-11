@@ -626,7 +626,7 @@ body {
 </a>
 
 
-  <div class="container">
+
 <center>
  
   </center>
@@ -637,12 +637,11 @@ body {
 
 
   <div class="filter-options">
-        <label><input  type="checkbox" id="checkboxReferencia"> Referencia</label>
-        <label><input type="checkbox" id="checkboxVictima"> Víctima</label>
-        <label><input type="checkbox" id="checkboxImputado"> Imputado</label>
-        <label><input type="checkbox" id="checkboxDelito"> Tipo de Delito</label>
-        <label><input type="checkbox" id="checkboxDocumentos"> Documentos</label>
-        <label><input type="checkbox" id="checkboxFecha"> Fecha</label>
+        <label><input  type="checkbox" id="checkboxReferencia" onclick="ordenarCasos('referencia')"> Referencia</label>
+        <label><input type="checkbox" id="checkboxVictima" onclick="ordenarCasos('victima')"> Víctima</label>
+        <label><input type="checkbox" id="checkboxImputado" onclick="ordenarCasos('imputado')"> Imputado</label>
+        <label><input type="checkbox" id="checkboxDelito" onclick="ordenarCasos('tipo_delito')"> Tipo de Delito</label>
+        
     </div>
     </center>
 
@@ -843,20 +842,7 @@ function capitalizeFirstLetter(string) {
 
 // Función para realizar la búsqueda filtrando solo por las columnas seleccionadas
 function buscarCasos() {
-    var input, filter, table, rows, cells, i, j, cellValue, shouldDisplay;
-    var checkboxReferencia = document.getElementById("checkboxReferencia").checked;
-    var checkboxVictima = document.getElementById("checkboxVictima").checked;
-    var checkboxImputado = document.getElementById("checkboxImputado").checked;
-    var checkboxDelito = document.getElementById("checkboxDelito").checked;
-    var checkboxDocumentos = document.getElementById("checkboxDocumentos").checked;
-    var checkboxFecha = document.getElementById("checkboxFecha").checked;
-
-    // Validar si al menos un checkbox está marcado
-    if (!checkboxReferencia && !checkboxVictima && !checkboxImputado && !checkboxDelito && !checkboxDocumentos && !checkboxFecha) {
-        alert("Por favor, selecciona al menos un filtro de columna.");
-        return;
-    }
-
+    var input, filter, table, rows, cells, i, j, cellValue;
     input = document.getElementById("inputBusqueda");
     filter = input.value.toLowerCase();
     table = document.getElementById("casosTabla");
@@ -864,43 +850,16 @@ function buscarCasos() {
 
     for (i = 0; i < rows.length; i++) {
         cells = rows[i].getElementsByClassName("table-cell");
-        shouldDisplay = false;
+        var shouldDisplay = false;
 
-        // Filtra por columnas seleccionadas
-        if (checkboxReferencia && cells[0]) {
-            cellValue = cells[0].textContent || cells[0].innerText;
-            if (cellValue.toLowerCase().indexOf(filter) > -1) {
-                shouldDisplay = true;
-            }
-        }
-        if (checkboxVictima && cells[1]) {
-            cellValue = cells[1].textContent || cells[1].innerText;
-            if (cellValue.toLowerCase().indexOf(filter) > -1) {
-                shouldDisplay = true;
-            }
-        }
-        if (checkboxImputado && cells[2]) {
-            cellValue = cells[2].textContent || cells[2].innerText;
-            if (cellValue.toLowerCase().indexOf(filter) > -1) {
-                shouldDisplay = true;
-            }
-        }
-        if (checkboxDelito && cells[3]) {
-            cellValue = cells[3].textContent || cells[3].innerText;
-            if (cellValue.toLowerCase().indexOf(filter) > -1) {
-                shouldDisplay = true;
-            }
-        }
-        if (checkboxDocumentos && cells[4]) {
-            cellValue = cells[4].textContent || cells[4].innerText;
-            if (cellValue.toLowerCase().indexOf(filter) > -1) {
-                shouldDisplay = true;
-            }
-        }
-        if (checkboxFecha && cells[5]) {
-            cellValue = cells[5].textContent || cells[5].innerText;
-            if (cellValue.toLowerCase().indexOf(filter) > -1) {
-                shouldDisplay = true;
+        // Busca en todas las columnas
+        for (j = 0; j < cells.length - 1; j++) { // Excluye la última columna (acciones)
+            if (cells[j]) {
+                cellValue = cells[j].textContent || cells[j].innerText;
+                if (cellValue.toLowerCase().indexOf(filter) > -1) {
+                    shouldDisplay = true;
+                    break;
+                }
             }
         }
 
@@ -908,6 +867,47 @@ function buscarCasos() {
             rows[i].style.display = "";
         } else {
             rows[i].style.display = "none";
+        }
+    }
+}
+
+function ordenarCasos(columna) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("casosTabla");
+    switching = true;
+    dir = "asc"; // Dirección inicial ascendente
+
+    while (switching) {
+        switching = false;
+        rows = table.getElementsByClassName("table-row");
+
+        for (i = 0; i < rows.length - 1; i++) {
+            shouldSwitch = false;
+            x = rows[i].getElementsByClassName(columna)[0];
+            y = rows[i + 1].getElementsByClassName(columna)[0];
+
+            if (dir == "asc") {
+                if (x.innerText.toLowerCase() > y.innerText.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                }
+            } else if (dir == "desc") {
+                if (x.innerText.toLowerCase() < y.innerText.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+        }
+
+        if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            switchcount++;
+        } else {
+            if (switchcount == 0 && dir == "asc") {
+                dir = "desc";
+                switching = true;
+            }
         }
     }
 }

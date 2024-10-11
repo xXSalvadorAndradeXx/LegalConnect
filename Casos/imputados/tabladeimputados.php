@@ -493,7 +493,7 @@ if ($result->num_rows > 0) {
                 <td>$pandilla</td>
                 <td>$alias</td>
              
-                <td><a class='btn-editar' href='editar.php?id=$id' title='Editar'>      <i class='fas fa-edit'></i></a>
+                <td><a class='btn-editar' href='editar.php?id=$id' title='Editar'  >      <i class='fas fa-edit'></i></a>
 
                <a class='btn-eliminar' href='archivar.php?id=$id' onclick='return confirm(\"¿Estás seguro de que deseas archivar este registro?\");' title='Archivar'><i class='fas fa-archive'></i></a>
 
@@ -545,7 +545,7 @@ window.onload = function() {
 
             // Mostrar el mensaje de éxito si el parámetro 'mensaje' es 'exito'
             if (mensaje === 'exito') {
-                showAlert('Datos de imputados agregados con exito');
+                showAlert('Datos de imputado agregados con exito');
             }
         };
 

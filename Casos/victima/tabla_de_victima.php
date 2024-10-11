@@ -501,7 +501,7 @@ if ($result->num_rows > 0) {
               
                 <td>$sexo</td>
                 
-                <td><a class='btn-editar' href='editar.php?id=$id' onclick='return confirm(\"¿Quieres archivar de esta victimas?\");'  >      <i class='fas fa-edit'></i></a>
+                <td><a class='btn-editar' href='editar.php?id=$id'  title='Editar'>      <i class='fas fa-edit'></i></a>
 
                <a class='btn-eliminar' href='archivar.php?id=$id' onclick='return confirm(\"¿Estás seguro de que deseas Archivar este registro?\");' title='Archivar'><i class='fas fa-archive'></i></a>
                 <br>
