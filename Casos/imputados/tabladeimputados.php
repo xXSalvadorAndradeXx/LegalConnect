@@ -528,7 +528,7 @@ $conn->close();
         if (message) {
             message.style.opacity = "0";
         }
-    }, 2000);
+    }, 5000);
 
     // Después de 5.5 segundos (para darle tiempo a desaparecer), redirige a otra página
     setTimeout(function() {

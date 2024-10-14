@@ -486,9 +486,8 @@ $conn->close();
                 <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?php echo $fecha_nacimiento; ?>" onchange="verificarCampos();">
                 <span id="error" style="color: red;"></span><br>
 
-            <label for="dui">DUI:</label>
-            <input type="text" id="dui" name="dui" value="<?php echo $dui; ?>" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0"  readonly><br>
-                        
+                <label for="dui">DUI:</label>
+                <input type="text" id="dui" name="dui" value="<?php echo $dui; ?>" pattern="\d{8}-\d{1}" title="El formato debe ser 00000000-0"><br>
         <label for="genero">Género:</label>
 <select id="genero" name="genero" required onchange="mostrarCampoOtro()">
     <option value="" disabled selected hidden></option>
@@ -556,22 +555,41 @@ $conn->close();
 <script>
 
 
-function mostrarCampoOtro() {
-    var select = document.getElementById("genero");
-    var campoOtro = document.getElementById("campoOtro");
-    if (select.value === "Otro") {
-        campoOtro.style.display = "block";
-    } else {
-        campoOtro.style.display = "none";
-    }
-}
+document.addEventListener('DOMContentLoaded', function() {
+        verificarCampos();
+    });
 
 
-function verificarCampos() {
+
+window.onload = function() {
+        var duiInput = document.getElementById('dui');
+        var fechaNacimientoInput = document.getElementById('fecha_nacimiento');
+        
+        // Verifica si el campo DUI tiene un valor al cargar la página
+        if (duiInput.value.trim() !== "") {
+            duiInput.readOnly = true; // Si tiene valor, se marca como readonly
+        }
+        
+        // Verifica si el campo fecha de nacimiento tiene un valor al cargar la página
+        if (fechaNacimientoInput.value.trim() !== "") {
+            fechaNacimientoInput.readOnly = true; // Si tiene valor, se marca como readonly
+        }
+        
+        // Ejecutar la verificación de campos al cargar la página para comprobar la edad
+        verificarCampos();
+    };
+
+    function verificarCampos() {
         const fechaNacimiento = new Date(document.getElementById("fecha_nacimiento").value);
         const hoy = new Date();
         const errorElement = document.getElementById("error");
         const duiElement = document.getElementById("dui");
+
+        // Si el DUI ya tiene un valor, manténlo como readonly
+        if (duiElement.value.trim() !== "") {
+            duiElement.readOnly = true;
+            return;
+        }
 
         if (isNaN(fechaNacimiento.getTime())) {
             errorElement.textContent = "";
@@ -597,6 +615,25 @@ function verificarCampos() {
             duiElement.readOnly = true;  // Deshabilitar el campo DUI
         }
     }
+
+
+
+
+
+
+
+function mostrarCampoOtro() {
+    var select = document.getElementById("genero");
+    var campoOtro = document.getElementById("campoOtro");
+    if (select.value === "Otro") {
+        campoOtro.style.display = "block";
+    } else {
+        campoOtro.style.display = "none";
+    }
+}
+
+
+
 
     // Llamar a verificarCampos al cargar la página para ajustar el estado del campo DUI
     window.onload = function() {
