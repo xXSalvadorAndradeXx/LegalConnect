@@ -550,16 +550,33 @@ body {
     opacity: 1;
 }
 
-.filter-options {
- background-color: white;
- padding: 10px;
- border-radius: 5px;
- margin-top: 10px;
- margin-bottom: 10px;
-  font-size: 16px;
- 
+/* Contenedor de la lista de filtros */
+.filter-container {
+    width: 200px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    position: fixed;
+    top: 100px;
+    left: 30px;
+    height: 100vh;
 }
 
+/* Estilos generales de los filtros */
+.filter-group {
+    margin-bottom: 20px;: 50px;
+}
+
+label {
+    font-size: 14px;
+}
+
+input[type="text"], input[type="date"] {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
 
   
 
@@ -581,9 +598,9 @@ body {
             <li>
                 <a href="/Casos/Buscar_Casos.php">Casos</a>
                 <ul>
-                    <li><a href="">Victimas</a></li>
-                    <li><a href="">Imputados</a></li>
-                    
+                    <li><a href="/Casos/victima/tabla_de_victima.php">Victimas</a></li>
+                    <li><a href="/Casos/imputados/tabladeimputados.php">Imputados</a></li>
+                    <li><a href="/archivados/casos_archivados.php">Archivados</a></li>
                 </ul>
             
             
@@ -632,19 +649,36 @@ body {
   </center>
   <div class="container">
 <center>
-  <input type="text" id="inputBusqueda" onkeyup="buscarCasos()" placeholder="Buscar casos..." >
-  
-
-
-  <div class="filter-options">
-        <label><input  type="checkbox" id="checkboxReferencia" onclick="ordenarCasos('referencia')"> Referencia</label>
-        <label><input type="checkbox" id="checkboxVictima" onclick="ordenarCasos('victima')"> Víctima</label>
-        <label><input type="checkbox" id="checkboxImputado" onclick="ordenarCasos('imputado')"> Imputado</label>
-        <label><input type="checkbox" id="checkboxDelito" onclick="ordenarCasos('tipo_delito')"> Tipo de Delito</label>
-        
-    </div>
+  <input type="text" id="inputBusqueda" onkeyup="buscarCasos()" placeholder="Buscar casos..." > 
     </center>
+    <div class="filter-container">
+    <h3>Filtrar por</h3>
+    
+    <!-- Filtro por referencia -->
+<input type="text" id="inputReferencia" placeholder="Filtrar por referencia" onkeyup="filtrarDatos()">
 
+<!-- Filtro por delito -->
+<div>
+    <label><input type="checkbox" id="checkboxDelito" onclick="toggleDelitoOptions()"> Delito</label>
+    <div id="delitoOptions" style="display:none; padding-left: 15px;">
+        <label><input type="checkbox" class="delitoCheckbox" value="robo" onclick="filtrarDatos()"> Robo</label><br>
+        <label><input type="checkbox" class="delitoCheckbox" value="asalto" onclick="filtrarDatos()"> Asalto</label><br>
+        <label><input type="checkbox" class="delitoCheckbox" value="fraude" onclick="filtrarDatos()"> Fraude</label><br>
+        <label><input type="checkbox" class="delitoCheckbox" value="vandalismo" onclick="filtrarDatos()"> Vandalismo</label><br>
+        <label><input type="checkbox" class="delitoCheckbox" value="homicidio" onclick="filtrarDatos()"> Homicidio</label><br>
+    </div>
+</div>
+
+<!-- Filtros por fechas -->
+<label for="inputFechaInicio">Fecha Desde:</label>
+<input type="date" id="inputFechaInicio" onchange="filtrarDatos()">
+<label for="inputFechaFin">Fecha Hasta:</label>
+<input type="date" id="inputFechaFin" onchange="filtrarDatos()">
+
+<!-- Mensaje de no resultados -->
+<p id="noResults" style="display:none;">No se encontraron resultados.</p>
+
+</div>
   <div class="table-container">
     <div class="custom-table" id="casosTabla">
         <div class="table-header">
@@ -823,22 +857,74 @@ body {
 
 
 <script>
-
-// Función para mostrar/ocultar columnas según el checkbox
-function toggleColumn(columnClass) {
-    var checkBox = document.getElementById('checkbox' + capitalizeFirstLetter(columnClass));
-    var elements = document.getElementsByClassName(columnClass);
-    
-    // Mostrar u ocultar columna basada en el estado del checkbox
-    for (var i = 0; i < elements.length; i++) {
-        elements[i].style.display = checkBox.checked ? '' : 'none';
+// Función para mostrar u ocultar las opciones de delitos
+function toggleDelitoOptions() {
+    var delitoOptions = document.getElementById("delitoOptions");
+    if (document.getElementById("checkboxDelito").checked) {
+        delitoOptions.style.display = "block";
+    } else {
+        delitoOptions.style.display = "none";
+        // Desmarcar todos los checkboxes de delitos si se ocultan
+        var checkboxes = document.getElementsByClassName("delitoCheckbox");
+        for (var checkbox of checkboxes) {
+            checkbox.checked = false;
+        }
     }
 }
 
-// Función para capitalizar la primera letra de una cadena (para encontrar el id de los checkboxes)
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+// Función para filtrar los datos de la tabla
+function filtrarDatos() {
+    var inputReferencia = document.getElementById("inputReferencia").value.toLowerCase();
+    var checkboxes = document.getElementsByClassName("delitoCheckbox");
+    var fechaInicio = document.getElementById("inputFechaInicio").value;
+    var fechaFin = document.getElementById("inputFechaFin").value;
+
+    var tableRows = document.querySelectorAll(".table-row");
+    var noResults = document.getElementById("noResults");
+    
+    var found = false;
+
+    tableRows.forEach(row => {
+        var referencia = row.querySelector(".referencia").innerText.toLowerCase();
+        var delito = row.cells[3].innerText.toLowerCase(); // Suponiendo que el tipo de delito está en la cuarta celda
+        var fecha = row.cells[5].innerText; // Suponiendo que la fecha está en la sexta celda
+
+        // Filtrar por referencia
+        var referenciaMatch = referencia.includes(inputReferencia);
+
+        // Filtrar por delito
+        var delitoMatch = true;
+        if (document.getElementById("checkboxDelito").checked) {
+            var selectedDelitos = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value.toLowerCase());
+            delitoMatch = selectedDelitos.includes(delito);
+        }
+
+        // Filtrar por fechas
+        var fechaMatch = true;
+        if (fechaInicio || fechaFin) {
+            var fechaObj = new Date(fecha);
+            if (fechaInicio) {
+                fechaMatch = fechaObj >= new Date(fechaInicio);
+            }
+            if (fechaFin) {
+                fechaMatch = fechaMatch && fechaObj <= new Date(fechaFin);
+            }
+        }
+
+        // Mostrar u ocultar la fila según los filtros
+        if (referenciaMatch && delitoMatch && fechaMatch) {
+            row.style.display = ""; // Muestra la fila
+            found = true; // Hay al menos un resultado
+        } else {
+            row.style.display = "none"; // Oculta la fila
+        }
+    });
+
+    // Mostrar mensaje si no hay resultados
+    noResults.style.display = found ? "none" : "block";
 }
+
+
 
 // Función para realizar la búsqueda filtrando solo por las columnas seleccionadas
 function buscarCasos() {

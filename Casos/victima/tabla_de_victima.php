@@ -413,13 +413,14 @@ $result = $conn->query($sql);
    
 
 <nav>
-        <ul>
+<ul>
             <li><a href="/Pagina_principal.php">Inicio</a></li>
             <li>
                 <a href="/Casos/Buscar_Casos.php">Casos</a>
                 <ul>
-                    <li><a href="casos/victima.php">Victimas</a></li>
-                    <li><a href="tabladeimputados.php">Imputados</a></li>
+                    <li><a href="/Casos/victima/tabla_de_victima.php">Victimas</a></li>
+                    <li><a href="/Casos/imputados/tabladeimputados.php">Imputados</a></li>
+                    <li><a href="/archivados/casos_archivados.php">Archivados</a></li>
                     
                 </ul>
             
