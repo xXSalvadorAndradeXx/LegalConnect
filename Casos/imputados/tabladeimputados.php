@@ -453,7 +453,7 @@ if ($result->num_rows > 0) {
                 <th>Codigo</th>
                
                 <th>Departamento</th>
-                <th>Distrito</th>
+                <th>Municipio</th>
                 <th>Sexo</th>
                 
                 <th>Pandilla</th>
@@ -556,7 +556,7 @@ window.onload = function() {
             alertBox.classList.remove('hidden');
 
             // Cerrar la alerta automáticamente después de 5 segundos
-            setTimeout(closeAlert, 2000);
+            setTimeout(closeAlert, 5000);
         }
 
         function closeAlert() {

@@ -485,12 +485,26 @@ h2 {
             <option value="San Salvador">San Salvador</option>
             <option value="La Libertad">La Libertad</option>
             <option value="Santa Ana">Santa Ana</option>
+            <option value="San Vicente">San Vicente</option>
+            <option value="Ahuachapán">Ahuachapán</option>
+            <option value="Cabañas">Cabañas</option>
+            <option value="Chalatenango">Chalatenango</option>
+            <option value="Cuscatlán">Cuscatlán</option>
+            <option value="La Paz">La Paz</option>
+            <option value="La Unión">La Unión</option>
+            <option value="Morazán">Morazán</option>
+            <option value="San Miguel">San Miguel</option>
+            <option value="Sonsonate">Sonsonate</option>
+            <option value="Usulután">Usulután</option>
+
+         
+            
             <!-- Agregar los otros 11 departamentos de El Salvador -->
         </select><br>
 
-        <label for="distrito">Distrito:</label>
+        <label for="distrito">Municipio:</label>
         <select id="distrito" name="distrito" >
-            <option value="">Seleccione un distrito</option>
+            <option value="">Seleccione un Municipio</option>
         </select><br>
 
 
@@ -623,10 +637,25 @@ document.getElementById("fecha_nacimiento").addEventListener("change", function(
 
             const districtsByDepartment = {
 
-                "San Salvador": ["Distrito 1", "Distrito 2", "Distrito 3"],
-                "La Libertad": ["Distrito 1", "Distrito 2"],
-                "Santa Ana": ["Distrito 1", "Distrito 2", "Distrito 3"],
-
+                "San Salvador": ["San Salvador Norte", "San Salvador Oeste", "San Salvador Este", "San Salvador Sur", "San Salvador Central"],
+                "La Libertad": ["La Libertad Norte", "La Libertad Sur", "La Libertad Oeste", "La Libertad Este", "La Libertad Centro", "La Libertad Costa"],
+                "Chalatenango": ["Chalatenango Norte", "Chalatenango Sur", "Chalatenango Centro"],
+                "Santa Ana": ["Santa Ana Norte", "Santa Ana Centro", "Santa Ana Oeste", "Santa Ana Este"],
+                "Sonsonate": ["Sonsonate Norte", "Sonsonate Centro", "Sonsonate Oeste", "Sonsonate Este"],
+                "Ahuachapán": ["Ahuachapán Norte", "Ahuachapán Centro", "Ahuachapán Sur"],
+                "La Paz": [  "La Paz Oeste", "La Paz Este", "La Paz Centro"],
+                "Cuscatlán": ["Cuscatlán Norte", "Cuscatlán Sur"],
+                "Cabañas": ["Cabañas Este", "Cabañas Oeste"],
+                "San Vicente": ["San Vicente Norte", "San Vicente Sur"],
+                "Usulután": ["Usulután Norte", "Usulután Este", "Usulután Oeste"],
+                "San Miguel": ["San Miguel Norte", "San Miguel Centro", "San Miguel Oeste"],
+                "Morazán": ["Morazán Norte", "Morazán sur"],
+              
+                "La Unión": ["La Unión Norte", "La Union Sur"],
+                
+               
+                
+              
                 
 
 
