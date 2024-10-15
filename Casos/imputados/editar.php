@@ -483,7 +483,7 @@ $conn->close();
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" value="<?php echo $nombre; ?>" required readonly>
                 <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?php echo $fecha_nacimiento; ?>" onchange="verificarCampos();">
+                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?php echo $fecha_nacimiento; ?>" onchange="verificarCampos();" >
                 <span id="error" style="color: red;"></span><br>
 
                 <label for="dui">DUI:</label>
@@ -552,108 +552,39 @@ $conn->close();
         </form>
     </div>
 
-<script>
-
-
+    <script>
 document.addEventListener('DOMContentLoaded', function() {
-        verificarCampos();
-    });
+    verificarCampos();
+    showStep(0);
 
+    const fechaNacimientoInput = document.getElementById('fecha_nacimiento');
+    const duiInput = document.getElementById('dui');
 
-
-window.onload = function() {
-        var duiInput = document.getElementById('dui');
-        var fechaNacimientoInput = document.getElementById('fecha_nacimiento');
-        
-        // Verifica si el campo DUI tiene un valor al cargar la página
-        if (duiInput.value.trim() !== "") {
-            duiInput.readOnly = true; // Si tiene valor, se marca como readonly
-        }
-        
-        // Verifica si el campo fecha de nacimiento tiene un valor al cargar la página
-        if (fechaNacimientoInput.value.trim() !== "") {
-            fechaNacimientoInput.readOnly = true; // Si tiene valor, se marca como readonly
-        }
-        
-        // Ejecutar la verificación de campos al cargar la página para comprobar la edad
-        verificarCampos();
-    };
-
-    function verificarCampos() {
-        const fechaNacimiento = new Date(document.getElementById("fecha_nacimiento").value);
-        const hoy = new Date();
-        const errorElement = document.getElementById("error");
-        const duiElement = document.getElementById("dui");
-
-        // Si el DUI ya tiene un valor, manténlo como readonly
-        if (duiElement.value.trim() !== "") {
-            duiElement.readOnly = true;
-            return;
-        }
-
-        if (isNaN(fechaNacimiento.getTime())) {
-            errorElement.textContent = "";
-            duiElement.readOnly = true;
-            return;
-        }
-
-        // Cálculo de la edad
-        let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
-        const mes = hoy.getMonth() - fechaNacimiento.getMonth();
-        const dia = hoy.getDate() - fechaNacimiento.getDate();
-
-        if (mes < 0 || (mes === 0 && dia < 0)) {
-            edad--;
-        }
-
-        // Validación
-        if (edad >= 18) {
-            errorElement.textContent = "";
-            duiElement.readOnly = false;  // Habilitar el campo DUI
-        } else {
-            errorElement.textContent = "Debe ser mayor de 18 años para ingresar el DUI.";
-            duiElement.readOnly = true;  // Deshabilitar el campo DUI
-        }
+    // Verifica si el campo DUI tiene un valor al cargar la página
+    if (duiInput.value.trim() !== "") {
+        duiInput.readOnly = true;
     }
 
-
-
-
-
-
-
-function mostrarCampoOtro() {
-    var select = document.getElementById("genero");
-    var campoOtro = document.getElementById("campoOtro");
-    if (select.value === "Otro") {
-        campoOtro.style.display = "block";
-    } else {
-        campoOtro.style.display = "none";
+    // Verifica si el campo fecha de nacimiento tiene un valor al cargar la página
+    if (fechaNacimientoInput.value) {
+        fechaNacimientoInput.readOnly = true;
     }
-}
 
-
-
-
-    // Llamar a verificarCampos al cargar la página para ajustar el estado del campo DUI
-    window.onload = function() {
-        verificarCampos();
-    };
-
-document.getElementById("fecha_nacimiento").addEventListener("change", function() {
+    // Escucha el cambio en la fecha de nacimiento
+    fechaNacimientoInput.addEventListener("change", function() {
         const fechaNacimiento = new Date(this.value);
         const fechaActual = new Date();
-        
+
         // Calcular la edad
         const edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
         const mes = fechaActual.getMonth() - fechaNacimiento.getMonth();
         const dia = fechaActual.getDate() - fechaNacimiento.getDate();
-        
+
         if (edad < 12 || (edad === 12 && (mes < 0 || (mes === 0 && dia < 0)))) {
             const errorMsg = document.getElementById("error");
             errorMsg.textContent = "Debes tener al menos 12 años.";
-            this.value = ''; // Vaciar el campo si la edad es menor de 15 años
-            
+            this.value = ''; // Vaciar el campo si la edad es menor de 12 años
+
             // Hacer que el mensaje desaparezca después de 5 segundos
             setTimeout(function() {
                 errorMsg.textContent = "";
@@ -662,34 +593,65 @@ document.getElementById("fecha_nacimiento").addEventListener("change", function(
             document.getElementById("error").textContent = ""; // Limpiar el mensaje de error inmediatamente si es válido
         }
     });
+});
 
+function verificarCampos() {
+    const fechaNacimiento = new Date(document.getElementById("fecha_nacimiento").value);
+    const hoy = new Date();
+    const errorElement = document.getElementById("error");
+    const duiElement = document.getElementById("dui");
 
+    if (duiElement.value.trim() !== "") {
+        duiElement.readOnly = true;
+        return;
+    }
 
+    if (isNaN(fechaNacimiento.getTime())) {
+        errorElement.textContent = "";
+        duiElement.readOnly = true;
+        return;
+    }
 
+    let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+    const mes = hoy.getMonth() - fechaNacimiento.getMonth();
+    const dia = hoy.getDate() - fechaNacimiento.getDate();
 
+    if (mes < 0 || (mes === 0 && dia < 0)) {
+        edad--;
+    }
 
+    if (edad >= 18) {
+        errorElement.textContent = "";
+        duiElement.readOnly = false;
+    } else {
+        errorElement.textContent = "Debe ser mayor de 18 años para ingresar el DUI.";
+        duiElement.readOnly = true;
+    }
+}
+
+function mostrarCampoOtro() {
+    const select = document.getElementById("genero");
+    const campoOtro = document.getElementById("campoOtro");
+    campoOtro.style.display = select.value === "Otro" ? "block" : "none";
+}
 
 let currentStep = 0;
 
 function showStep(step) {
     const steps = document.querySelectorAll(".step");
 
-    // Mostrar solo el paso actual
     steps.forEach((s, index) => {
         s.classList.toggle("active", index === step);
     });
 
     const progressSteps = document.querySelectorAll(".progress-step");
 
-    // Actualizar la barra de progreso
     progressSteps.forEach((p, index) => {
         p.classList.toggle("active", index <= step);
     });
 
-    // Desactivar el botón "Anterior" si estamos en el primer paso
     document.getElementById("prevBtn").disabled = step === 0;
 
-    // Cambiar el botón "Siguiente" en el último paso
     if (step === steps.length - 1) {
         document.getElementById("nextBtn").style.display = 'none';
         document.getElementById("submitBtn").style.display = 'inline-block';
@@ -699,26 +661,21 @@ function showStep(step) {
     }
 }
 
-// Función para cambiar el paso
 function changeStep(n) {
     const steps = document.querySelectorAll(".step");
 
-    // Verificar límites de pasos
     if (currentStep + n < 0 || currentStep + n >= steps.length) {
         return;
     }
 
-    // Validar el paso antes de avanzar
     if (n > 0 && !validateStep()) {
         return;
     }
 
-    // Avanzar o retroceder en el paso
     currentStep += n;
     showStep(currentStep);
 }
 
-// Validar los campos del paso actual
 function validateStep() {
     const activeStep = document.querySelector(".step.active");
     const inputs = activeStep.querySelectorAll("input");
@@ -731,12 +688,8 @@ function validateStep() {
     }
     return true;
 }
-
-// Mostrar el primer paso al cargar la página
-document.addEventListener("DOMContentLoaded", function() {
-    showStep(0);
-});
 </script>
+
 </body>
 </html>
 
