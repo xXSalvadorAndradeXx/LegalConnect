@@ -450,6 +450,11 @@ $result = $conn->query($sql);
     </nav>
 
 
+<?php
+    if (isset($_GET['message']) && $_GET['message'] == 'exito') {
+    echo '<div class="message-success" id="message"l>Los datos de victima se ha actualizado correctamente.</div>';
+}
+?>
 
 
 <a class='btn-navega' href='/Casos/victima/victima.php' title="Añadir"><i class='fas fa-plus'></i> </a>
@@ -534,6 +539,23 @@ $conn->close();
 
 
 <script>
+
+
+
+
+    // Espera 5 segundos y luego hace que el mensaje desaparezca
+    setTimeout(function() {
+        var message = document.getElementById("message");
+        if (message) {
+            message.style.opacity = "0";
+        }
+    }, 5000);
+
+    // Después de 5.5 segundos (para darle tiempo a desaparecer), redirige a otra página
+    setTimeout(function() {
+        window.location.href = "/Casos/victima/tabla_de_victima.php"; // Cambia esto por la URL a la que quieras redirigir
+    }, 5500);
+
 
 window.onload = function() {
             // Obtener los parámetros de la URL

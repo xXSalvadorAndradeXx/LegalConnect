@@ -410,13 +410,13 @@ h2 {
             </li>
             <li><a href="/Audiencias/Buscar_Audiencias.php">Audiencias</a></li>
             <li><a href="apps.php">Aplicaciones</a></li>
-            <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>  
+            <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>
 
             <li><a href="/Audiencias/ver_solicitudes.php">Mis Solicitudes</a></li>
 
             <?php endif; ?>
 
-            <?php if ($tipo_usuario === 'juez'): ?>  
+            <?php if ($tipo_usuario === 'juez'): ?>
 
             <li><a href="/Audiencias/ver_solicitudes.php">Solicitudes</a></li>
 
@@ -537,11 +537,6 @@ h2 {
 
             
         </div>
-
-
-        
-
-        
 
         <div class="button-group">
             <button type="button" id="prevBtn" onclick="changeStep(-1)" disabled>Anterior</button>
