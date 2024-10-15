@@ -415,6 +415,57 @@ $result = $conn->query($sql);
 }
 
 
+.select-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .select-container select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            box-sizing: border-box;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%204%205%22%3E%3Cpath%20fill%3D%22%23007bff%22%20d%3D%22M2%200L0%202h4L2%200zM2%205L0%203h4L2%205z%22/%3E%3C/svg%3E') no-repeat right 10px center;
+            background-size: 12px;
+        }
+        .select-container select:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        /* Oculta el input de archivo real */
+.evidence-btn {
+    position: absolute;
+    left: -9999px; /* Lo mueve fuera de la vista */
+}
+
+/* Estilo del label que actúa como botón */
+.custom-label {
+     /* Fondo blanco */
+    border: none;
+    color: black; /* Color del texto */
+    padding: 10px 20px; /* Espaciado del botón */
+    text-align: center; /* Centrar el texto */
+    text-decoration: none; /* Sin decoración de texto */
+    display: inline-block; /* Mostrar como bloque en línea */
+    font-size: 14px; /* Tamaño del texto */
+    margin: 4px 2px; /* Margen alrededor del botón */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s ease; /* Transición suave al cambiar de fondo */
+    font-family: Bahnschrift; /* Fuente personalizada */
+}
+
+/* Estilo al pasar el mouse sobre el label */
+.custom-label:hover {
+    background-color: #0056b3; /* Fondo más oscuro al pasar el ratón */
+    color: #fff; /* Color de texto blanco al pasar el ratón */
+}
 
 
 
@@ -503,6 +554,25 @@ $result = $conn->query($sql);
                     ?>
 
                 </select>
+
+
+
+                <label for="seleccionardeclaracion">selecionar declaración</label>
+                <select id="seleccionardeclaracion" name="seleccionardeclaracion" required>
+                    <option value="">Seleccione</option>
+                    <option value="texto">Texto</option>
+                    <option value="audio">Audio</option>
+                    <option value="video">Video</Video></option>
+                </select>
+
+                <label for="evidencia">Evidencia:</label>
+                <label for="evidencia" class="custom-label">
+                <i class="fas fa-file-upload"></i> Seleccionar
+                </label>
+                <input type="file" id="evidencia" name="evidencia[]" multiple accept=".png,.jpg,.jpeg" class="evidence-btn" onchange="updateFileNames()">
+                <span id="evidencia-nombres"></span> <!-- Span para mostrar los nombres de los archivos seleccionados -->
+
+
                 
                 <label for="declaracion">Declaración:</label>
                 <textarea id="declaracion" name="declaracion" required></textarea>
