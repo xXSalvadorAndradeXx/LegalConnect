@@ -438,34 +438,6 @@ $result = $conn->query($sql);
             border-color: #007bff;
         }
 
-        /* Oculta el input de archivo real */
-.evidence-btn {
-    position: absolute;
-    left: -9999px; /* Lo mueve fuera de la vista */
-}
-
-/* Estilo del label que actúa como botón */
-.custom-label {
-     /* Fondo blanco */
-    border: none;
-    color: black; /* Color del texto */
-    padding: 10px 20px; /* Espaciado del botón */
-    text-align: center; /* Centrar el texto */
-    text-decoration: none; /* Sin decoración de texto */
-    display: inline-block; /* Mostrar como bloque en línea */
-    font-size: 14px; /* Tamaño del texto */
-    margin: 4px 2px; /* Margen alrededor del botón */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    border-radius: 5px; /* Bordes redondeados */
-    transition: background-color 0.3s ease; /* Transición suave al cambiar de fondo */
-    font-family: Bahnschrift; /* Fuente personalizada */
-}
-
-/* Estilo al pasar el mouse sobre el label */
-.custom-label:hover {
-    background-color: #0056b3; /* Fondo más oscuro al pasar el ratón */
-    color: #fff; /* Color de texto blanco al pasar el ratón */
-}
 
 
 
@@ -527,63 +499,93 @@ $result = $conn->query($sql);
         
 
         <h2>Declaración</h2>
-        <form method="post" action="subir_declaracion.php">
+        <form method="post" action="subir_declaracion.php" enctype="multipart/form-data">
+    <div class="step active">
+        <h3>Información Personal</h3>
+        <input type="hidden" name="id" value="<?php echo $id; ?>">
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" value="<?php echo $apellido; ?>" required readonly>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" value="<?php echo $nombre; ?>" required readonly>
         
-            <div class="step active">
-                <h3>Información Personal</h3>
-                <input type="hidden" name="id" value="<?php echo $id; ?>">
-                <label for="apellido">Apellido:</label>
-                <input type="text" id="apellido" name="apellido" value="<?php echo $apellido; ?>" required readonly>
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" value="<?php echo $nombre; ?>" required readonly>
-                
-                <label for="casos">Casos</label>
-                <select id="casos" name="casos" required>
-                    <option value="">Seleccione</option>
-                                      
+        <label for="casos">Casos</label>
+        <select id="casos" name="casos" required>
+            <option value="">Seleccione</option>
 
-                    <?php
-                    if ($result->num_rows > 0) {
-                        // Generar las opciones dinámicamente
-                        while($row = $result->fetch_assoc()) {
-                            echo "<option value='" . $row['id'] . "'>" . $row['referencia'] . "</option>";
-                        }
-                    } else {
-                        echo "<option value=''>No hay casos disponibles</option>";
-                    }
-                    ?>
+            <?php
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    echo "<option value='" . $row['id'] . "'>" . $row['referencia'] . "</option>";
+                }
+            } else {
+                echo "<option value=''>No hay casos disponibles</option>";
+            }
+            ?>
+        </select>
 
-                </select>
+        <label for="seleccionardeclaracion">Seleccionar declaración</label>
+        <select id="seleccionardeclaracion" name="seleccionardeclaracion" required onchange="mostrarCampo()">
+            <option value="">Seleccione</option>
+            <option value="documento">Documento</option>
+            <option value="texto">Texto</option>
+            <option value="audio">Audio</option>
+            <option value="video">Video</option>
+        </select>
 
-
-
-                <label for="seleccionardeclaracion">selecionar declaración</label>
-                <select id="seleccionardeclaracion" name="seleccionardeclaracion" required>
-                    <option value="">Seleccione</option>
-                    <option value="texto">Texto</option>
-                    <option value="audio">Audio</option>
-                    <option value="video">Video</Video></option>
-                </select>
-
-                <label for="evidencia">Evidencia:</label>
-                <label for="evidencia" class="custom-label">
-                <i class="fas fa-file-upload"></i> Seleccionar
-                </label>
-                <input type="file" id="evidencia" name="evidencia[]" multiple accept=".png,.jpg,.jpeg" class="evidence-btn" onchange="updateFileNames()">
-                <span id="evidencia-nombres"></span> <!-- Span para mostrar los nombres de los archivos seleccionados -->
-
-
-                
-                <label for="declaracion">Declaración:</label>
-                <textarea id="declaracion" name="declaracion" required></textarea>
-
-                <button type="submit">Enviar</button>
-
+        <!-- Campo para Documento -->
+        <div id="campo-documento" style="display:none;">
+            <label for="documento">Documento:</label>
+            <input type="file" id="documento" name="documento[]" multiple accept=".png,.jpg,.jpeg,.pdf,.doc,.docx">
         </div>
-            
-        </form>
+
+        <!-- Campo para Audio -->
+        <div id="campo-audio" style="display:none;">
+            <label for="audio">Audio:</label>
+            <input type="file" id="audio" name="audio[]" multiple accept=".mp3,.wav,.ogg">
+        </div>
+
+        <!-- Campo para Video -->
+        <div id="campo-video" style="display:none;">
+            <label for="video">Video:</label>
+            <input type="file" id="video" name="video[]" multiple accept=".mp4,.avi,.mov,.mkv">
+        </div>
+
+        <!-- Campo para Texto -->
+        <div id="campo-texto" style="display:none;">
+            <label for="declaracion">Declaración:</label>
+            <textarea id="declaracion" name="declaracion"></textarea>
+        </div>
+
+        <button type="submit">Enviar</button>
+    </div>
+</form>
+
     </div>
 
 
 </body>
+
+<script>
+function mostrarCampo() {
+    // Ocultar todos los campos al inicio
+    document.getElementById("campo-documento").style.display = "none";
+    document.getElementById("campo-audio").style.display = "none";
+    document.getElementById("campo-video").style.display = "none";
+    document.getElementById("campo-texto").style.display = "none";
+
+    // Obtener la opción seleccionada
+    var seleccion = document.getElementById("seleccionardeclaracion").value;
+
+    // Mostrar el campo correspondiente a la selección
+    if (seleccion === "documento") {
+        document.getElementById("campo-documento").style.display = "block";
+    } else if (seleccion === "audio") {
+        document.getElementById("campo-audio").style.display = "block";
+    } else if (seleccion === "video") {
+        document.getElementById("campo-video").style.display = "block";
+    } else if (seleccion === "texto") {
+        document.getElementById("campo-texto").style.display = "block";
+    }
+}
+</script>
 </html>

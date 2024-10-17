@@ -456,6 +456,11 @@ $result = $conn->query($sql);
 }
 ?>
 
+<?php
+    if (isset($_GET['mezage']) && $_GET['mezage'] == 'exito') {
+    echo '<div class="message-success" id="message"l>La declaracion de la victima ha sido guardada correctamente.</div>';
+}
+?>
 
 <a class='btn-navega' href='/Casos/victima/victima.php' title="Añadir"><i class='fas fa-plus'></i> </a>
 
