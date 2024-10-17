@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-10-2024 a las 08:15:43
+-- Tiempo de generación: 17-10-2024 a las 08:43:52
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -75,8 +75,8 @@ CREATE TABLE `casos` (
 --
 
 INSERT INTO `casos` (`id`, `referencia`, `victima`, `imputado`, `tipo_delito`, `documento`, `fecha_creacion`, `estado`) VALUES
-(136, '2024-08-25-08-46-38-1598', 'Salvador', 'Maria', 'asalto', NULL, '2024-08-25', 'activo'),
-(137, '2024-09-25-02-44-22-5223', 'Salvador', 'Maria', 'asalto', NULL, '2024-09-24', 'activo');
+(136, '2024-08-25-08-46-38-1598', 'Andrade', 'Maria', 'asalto', NULL, '2024-08-25', 'activo'),
+(137, '2024-09-25-02-44-22-5223', 'Juan', 'Maria', 'asalto', NULL, '2024-09-24', 'activo');
 
 -- --------------------------------------------------------
 
@@ -113,8 +113,12 @@ CREATE TABLE `declaraciones` (
   `id` int(11) NOT NULL,
   `apellido` varchar(255) NOT NULL,
   `nombre` varchar(255) NOT NULL,
-  `casos_id` int(11) NOT NULL,
-  `declaracion` text NOT NULL,
+  `caso_id` int(11) NOT NULL,
+  `tipo_declaracion` enum('documento','audio','video','texto') NOT NULL,
+  `documento` text DEFAULT NULL,
+  `audio` text DEFAULT NULL,
+  `video` text DEFAULT NULL,
+  `texto` text DEFAULT NULL,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -122,9 +126,10 @@ CREATE TABLE `declaraciones` (
 -- Volcado de datos para la tabla `declaraciones`
 --
 
-INSERT INTO `declaraciones` (`id`, `apellido`, `nombre`, `casos_id`, `declaracion`, `fecha`) VALUES
-(6, 'On2PLGkPjw==', 'JH2RImk=', 136, 'DXqQLQ==', '2024-10-11 06:13:15'),
-(7, 'KHKHOWkPhQ==', 'On2PPWkPj+4=', 137, 'CG+COGkY', '2024-10-11 06:15:05');
+INSERT INTO `declaraciones` (`id`, `apellido`, `nombre`, `caso_id`, `tipo_declaracion`, `documento`, `audio`, `video`, `texto`, `fecha`) VALUES
+(2, 'On2PLGkPjw==', 'JH2RImk=', 137, 'texto', NULL, NULL, NULL, 'IXOPKigalfmPVxPF', '2024-10-17 06:10:48'),
+(3, 'On2PLGkPjw==', 'JH2RImk=', 136, 'video', NULL, NULL, '[\"JmqGOWQKme+PDlLsgN5gPJR2nnwk\"]', NULL, '2024-10-17 06:14:10'),
+(4, 'On2PLGkPjw==', 'JH2RImk=', 137, 'documento', '[\"OW6CKHwCg\\/3cAzbM0ux2No4qmmhx3ggQwHrr\"]', NULL, NULL, NULL, '2024-10-17 06:15:22');
 
 -- --------------------------------------------------------
 
@@ -250,8 +255,10 @@ CREATE TABLE `imputados` (
 --
 
 INSERT INTO `imputados` (`id`, `codigo`, `apellido`, `nombre`, `fecha_nacimiento`, `dui`, `departamento`, `distrito`, `direccion`, `madre`, `padre`, `pandilla`, `alias`, `sexo`) VALUES
-(8, 'IMP 148-5874-102', 'KHKHOWkPhQ==', 'On2PPWkPj+4=', '2002-11-14', 'UCTUfTxY0q', 'On2Na1sKjOrORx3b', 'LXWQP3oClPOPEQ==', '', '', '', 'JE/SeA==', 'Ok8=', 'K3WNKnoCjw=='),
-(9, 'IMP 288-4603-956', 'KHKHOWkPhQ==', 'On2PPWkPj+4=', '0000-00-00', '', '', '', '', '', '', 'BC0=', 'BSQ=', 'JH2QKH0HifLA');
+(9, 'IMP 288-4603-956', 'KHKHOWkPhQ==', 'On2PPWkPj+4=', '2002-11-14', 'UCTUfTxY0g', 'PG+WJ30fgfI=', 'PG+WJ30fgfKPZgHdlw==', '', '', '', 'BC0=', 'BSQ=', 'JH2QKH0HifLA'),
+(10, 'IMP 660-2999-792', 'OnOQKg==', 'I2mPInsYgQ==', '2002-02-10', 'UCTUfTxY0g', 'On2NP2lLofLO', 'LXWQP3oClPOPEQ==', 'Cn2PJ21LjunKVROJk9MzNZ40mn551Q==', 'KHKELmQK', 'IG+KL3oE', 'Dn2XJHtLjvnIUR3a', 'BX3DLW0HifLO', 'L3mOLmYCjvM='),
+(11, 'IMP 679-0171-519', 'KE+nClsv', 'KE+nDkk4pNk=', '0000-00-00', '', '', '', '', '', '', 'LU+iCkw=', 'KE+nClsvtw==', ''),
+(12, 'IMP 808-8105-594', 'DXqULQ==', 'DW+FOGw=', '0000-00-00', '', 'On2Na1sKjOrORx3b', 'On2Na1sKjOrORx3b0vF8I489', '', 'GniFOGw=', 'D3iQLQ==', 'GniFOA==', 'D2+HLQ==', 'L3mOLmYCjvM=');
 
 -- --------------------------------------------------------
 
@@ -281,7 +288,8 @@ CREATE TABLE `imputados_archivados` (
 --
 
 INSERT INTO `imputados_archivados` (`id`, `codigo`, `apellido`, `nombre`, `fecha_nacimiento`, `dui`, `departamento`, `distrito`, `direccion`, `madre`, `padre`, `pandilla`, `alias`, `sexo`) VALUES
-(1, 'IMP 000-0000-000', 'On2PLGkPjw==', 'On2PPWkPj+4=', '2024-09-20', 'WC7Qfz1d1w', 'On2Na1sKjOrORx3b', 'LXWQP3oClPOPEQ==', 'WC3RLnkchO3LQg==', 'JH2RImlLr+/AURvG', 'P3WAP2cZwM/OTxXIltA=', 'JE/SeA==', 'JX3DLXoCivPD', 'B');
+(1, 'IMP 000-0000-000', 'On2PLGkPjw==', 'On2PPWkPj+4=', '2024-09-20', 'WC7Qfz1d1w', 'On2Na1sKjOrORx3b', 'LXWQP3oClPOPEQ==', 'WC3RLnkchO3LQg==', 'JH2RImlLr+/AURvG', 'P3WAP2cZwM/OTxXIltA=', 'JE/SeA==', 'JX3DLXoCivPD', 'B'),
+(2, 'IMP 148-5874-102', 'KHKHOWkPhQ==', 'On2PPWkPj+4=', '0000-00-00', 'UCTUfTxY0g', 'On2Na1sKjOrORx3b', 'LXWQP3oClPOPEQ==', '', '', '', 'JE/SeA==', 'Ok8=', 'K');
 
 -- --------------------------------------------------------
 
@@ -377,8 +385,8 @@ CREATE TABLE `victimas` (
 --
 
 INSERT INTO `victimas` (`id`, `codigo`, `apellido`, `nombre`, `fecha_nacimiento`, `dui`, `sexo`, `departamento`, `distrito`, `direccion`, `madre`, `padre`) VALUES
-(2, 'VIC 001-1868-566', 'KHKHOWkPhQ==', 'On2PPWkPj+4=', '0000-00-00', '', 'K3WNKnoCjw==', 'PG+WJ30fgfI=', 'PG+WJ30fgfKPZgHdlw==', 'WG6Ga0sEjPPBShOJsc1mKw==', 'LX2KOHFLufPDQhzNk59DNDjpkg==', 'Jm+AKnpLpe7BRgHdnZ9SP58qkmh1'),
-(3, 'VIC 953-6560-972', 'On2PLGkPjw==', 'JH2RImk=', '0000-00-00', '', 'BH2QKH0HifLA', 'PG+WJ30fgfI=', 'PG+WJ30fgfKPZgHdlw==', 'WG6Ga0sEjPPBShOJsc1mKw==', 'JH2RImlLr+/AURvG', 'P3WAP2cZwM/OTxXIltA=');
+(3, 'VIC 953-6560-972', 'On2PLGkPjw==', 'JH2RImk=', '0000-00-00', '', 'BH2QKH0HifLA', 'PG+WJ30fgfI=', 'PG+WJ30fgfKPZgHdlw==', 'WG6Ga0sEjPPBShOJsc1mKw==', 'JH2RImlLr+/AURvG', 'P3WAP2cZwM/OTxXIltA='),
+(4, 'VIC 451-0824-324', 'On2PLGkPjw==', 'JH2RImk=', '2000-05-15', 'WC7Qfz1d2KuCEw==', 'BH2QKH0HifLA', 'OE2y', 'OE2y', 'OE2yGg==', 'OE2y', 'OE2y');
 
 -- --------------------------------------------------------
 
@@ -406,7 +414,8 @@ CREATE TABLE `victimas_archivados` (
 --
 
 INSERT INTO `victimas_archivados` (`id`, `codigo`, `apellido`, `nombre`, `fecha_nacimiento`, `dui`, `departamento`, `distrito`, `direccion`, `madre`, `padre`, `sexo`) VALUES
-(1, 'VIC 914-7407-792', 'On2PLGkPjw==', 'On2PPWkPj+4=', '2002-11-14', 'UCTUfTxY0q', 'On2Na1sKjOrORx3b', 'PG+WJ30fgfKPZgHdlw==', 'WG6Ga0sEjPPBShOJsc1mKw==', 'LX2KOHFLufPDQhzNk59DNDjpkg==', 'P3WAP2cZwM/OTxXIltA=', 'K3WNKnoCjw==');
+(1, 'VIC 914-7407-792', 'On2PLGkPjw==', 'On2PPWkPj+4=', '2002-11-14', 'UCTUfTxY0q', 'On2Na1sKjOrORx3b', 'PG+WJ30fgfKPZgHdlw==', 'WG6Ga0sEjPPBShOJsc1mKw==', 'LX2KOHFLufPDQhzNk59DNDjpkg==', 'P3WAP2cZwM/OTxXIltA=', 'K3WNKnoCjw=='),
+(2, 'VIC 001-1868-566', 'KHKHOWkPhQ==', 'On2PPWkPj+4=', '2010-11-11', '', 'PG+WJ30fgfI=', 'PG+WJ30fgfI=', 'WG6Ga0sEjPPBShOJsc1mKw==', 'LX2KOHFLufPDQhzNk59DNDjpkg==', 'Jm+AKnpLpe7BRgHdnZ9SP58qkmh1', 'OX2NOG0Tlf3D');
 
 --
 -- Índices para tablas volcadas
@@ -436,8 +445,7 @@ ALTER TABLE `casos_archivados`
 -- Indices de la tabla `declaraciones`
 --
 ALTER TABLE `declaraciones`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `casos_id` (`casos_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `delete_requests`
@@ -544,7 +552,7 @@ ALTER TABLE `casos_archivados`
 -- AUTO_INCREMENT de la tabla `declaraciones`
 --
 ALTER TABLE `declaraciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `delete_requests`
@@ -580,13 +588,13 @@ ALTER TABLE `evidencias_archivadas`
 -- AUTO_INCREMENT de la tabla `imputados`
 --
 ALTER TABLE `imputados`
-  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `imputados_archivados`
 --
 ALTER TABLE `imputados_archivados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `registros`
@@ -610,23 +618,17 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `victimas`
 --
 ALTER TABLE `victimas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `victimas_archivados`
 --
 ALTER TABLE `victimas_archivados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `declaraciones`
---
-ALTER TABLE `declaraciones`
-  ADD CONSTRAINT `declaraciones_ibfk_1` FOREIGN KEY (`casos_id`) REFERENCES `casos` (`id`);
 
 --
 -- Filtros para la tabla `documentos`
