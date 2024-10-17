@@ -551,9 +551,11 @@ button:hover {
                             echo "<iframe src='$ubicacionArchivo' width='100%' height='600px'></iframe>";
                         } elseif ($extension === 'doc' || $extension === 'docx') {
                             echo "<iframe src='https://view.officeapps.live.com/op/embed.aspx?src=$ubicacionArchivo' width='100%' height='600px'></iframe>";
+                            echo "<a href='$ubicacionArchivo' download><button>Descargar y abrir en Word</button></a>";
                         } else {
                             echo "<p>Formato de archivo no compatible: $ubicacionArchivo</p>";
                         }
+                        
                     }
                     echo "</div>";
                 } else {

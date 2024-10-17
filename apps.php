@@ -260,14 +260,14 @@ if (isset($_GET['logout'])) {
 
 
 
-
+  
 
     <div class="content">
         <h1>Legal Documents</h1>
         <p>Explora Legal Documents para editar tus documentos de manera facil y rapida</p>
     
-        <button class="btn-word" onclick="window.location.href='/editor_text.php'">
-            <i class="fas fa-file"></i> Abrir Legal Documents App
+        <button class="btn-word" onclick="confirmNavigation();">
+            <i class="fas fa-file"></i> Abrir Google Docs
         </button>
     </div>
 
@@ -280,6 +280,16 @@ if (isset($_GET['logout'])) {
 </div>
 
 
+
+
+<script>
+        function confirmNavigation() {
+            const userConfirmed = confirm("¿Estás seguro de que quieres ir a Google Docs?");
+            if (userConfirmed) {
+                window.open('https://docs.google.com', '_blank');
+            }
+        }
+    </script>
 <script>
 
 
