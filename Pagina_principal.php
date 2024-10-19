@@ -60,10 +60,15 @@ if (isset($_GET['logout'])) {
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <head>
+  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
+
     <style>
         body {
             font-family: 'Bahnschrift', sans-serif;
@@ -201,6 +206,14 @@ if (isset($_GET['logout'])) {
     #mostrarChat:hover {
       background-color: #374D63; /* Cambio de color al pasar el cursor */
     }
+
+    #calendar {
+    width: 100%; /* Asegura que el calendario ocupe el 100% del contenedor */
+    height: 70vh; /* Ajusta la altura del calendario según tus necesidades */
+    max-width: 1200px; /* Ancho máximo para el calendario */
+    margin: 0 auto; /* Centra el calendario */
+    padding: 20px; /* Espacio alrededor del calendario */
+    }
     </style>
 </head>
 <body>
@@ -252,6 +265,7 @@ if (isset($_GET['logout'])) {
     <div class="content">
         <h1>Bienvenido a la Página Principal</h1>
         <p>Explora las opciones en el menú para gestionar tus casos, audiencias y notificaciones de forma eficiente. Elige una opción para comenzar.</p>
+        <div id='calendar'>
     </div>
 
 
@@ -312,6 +326,27 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'es', // Para configurar el calendario en español
+        events: [ // Aquí puedes agregar eventos de ejemplo o conectarlo a tu base de datos
+          {
+            title: 'Audiencia 1',
+            start: '2024-10-20'
+          },
+          {
+            title: 'Audiencia 2',
+            start: '2024-10-25'
+          }
+        ]
+      });
+
+      calendar.render();
+    });
 
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
