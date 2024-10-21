@@ -281,6 +281,37 @@ if (isset($_GET['logout'])) {
 
 
 
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    locale: 'es', // Para configurar el calendario en español
+    events: function(fetchInfo, successCallback, failureCallback) {
+      // Hacer solicitud AJAX para obtener los eventos
+      fetch('calendario.php') // Ajusta la ruta
+        .then(response => response.json())
+        .then(data => {
+          // Llamar a successCallback para cargar los eventos
+          successCallback(data);
+        })
+        .catch(error => {
+          console.error('Error al cargar los eventos:', error);
+          failureCallback(error);
+        });
+    }
+  });
+
+  calendar.render();
+});
+
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
   // Obtener referencia al elemento de chat y al botón
   var chat = document.getElementById("draggable");
@@ -327,26 +358,7 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('calendar');
 
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        locale: 'es', // Para configurar el calendario en español
-        events: [ // Aquí puedes agregar eventos de ejemplo o conectarlo a tu base de datos
-          {
-            title: 'Audiencia 1',
-            start: '2024-10-20'
-          },
-          {
-            title: 'Audiencia 2',
-            start: '2024-10-25'
-          }
-        ]
-      });
-
-      calendar.render();
-    });
 
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
