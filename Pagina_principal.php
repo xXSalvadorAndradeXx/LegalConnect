@@ -64,10 +64,12 @@ if (isset($_GET['logout'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <head>
   <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
         body {
@@ -214,6 +216,90 @@ if (isset($_GET['logout'])) {
     margin: 0 auto; /* Centra el calendario */
     padding: 20px; /* Espacio alrededor del calendario */
     }
+
+
+
+
+
+ /* Ajuste en el contenedor del calendario */
+/* Ajuste en el contenedor del calendario con scroll */
+/* Ajuste en el contenedor del calendario con scroll */
+#calendar {
+  display: none; /* Escondemos el calendario por defecto */
+  max-width: 700px; /* Ancho máximo */
+  margin: 20px auto;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  
+  /* Scroll */
+  max-height: 500px; /* Altura máxima del calendario */
+  overflow-y: auto; /* Añadir scroll vertical si el contenido sobrepasa la altura */
+}
+
+/* Estilos para personalizar el scroll en navegadores webkit */
+#calendar::-webkit-scrollbar {
+  width: 10px; /* Ancho de la barra de desplazamiento */
+}
+
+#calendar::-webkit-scrollbar-thumb {
+  background: #2c3e50; /* Color de la barra de desplazamiento */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3); /* Sombra interna para darle profundidad */
+}
+
+#calendar::-webkit-scrollbar-thumb:hover {
+  background: #2c3e50; /* Cambiar el color cuando se pase el cursor */
+}
+
+#calendar::-webkit-scrollbar-track {
+  background: #2c3e50; /* Color del fondo de la barra de desplazamiento */
+  border-radius: 10px; /* Bordes redondeados */
+}
+
+/* Estilo de scroll en Firefox */
+#calendar {
+  scrollbar-width: thin; /* Ancho fino */
+  scrollbar-color: white #2c3e50;
+  border-radius: 20px; /* Color del scroll (barra y fondo) */
+}
+
+/* Media queries para hacer que el diseño sea más responsive */
+@media (max-width: 768px) {
+  #calendar {
+    max-width: 100%;
+    margin: 10px;
+    padding: 10px;
+    max-height: 400px; /* Ajustamos la altura máxima en pantallas pequeñas */
+  }
+}
+
+
+
+
+
+    #showCalendarButton {
+            position: fixed;
+            bottom: 20px;
+            right: 100px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+    }
+    #showCalendarButton:hover {
+      background-color: #0056b3;
+    }
     </style>
 </head>
 <body>
@@ -277,6 +363,10 @@ if (isset($_GET['logout'])) {
 </div>
 
 
+<button id="showCalendarButton"><i class="fas fa-calendar"></i></button>
+
+  <div id='calendar'></div>
+
 <script>
 
 
@@ -284,31 +374,42 @@ if (isset($_GET['logout'])) {
 
 
 
-
 document.addEventListener('DOMContentLoaded', function() {
-  var calendarEl = document.getElementById('calendar');
+      var calendarEl = document.getElementById('calendar');
+      var showCalendarButton = document.getElementById('showCalendarButton');
+      var calendarVisible = false; // Estado para rastrear la visibilidad del calendario
 
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth',
-    locale: 'es', // Para configurar el calendario en español
-    events: function(fetchInfo, successCallback, failureCallback) {
-      // Hacer solicitud AJAX para obtener los eventos
-      fetch('calendario.php') // Ajusta la ruta
-        .then(response => response.json())
-        .then(data => {
-          // Llamar a successCallback para cargar los eventos
-          successCallback(data);
-        })
-        .catch(error => {
-          console.error('Error al cargar los eventos:', error);
-          failureCallback(error);
-        });
-    }
-  });
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'es', // Para configurar el calendario en español
+        events: function(fetchInfo, successCallback, failureCallback) {
+          // Hacer solicitud AJAX para obtener los eventos
+          fetch('calendario.php') // Ajusta la ruta
+            .then(response => response.json())
+            .then(data => {
+              // Llamar a successCallback para cargar los eventos
+              successCallback(data);
+            })
+            .catch(error => {
+              console.error('Error al cargar los eventos:', error);
+              failureCallback(error);
+            });
+        }
+      });
 
-  calendar.render();
-});
-
+      // Botón para alternar la visibilidad del calendario
+      showCalendarButton.addEventListener('click', function() {
+        if (calendarVisible) {
+          calendarEl.style.display = 'none'; // Ocultar el calendario
+           // Cambiar el texto del botón
+        } else {
+          calendarEl.style.display = 'block'; // Mostrar el calendario
+          calendar.render(); // Renderizar el calendario si no se ha hecho ya
+           // Cambiar el texto del botón
+        }
+        calendarVisible = !calendarVisible; // Cambiar el estado
+      });
+    });
 
 
 
@@ -361,6 +462,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </body>
 </html>
