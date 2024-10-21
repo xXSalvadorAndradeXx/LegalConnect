@@ -33,13 +33,6 @@ $stmt->fetch();
 $stmt->close();
 $conn->close();
 
-
-
-
-
-
-
-
 if (isset($_GET['logout'])) {
   // Verificar si se ha confirmado la salida
   if ($_GET['logout'] == 'confirm') {
@@ -223,13 +216,22 @@ body {
 .table-header,
 .table-row {
     display: flex;
+    
 }
 
 .table-cell {
     flex: 1;
     padding: 12px;
     border-bottom: 1px solid #ddd;
+    background-color: #ffffff;
+    
 }
+
+.table-cell:hover {
+    background-color: #f2f2f2;
+}
+
+
 
 .table-header {
     font-weight: bold;
@@ -552,31 +554,46 @@ body {
 
 /* Contenedor de la lista de filtros */
 .filter-container {
-    width: 200px;
+    width: 250px; /* Aumenté el ancho para mayor espacio */
     padding: 20px;
-    background-color: #f0f0f0;
+    background-color: #ffffff; /* Cambié a blanco para un diseño más limpio */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Añadí sombra para profundidad */
     position: fixed;
-    top: 100px;
-    left: 30px;
-    height: 100vh;
+    top: 190px;
+    left: 0px;
+    height: auto; /* Permitir que la altura se ajuste automáticamente */
 }
 
 /* Estilos generales de los filtros */
 .filter-group {
-    margin-bottom: 20px;: 50px;
+    margin-bottom: 30px; /* Espaciado entre grupos de filtros */
 }
 
 label {
-    font-size: 14px;
+    font-size: 16px; /* Aumenté el tamaño de la fuente para mejor legibilidad */
+    font-weight: bold; /* Negrita para los labels */
+    color: #333; /* Color de texto más oscuro para contraste */
 }
 
-input[type="text"], input[type="date"] {
-    width: 100%;
-    padding: 5px;
+input[type="text"],
+input[type="date"] {
+    width: calc(100% - 10px); /* Ajusté para incluir padding */
+    padding: 10px; /* Aumenté el padding para un área de clic más grande */
     margin-top: 5px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
+    margin-bottom: 15px; /* Aumenté el margen inferior para separar más los inputs */
+    border: 1px solid #ccc; /* Añadí un borde */
+    border-radius: 4px; /* Bordes redondeados para los inputs */
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
+    transition: border-color 0.3s; /* Transición suave para el enfoque */
 }
+
+input[type="text"]:focus,
+input[type="date"]:focus {
+    border-color: #007bff; /* Color de borde al enfocar */
+    outline: none; /* Sin contorno al enfocar */
+}
+
 
   
 
@@ -652,34 +669,33 @@ input[type="text"], input[type="date"] {
   <input type="text" id="inputBusqueda" onkeyup="buscarCasos()" placeholder="Buscar casos..." > 
     </center>
     <div class="filter-container">
-    <h3>Filtrar por</h3>
-    
+    <h3>Filtrar por</h3> 
     <!-- Filtro por referencia -->
-<input type="text" id="inputReferencia" placeholder="Filtrar por referencia" onkeyup="filtrarDatos()">
+    <input type="text" id="inputReferencia" placeholder="Filtrar por referencia" onkeyup="filtrarDatos()"> 
 
-<!-- Filtro por delito -->
-<div>
-    <label><input type="checkbox" id="checkboxDelito" onclick="toggleDelitoOptions()"> Delito</label>
-    <div id="delitoOptions" style="display:none; padding-left: 15px;">
-        <label><input type="checkbox" class="delitoCheckbox" value="robo" onclick="filtrarDatos()"> Robo</label><br>
-        <label><input type="checkbox" class="delitoCheckbox" value="asalto" onclick="filtrarDatos()"> Asalto</label><br>
-        <label><input type="checkbox" class="delitoCheckbox" value="fraude" onclick="filtrarDatos()"> Fraude</label><br>
-        <label><input type="checkbox" class="delitoCheckbox" value="vandalismo" onclick="filtrarDatos()"> Vandalismo</label><br>
-        <label><input type="checkbox" class="delitoCheckbox" value="homicidio" onclick="filtrarDatos()"> Homicidio</label><br>
+    <!-- Filtro por delito -->
+    <div>
+        <label><input type="checkbox" id="checkboxDelito" onclick="toggleDelitoOptions()"> Delito</label>
+        <div id="delitoOptions" style="display:none; padding-left: 15px;">
+            <label><input type="checkbox" class="delitoCheckbox" value="robo" onclick="filtrarDatos()"> Robo</label><br>
+            <label><input type="checkbox" class="delitoCheckbox" value="asalto" onclick="filtrarDatos()"> Asalto</label><br>
+            <label><input type="checkbox" class="delitoCheckbox" value="fraude" onclick="filtrarDatos()"> Fraude</label><br>
+            <label><input type="checkbox" class="delitoCheckbox" value="vandalismo" onclick="filtrarDatos()"> Vandalismo</label><br>
+            <label><input type="checkbox" class="delitoCheckbox" value="homicidio" onclick="filtrarDatos()"> Homicidio</label><br>
+        </div>
     </div>
+
+    <!-- Filtros por fechas -->
+    <label for="inputFechaInicio">Fecha Desde:</label>
+    <input type="date" id="inputFechaInicio" onchange="filtrarDatos()">
+    <label for="inputFechaFin">Fecha Hasta:</label>
+    <input type="date" id="inputFechaFin" onchange="filtrarDatos()">
+
+    <!-- Mensaje de no resultados -->
+    <p id="noResults" style="display:none;">No se encontraron resultados.</p>
 </div>
 
-<!-- Filtros por fechas -->
-<label for="inputFechaInicio">Fecha Desde:</label>
-<input type="date" id="inputFechaInicio" onchange="filtrarDatos()">
-<label for="inputFechaFin">Fecha Hasta:</label>
-<input type="date" id="inputFechaFin" onchange="filtrarDatos()">
-
-<!-- Mensaje de no resultados -->
-<p id="noResults" style="display:none;">No se encontraron resultados.</p>
-
-</div>
-  <div class="table-container">
+<div class="table-container">
     <div class="custom-table" id="casosTabla">
         <div class="table-header">
             <div class="table-cell">Referencia</div>
@@ -697,9 +713,9 @@ input[type="text"], input[type="date"] {
                 echo "<div class='table-cell referencia'>" . $row["referencia"] . "</div>";
                 echo "<div class='table-cell'>" . $row["victima"] . "</div>";
                 echo "<div class='table-cell'>" . $row["imputado"] . "</div>";
-                echo "<div class='table-cell'>" . $row["tipo_delito"] . "</div>";
-                
+                echo "<div class='table-cell tipo-delito'>" . $row["tipo_delito"] . "</div>";
                 echo "<div class='table-cell'>";
+
                 if (!empty($row["archivos_documento"])) {
                     $archivos_documento = explode(",", $row["archivos_documento"]);
                     foreach ($archivos_documento as $archivo) {
@@ -708,25 +724,23 @@ input[type="text"], input[type="date"] {
                 } else {
                     echo "Sin documentos";
                 }
-                
-                echo "</div>";
-                echo "<div class='table-cell'>" . $row["fecha_creacion"] . "</div>";
-                echo "<div class='table-cell'>";
-                //echo "<button class='delete-button' onclick=\"eliminarCaso('" . $row["referencia"] . "')\">Eliminar</button>";
-                echo "<center>
-        <a class='edit-button' href='ver_detalle_caso.php?referencia=" . $row['referencia'] . "'>
-            <i class='fas fa-info-circle'></i>
-            <span class='tooltiptext'>Detalles de Caso</span>
-        </a>
-      </center>";
 
-        
-      echo "<center>";
-      echo "<button class='archive-button' onclick=\"archivarCaso('" . $row['referencia'] . "')\">
-              <i class='fas fa-archive'></i>
-              <span class='tooltiptext2'>Archivar caso</span>
-            </button>";
-      echo "</center>";
+                echo "</div>";
+                echo "<div class='table-cell fecha'>" . $row["fecha_creacion"] . "</div>";
+                echo "<div class='table-cell'>";
+                echo "<center>
+                        <a class='edit-button' href='ver_detalle_caso.php?referencia=" . $row['referencia'] . "'>
+                            <i class='fas fa-info-circle'></i>
+                            <span class='tooltiptext'>Detalles de Caso</span>
+                        </a>
+                      </center>";
+
+                echo "<center>";
+                echo "<button class='archive-button' onclick=\"archivarCaso('" . $row['referencia'] . "')\">
+                        <i class='fas fa-archive'></i>
+                        <span class='tooltiptext2'>Archivar caso</span>
+                      </button>";
+                echo "</center>";
                 echo "</div>";
                 echo "</div>";
             }
@@ -857,72 +871,73 @@ input[type="text"], input[type="date"] {
 
 
 <script>
-// Función para mostrar u ocultar las opciones de delitos
+
+
+
+
+
+
 function toggleDelitoOptions() {
     var delitoOptions = document.getElementById("delitoOptions");
-    if (document.getElementById("checkboxDelito").checked) {
-        delitoOptions.style.display = "block";
-    } else {
-        delitoOptions.style.display = "none";
-        // Desmarcar todos los checkboxes de delitos si se ocultan
-        var checkboxes = document.getElementsByClassName("delitoCheckbox");
-        for (var checkbox of checkboxes) {
-            checkbox.checked = false;
-        }
-    }
+    delitoOptions.style.display = delitoOptions.style.display === "none" ? "block" : "none";
 }
 
-// Función para filtrar los datos de la tabla
 function filtrarDatos() {
     var inputReferencia = document.getElementById("inputReferencia").value.toLowerCase();
-    var checkboxes = document.getElementsByClassName("delitoCheckbox");
+    var checkboxesDelito = document.querySelectorAll(".delitoCheckbox:checked");
+    var delitosSeleccionados = Array.from(checkboxesDelito).map(function(checkbox) {
+        return checkbox.value;
+    });
     var fechaInicio = document.getElementById("inputFechaInicio").value;
     var fechaFin = document.getElementById("inputFechaFin").value;
 
-    var tableRows = document.querySelectorAll(".table-row");
+    var tableRows = document.querySelectorAll(".custom-table .table-row");
     var noResults = document.getElementById("noResults");
-    
-    var found = false;
+    var hayResultados = false;
 
-    tableRows.forEach(row => {
-        var referencia = row.querySelector(".referencia").innerText.toLowerCase();
-        var delito = row.cells[3].innerText.toLowerCase(); // Suponiendo que el tipo de delito está en la cuarta celda
-        var fecha = row.cells[5].innerText; // Suponiendo que la fecha está en la sexta celda
+    tableRows.forEach(function(row) {
+        var referencia = row.querySelector(".referencia").textContent.toLowerCase();
+        var tipoDelito = row.querySelector(".tipo-delito").textContent.toLowerCase();
+        var fechaCaso = row.querySelector(".fecha").textContent;
 
-        // Filtrar por referencia
-        var referenciaMatch = referencia.includes(inputReferencia);
+        var mostrar = true;
 
-        // Filtrar por delito
-        var delitoMatch = true;
-        if (document.getElementById("checkboxDelito").checked) {
-            var selectedDelitos = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value.toLowerCase());
-            delitoMatch = selectedDelitos.includes(delito);
+        // Filtro por referencia
+        if (inputReferencia && !referencia.includes(inputReferencia)) {
+            mostrar = false;
         }
 
-        // Filtrar por fechas
-        var fechaMatch = true;
-        if (fechaInicio || fechaFin) {
-            var fechaObj = new Date(fecha);
-            if (fechaInicio) {
-                fechaMatch = fechaObj >= new Date(fechaInicio);
-            }
-            if (fechaFin) {
-                fechaMatch = fechaMatch && fechaObj <= new Date(fechaFin);
+        // Filtro por tipo de delito
+        if (delitosSeleccionados.length > 0 && !delitosSeleccionados.includes(tipoDelito)) {
+            mostrar = false;
+        }
+
+        // Filtro por fechas
+        if (fechaInicio && fechaFin) {
+            if (fechaCaso < fechaInicio || fechaCaso > fechaFin) {
+                mostrar = false;
             }
         }
 
-        // Mostrar u ocultar la fila según los filtros
-        if (referenciaMatch && delitoMatch && fechaMatch) {
-            row.style.display = ""; // Muestra la fila
-            found = true; // Hay al menos un resultado
+        if (mostrar) {
+            row.style.display = "flex";
+            hayResultados = true;
         } else {
-            row.style.display = "none"; // Oculta la fila
+            row.style.display = "none";
         }
     });
 
-    // Mostrar mensaje si no hay resultados
-    noResults.style.display = found ? "none" : "block";
+    noResults.style.display = hayResultados ? "none" : "block";
 }
+
+
+
+
+
+
+
+
+
 
 
 
