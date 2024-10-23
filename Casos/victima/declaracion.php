@@ -620,18 +620,6 @@ function mostrarCampo() {
     }
 }
 
-document.querySelectorAll('input[type="file"]').forEach(input => {
-    input.addEventListener('change', function() {
-        let fileName = this.files.length > 1 ? `${this.files.length} archivos seleccionados` : this.files[0].name;
-        let label = this.nextElementSibling;
-        if (!label || !label.classList.contains('file-label')) {
-            label = document.createElement('span');
-            label.classList.add('file-label');
-            this.parentNode.insertBefore(label, this.nextSibling);
-        }
-        label.textContent = fileName;
-    });
-});
 
 </script>
 </html>
