@@ -438,6 +438,38 @@ $result = $conn->query($sql);
             border-color: #007bff;
         }
 
+/* Botón para seleccionar archivo */
+input[type="file"] {
+    padding: 10px;
+    background-color: white;
+    color: #2c3e50;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+input[type="file"]::file-selector-button {
+    padding: 10px;
+    background-color: white;
+    color: #2c3e50;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background-color: #e8f0fa;
+    transform: scale(1.05);
+}
+
+input[type="file"]::file-selector-button:active {
+    background-color: #cce4f6;
+    transform: scale(0.95);
+}
 
 
 
@@ -587,5 +619,19 @@ function mostrarCampo() {
         document.getElementById("campo-texto").style.display = "block";
     }
 }
+
+document.querySelectorAll('input[type="file"]').forEach(input => {
+    input.addEventListener('change', function() {
+        let fileName = this.files.length > 1 ? `${this.files.length} archivos seleccionados` : this.files[0].name;
+        let label = this.nextElementSibling;
+        if (!label || !label.classList.contains('file-label')) {
+            label = document.createElement('span');
+            label.classList.add('file-label');
+            this.parentNode.insertBefore(label, this.nextSibling);
+        }
+        label.textContent = fileName;
+    });
+});
+
 </script>
 </html>
