@@ -94,6 +94,7 @@ function loadChat(userId) {
 }
 
 // Función para enviar un mensaje
+// Función para enviar un mensaje
 function sendMessage() {
     const message = document.getElementById('message').value;
     if (selectedUserId && message) {
@@ -122,6 +123,7 @@ function sendMessage() {
         alert('Selecciona un usuario y escribe un mensaje.');
     }
 }
+
 
 // Cargar usuarios cuando la página carga
 window.onload = function() {
