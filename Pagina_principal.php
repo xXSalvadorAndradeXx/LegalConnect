@@ -97,6 +97,12 @@ if (isset($_GET['logout'])) {
         ul li {
             position: relative;
         }
+
+        .active {
+          background-color:#374D63;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
         ul li a {
             text-decoration: none;
             color: white;
@@ -108,7 +114,7 @@ if (isset($_GET['logout'])) {
             border-radius: 8px;
         }
         ul li a:hover {
-            background-color:#374D63;
+            background-color:#374D65;
             transform: scale(1.05);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
@@ -309,7 +315,11 @@ if (isset($_GET['logout'])) {
 
     <nav>
         <ul>
-            <li><a href="/Pagina_principal.php">Inicio</a></li>
+            <li><a href="/Pagina_principal.php" class="active">Inicio</a></li>
+
+
+
+
             <li>
                 <a href="/Casos/Buscar_Casos.php">Casos</a>
                 <ul>
