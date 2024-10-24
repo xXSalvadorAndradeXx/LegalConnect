@@ -28,7 +28,9 @@ if ($result->num_rows > 0) {
     if (password_verify($contrasena, $row['contrasena'])) {
         // Contraseña correcta, inicio de sesión exitoso
         session_start(); // Iniciar sesión
-        $_SESSION['user_id'] = $row['id']; // Almacenar el ID de usuario en la sesión
+        $_SESSION['user_id'] = $row['id'];
+        $_SESSION['user_nombre'] = $user['nombre'];
+        $_SESSION['user_apellido'] = $user['apellido']; // Almacenar el ID de usuario en la sesión
         header("Location: InicioGuardado.php"); // Redirigir al usuario a la página principal
         exit();
     } else {
