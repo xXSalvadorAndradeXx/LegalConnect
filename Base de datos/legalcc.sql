@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-10-2024 a las 08:43:52
+-- Tiempo de generación: 21-10-2024 a las 08:36:25
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -50,7 +50,7 @@ CREATE TABLE `audiencias` (
 --
 
 INSERT INTO `audiencias` (`id`, `titulo`, `caso`, `modalidad`, `fecha`, `hora`, `imputado`, `victima`, `delito`, `descripcion`, `juzgado`, `abogado`, `fiscal`, `sala`, `juez_suplente`) VALUES
-(8, 'Primera 1', '2024-08-25-08-46-38-1598', 'Virtual', '2024-09-02', '20:16:00', 'Maria', 'Salvador', 'Hurto', 'Se necesita mas incformacion', 'Juzgado 1', 'Abogado 1', 'Fiscal 1', 'Sala 2', 'Suplente 3'),
+(8, 'Primera 1', '2024-08-25-08-46-38-1598', 'Virtual', '2024-10-22', '20:16:00', 'Maria', 'Salvador', 'Hurto', 'Se necesita mas incformacion', 'Juzgado 1', 'Abogado 1', 'Fiscal 1', 'Sala 2', 'Suplente 3'),
 (9, 'Primera', '2024-08-23-08-25-14-7711', 'Presencial', '2024-09-02', '21:20:00', 'Maria', 'Andrade', 'Violación', 'sdasdasd', 'Juzgado 1', 'Abogado 1', 'Fiscal 1', 'Sala 1', 'Suplente 1');
 
 -- --------------------------------------------------------
@@ -75,7 +75,7 @@ CREATE TABLE `casos` (
 --
 
 INSERT INTO `casos` (`id`, `referencia`, `victima`, `imputado`, `tipo_delito`, `documento`, `fecha_creacion`, `estado`) VALUES
-(136, '2024-08-25-08-46-38-1598', 'Andrade', 'Maria', 'asalto', NULL, '2024-08-25', 'activo'),
+(136, '2024-08-25-08-46-38-1598', 'Andrade', 'Maria', 'fraude', NULL, '2021-08-25', 'activo'),
 (137, '2024-09-25-02-44-22-5223', 'Juan', 'Maria', 'asalto', NULL, '2024-09-24', 'activo');
 
 -- --------------------------------------------------------

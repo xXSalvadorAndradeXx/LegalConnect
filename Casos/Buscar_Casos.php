@@ -196,7 +196,8 @@ body {
     max-width: 800px;
     height: 400px;
     margin-top: 10px;
-    overflow-y: auto;
+    overflow-y: automa 0;
+    margin-top: 35px;
 }
 
 .table-container2 {
@@ -560,7 +561,7 @@ body {
     border-radius: 8px; /* Bordes redondeados */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Añadí sombra para profundidad */
     position: fixed;
-    top: 190px;
+    margin-top: 35px;
     left: 0px;
     height: auto; /* Permitir que la altura se ajuste automáticamente */
 }
@@ -666,7 +667,7 @@ input[type="date"]:focus {
   </center>
   <div class="container">
 <center>
-  <input type="text" id="inputBusqueda" onkeyup="buscarCasos()" placeholder="Buscar casos..." > 
+
     </center>
     <div class="filter-container">
     <h3>Filtrar por</h3> 

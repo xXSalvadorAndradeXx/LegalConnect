@@ -325,7 +325,7 @@ nav {
 </center>
 
 <div id="draggable" class="chat">
-    <iframe src="/chat/chat.php" width="350" height="490" frameborder="10"></iframe>
+    <iframe src="/chat/chats/chat.php" width="350" height="490" frameborder="10"></iframe>
 </div>
 
 
