@@ -122,10 +122,17 @@ body {
             transition: background-color 0.3s ease, transform 0.2s ease;
             border-radius: 8px;
         }
+
+        .active {
+            background-color:#374D63;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
         ul li a:hover {
             background-color:#374D63;
             transform: scale(1.05);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+           
         }
         /* Estilo del submenú "Cerrar sesión" */
         ul li ul {
@@ -614,7 +621,7 @@ input[type="date"]:focus {
         <ul>
             <li><a href="/Pagina_principal.php">Inicio</a></li>
             <li>
-                <a href="/Casos/Buscar_Casos.php">Casos</a>
+                <a href="/Casos/Buscar_Casos.php" class="active">Casos</a>
                 <ul>
                     <li><a href="/Casos/victima/tabla_de_victima.php">Victimas</a></li>
                     <li><a href="/Casos/imputados/tabladeimputados.php">Imputados</a></li>
