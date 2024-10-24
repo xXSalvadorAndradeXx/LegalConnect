@@ -19,8 +19,9 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // Mostrar usuarios en formato HTML
     while($row = $result->fetch_assoc()) {
-        echo '<div class="user" onclick="selectUser(' . $row["id"] . ')">';
-        echo $row["nombre"] . " " . $row["apellido"];
+        $nombreCompleto = $row["nombre"] . " " . $row["apellido"];
+        echo '<div class="user" onclick="selectUser(' . $row["id"] . ', \'' . addslashes($nombreCompleto) . '\')">'; // Pasar nombre completo
+        echo $nombreCompleto; // Mostrar el nombre completo
         echo '</div>';
     }
 } else {

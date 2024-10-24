@@ -14,102 +14,127 @@ if (!isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat en Tiempo Real</title>
-    <style>
-        /* Misma estructura CSS que en ejemplos anteriores */
-    </style>
+    <link rel="stylesheet" href="chat.css">
 </head>
 <body>
 
-    <h1>Bienvenido, <?php echo $_SESSION['user_nombre'] . ' ' . $_SESSION['user_apellido']; ?>!</h1>
-    
-    <div class="chat-container">
-        <div class="users-list">
-            <h3>Usuarios disponibles</h3>
-            <div id="users">
-                Cargando usuarios...
-            </div>
-        </div>
+<div class="chat-container">
+    <div class="users-list">
+        <h3>Usuarios</h3>
+        <div id="users">
+        <div class="user" onclick="selectUser(1, 'Usuario 1')">Usuario 1</div>
+        <div class="user" onclick="selectUser(2, 'Usuario 2')">Usuario 2</div>
+        <div class="user" onclick="selectUser(3, 'Usuario 3')">Usuario 3</div>
 
-        <div class="chat-window">
-            <h3>Chat</h3>
-            <div id="chat-box" class="chat-box">
-                Selecciona un usuario para comenzar el chat.
-            </div>
+
+        </div>
+    </div>
+
+    <div class="chat-window">
+        <div id="chat-box" class="chat-box">
+            Selecciona un usuario para comenzar el chat.
+        </div>
+        <div class="input-area">
             <input type="text" id="message" class="input-message" placeholder="Escribe un mensaje..." disabled>
             <button id="sendBtn" disabled onclick="sendMessage()">Enviar</button>
         </div>
     </div>
+</div>
 
-    <script>
-    let selectedUserId = null;
-    let intervalId = null;
+<script>
 
-    // Cargar usuarios cuando la página carga
-    window.onload = function() {
-        fetch('usuarios.php')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('users').innerHTML = data;
-            })
-            .catch(error => console.log('Error al cargar usuarios:', error));
-    };
+// Variables globales
+let selectedUserId = null;
+let selectedUserName = null; // Asegúrate de que el nombre esté inicializado correctamente
+let intervalId = null;
 
-    function selectUser(id) {
-        selectedUserId = id;
-        document.getElementById('chat-box').innerHTML = ''; // Limpiar chat
-        document.getElementById('message').disabled = false; // Habilitar input de mensaje
-        document.getElementById('sendBtn').disabled = false; // Habilitar botón de envío
-        
-        // Cargar mensajes anteriores y activar actualización automática
+// Función para seleccionar un usuario
+function selectUser(id, name) {
+    selectedUserId = id;
+    selectedUserName = name;  // Actualiza el nombre del usuario seleccionado
+
+    // Actualizar el área del chat para mostrar con quién estás chateando
+    document.getElementById('chat-box').innerHTML = `<p>Estás chateando con <strong>${selectedUserName}</strong></p>`;
+
+    // Habilitar el input y botón de enviar
+    document.getElementById('message').disabled = false;
+    document.getElementById('sendBtn').disabled = false;
+
+    // Limpiar el chat anterior y cargar el nuevo
+    loadChat(selectedUserId);
+
+    // Iniciar la actualización automática de mensajes
+    if (intervalId) {
+        clearInterval(intervalId);
+    }
+    intervalId = setInterval(function() {
         loadChat(selectedUserId);
-        if (intervalId) {
-            clearInterval(intervalId);  // Detener actualizaciones anteriores si hay un usuario seleccionado
-        }
-        intervalId = setInterval(function() {
-            loadChat(selectedUserId);
-        }, 2000); // Consultar nuevos mensajes cada 2 segundos
+    }, 2000); // Consultar nuevos mensajes cada 2 segundos
+}
+
+// Función para cargar los mensajes del chat
+function loadChat(userId) {
+    fetch(`obtener_mensajes.php?usuario_id=${userId}`)
+        .then(response => response.text())
+        .then(data => {
+            let chatBox = document.getElementById('chat-box');
+
+            // Si el nombre del usuario seleccionado está definido, reemplazar "Ellos:" por el nombre real
+            if (selectedUserName) {
+                let formattedChat = data.replace(/Ellos:/g, `${selectedUserName}:`);
+                chatBox.innerHTML = formattedChat;
+            } else {
+                chatBox.innerHTML = data; // Si no, deja los mensajes sin cambios
+            }
+
+            // Mantener el scroll abajo
+            chatBox.scrollTop = chatBox.scrollHeight;
+        })
+        .catch(error => console.log('Error al cargar mensajes:', error));
+}
+
+// Función para enviar un mensaje
+function sendMessage() {
+    const message = document.getElementById('message').value;
+    if (selectedUserId && message) {
+        const chatBox = document.getElementById('chat-box');
+
+        // Agregar el mensaje enviado al chat
+        const sentMessage = document.createElement('div');
+        sentMessage.classList.add('message', 'sent');
+        sentMessage.textContent = `Tú: ${message}`;
+        chatBox.appendChild(sentMessage);
+
+        // Enviar mensaje al backend
+        fetch('enviar_mensaje.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `remitente_id=<?php echo $_SESSION['user_id']; ?>&destinatario_id=${selectedUserId}&mensaje=${message}`
+        })
+        .then(response => response.text())
+        .then(data => console.log(data))
+        .catch(error => console.log('Error al enviar mensaje:', error));
+
+        // Limpiar el input y mantener el scroll abajo
+        document.getElementById('message').value = '';
+        chatBox.scrollTop = chatBox.scrollHeight;
+    } else {
+        alert('Selecciona un usuario y escribe un mensaje.');
     }
+}
 
-    function loadChat(userId) {
-        fetch(`obtener_mensajes.php?usuario_id=${userId}`)
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('chat-box').innerHTML = data;  // Mostrar los mensajes en el chat
-                document.getElementById('chat-box').scrollTop = document.getElementById('chat-box').scrollHeight; // Mantener el scroll abajo
-            })
-            .catch(error => console.log('Error al cargar mensajes:', error));
-    }
+// Cargar usuarios cuando la página carga
+window.onload = function() {
+    fetch('usuarios.php')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('users').innerHTML = data;
+        })
+        .catch(error => console.log('Error al cargar usuarios:', error));
+};
 
-    function sendMessage() {
-        const message = document.getElementById('message').value;
-        if (selectedUserId && message) {
-            // Mostrar el mensaje en el área de chat como un mensaje enviado
-            const chatBox = document.getElementById('chat-box');
-            const sentMessage = document.createElement('div');
-            sentMessage.classList.add('message', 'sent');
-            sentMessage.textContent = "Tú: " + message;
-            chatBox.appendChild(sentMessage);
 
-            // Enviar mensaje al backend para guardarlo en la base de datos
-            fetch('enviar_mensaje.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `remitente_id=<?php echo $_SESSION['user_id']; ?>&destinatario_id=${selectedUserId}&mensaje=${message}`
-            })
-            .then(response => response.text())
-            .then(data => console.log(data))
-            .catch(error => console.log('Error al enviar mensaje:', error));
-
-            // Limpiar el input del mensaje
-            document.getElementById('message').value = ''; 
-            chatBox.scrollTop = chatBox.scrollHeight; // Mantener el scroll siempre abajo
-        } else {
-            alert('Selecciona un usuario y escribe un mensaje.');
-        }
-    }
 </script>
 
 </body>
 </html>
-
-
