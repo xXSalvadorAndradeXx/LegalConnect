@@ -129,10 +129,18 @@ body {
             transition: background-color 0.3s ease, transform 0.2s ease;
             border-radius: 8px;
         }
+
+        .active  {
+            background-color:#374D63;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+           
+        }
         ul li a:hover {
             background-color:#374D63;
             transform: scale(1.05);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
         }
         /* Estilo del submenú "Cerrar sesión" */
         ul li ul {
@@ -498,8 +506,8 @@ button[type="submit"]:active {
             
             
             </li>
-            <li><a href="/Audiencias/Buscar_Audiencias.php">Audiencias</a></li>
-            <li><a href="apps.php">Aplicaciones</a></li>
+            <li><a href="/Audiencias/Buscar_Audiencias.php" class="active">Audiencias</a></li>
+            <li><a href="/apps.php">Aplicaciones</a></li>
             <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>  
 
             <li><a href="/Audiencias/ver_solicitudes.php">Mis Solicitudes</a></li>

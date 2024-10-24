@@ -462,8 +462,8 @@ body {
             <li>
                 <a href="/Casos/Buscar_Casos.php">Casos</a>
                 <ul>
-                    <li><a href="casos/victima/tabla_de_victima.php">Victimas</a></li>
-                    <li><a href="casos/imputados/tabladeimputados.php">Imputados</a></li>
+                    <li><a href="/casos/victima/tabla_de_victima.php">Victimas</a></li>
+                    <li><a href="/casos/imputados/tabladeimputados.php">Imputados</a></li>
                     <li><a href="/archivados/casos_archivados.php">Archivados</a></li>
                 </ul>
             

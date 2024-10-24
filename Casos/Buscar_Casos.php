@@ -132,6 +132,7 @@ body {
             background-color:#374D63;
             transform: scale(1.05);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
            
         }
         /* Estilo del submenú "Cerrar sesión" */
@@ -619,12 +620,16 @@ input[type="date"]:focus {
 
 <nav>
         <ul>
-            <li><a href="/Pagina_principal.php">Inicio</a></li>
+            <li><a href="/Pagina_principal.php" class="active">Inicio</a></li>
+
+
+
+
             <li>
-                <a href="/Casos/Buscar_Casos.php" class="active">Casos</a>
+                <a href="/Casos/Buscar_Casos.php">Casos</a>
                 <ul>
-                    <li><a href="/Casos/victima/tabla_de_victima.php">Victimas</a></li>
-                    <li><a href="/Casos/imputados/tabladeimputados.php">Imputados</a></li>
+                    <li><a href="/casos/victima/tabla_de_victima.php">Victimas</a></li>
+                    <li><a href="/casos/imputados/tabladeimputados.php">Imputados</a></li>
                     <li><a href="/archivados/casos_archivados.php">Archivados</a></li>
                 </ul>
             
