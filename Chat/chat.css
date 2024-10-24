@@ -1,3 +1,16 @@
+/* Variables para colores y estilos reutilizables */
+:root {
+    --primary-bg: #075e54;
+    --secondary-bg: #ece5dd;
+    --accent-color: #25d366;
+    --light-color: #ffffff;
+    --dark-color: #333;
+    --border-color: #ccc;
+    --message-sent-bg: #dcf8c6;
+    --message-received-bg: #ffffff;
+    --focus-color: #34b7f1;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,8 +19,8 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #e5ddd5;
-    color: #333;
+    background-color: var(--secondary-bg);
+    color: var(--dark-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,10 +33,15 @@ body {
     width: 100%;
     max-width: 1200px;
     height: 90vh;
-    background-color: #ffffff;
+    background-color: var(--light-color);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.chat-container:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 @media (min-width: 768px) {
@@ -35,8 +53,8 @@ body {
 .users-list {
     width: 100%;
     max-width: 300px;
-    background-color: #075e54;
-    color: #ffffff;
+    background-color: var(--primary-bg);
+    color: var(--light-color);
     padding: 20px;
     border-right: 1px solid #064c44;
 }
@@ -60,16 +78,16 @@ body {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    background-color: #ece5dd;
+    background-color: var(--secondary-bg);
     position: relative;
 }
 
 .chat-box {
     flex-grow: 1;
     padding: 20px;
-    background-color: #fff;
+    background-color: var(--light-color);
     overflow-y: auto;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .message {
@@ -79,24 +97,25 @@ body {
     border-radius: 8px;
     position: relative;
     clear: both;
+    transition: background-color 0.3s ease;
 }
 
 .sent {
-    background-color: #dcf8c6;
+    background-color: var(--message-sent-bg);
     align-self: flex-end;
 }
 
 .received {
-    background-color: #ffffff;
+    background-color: var(--message-received-bg);
     align-self: flex-start;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
 }
 
 .input-area {
     display: flex;
     padding: 10px;
-    background-color: #fff;
-    border-top: 1px solid #ccc;
+    background-color: var(--light-color);
+    border-top: 1px solid var(--border-color);
     align-items: center;
 }
 
@@ -108,25 +127,25 @@ body {
     border: 1px solid #ddd;
     outline: none;
     margin-right: 10px;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s ease;
 }
 
 .input-message:focus {
-    border-color: #34b7f1;
+    border-color: var(--focus-color);
 }
 
 button {
     padding: 10px 20px;
     border-radius: 50%;
     border: none;
-    background-color: #25d366;
-    color: #ffffff;
+    background-color: var(--accent-color);
+    color: var(--light-color);
     font-size: 1.2rem;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.3s, transform 0.3s ease;
 }
 
 button:disabled {
@@ -158,9 +177,9 @@ button:hover:not(:disabled) {
 .user {
     padding: 10px;
     background-color: transparent;
-    color: #ecf0f1;
+    color: var(--light-color);
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
     border-radius: 5px;
 }
 
@@ -171,16 +190,17 @@ button:hover:not(:disabled) {
 .user.selected {
     background-color: #128c7e;
     font-weight: bold;
-    border-left: 5px solid #25d366;
+    border-left: 5px solid var(--accent-color);
 }
 
 #chat-box {
     padding: 20px;
-    background-color: #fff;
+    background-color: var(--light-color);
     overflow-y: auto;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--border-color);
 }
 
 #chat-box p {
     margin: 0;
 }
+
