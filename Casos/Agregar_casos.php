@@ -539,13 +539,17 @@ body {
 <body>
 <nav>
         <ul>
-            <li><a href="/Pagina_principal.php">Inicio</a></li>
+            <li><a href="/Pagina_principal.php" >Inicio</a></li>
+
+
+
+
             <li>
-                <a href="/Casos/Buscar_Casos.php">Casos</a>
+                <a href="/Casos/Buscar_Casos.php" class="active">Casos</a>
                 <ul>
-                    <li><a href="">Victimas</a></li>
-                    <li><a href="">Imputados</a></li>
-                    
+                    <li><a href="/casos/victima/tabla_de_victima.php">Victimas</a></li>
+                    <li><a href="/casos/imputados/tabladeimputados.php">Imputados</a></li>
+                    <li><a href="/archivados/casos_archivados.php">Archivados</a></li>
                 </ul>
             
             

@@ -203,6 +203,7 @@ body {
     margin: 0 auto;
     max-width: 800px;
     height: 400px;
+    margin-left: 150px;
     margin-top: 10px;
     overflow-y: automa 0;
     margin-top: 35px;
@@ -620,13 +621,13 @@ input[type="date"]:focus {
 
 <nav>
         <ul>
-            <li><a href="/Pagina_principal.php" class="active">Inicio</a></li>
+            <li><a href="/Pagina_principal.php" >Inicio</a></li>
 
 
 
 
             <li>
-                <a href="/Casos/Buscar_Casos.php">Casos</a>
+                <a href="/Casos/Buscar_Casos.php" class="active">Casos</a>
                 <ul>
                     <li><a href="/casos/victima/tabla_de_victima.php">Victimas</a></li>
                     <li><a href="/casos/imputados/tabladeimputados.php">Imputados</a></li>
@@ -663,14 +664,8 @@ input[type="date"]:focus {
 
 
 
-  <a id="botonArribaIzquierda" href="/Casos/Agregar_casos.php">
-    <i class="fas fa-plus"></i>
-    <span class="tooltiptext">Agregar Caso</span>
-</a>
-<a id="botonArribaIzquierda3" href="/Archivados/casos_archivados.php">
-    <i class="fas fa-archive"></i>
-    <span class="tooltiptext">Casos Archivados</span>
-</a>
+
+
 
 
 
