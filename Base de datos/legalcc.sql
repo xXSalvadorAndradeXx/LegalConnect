@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-10-2024 a las 08:36:25
+-- Tiempo de generación: 25-10-2024 a las 09:17:04
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -50,7 +50,7 @@ CREATE TABLE `audiencias` (
 --
 
 INSERT INTO `audiencias` (`id`, `titulo`, `caso`, `modalidad`, `fecha`, `hora`, `imputado`, `victima`, `delito`, `descripcion`, `juzgado`, `abogado`, `fiscal`, `sala`, `juez_suplente`) VALUES
-(8, 'Primera 1', '2024-08-25-08-46-38-1598', 'Virtual', '2024-10-22', '20:16:00', 'Maria', 'Salvador', 'Hurto', 'Se necesita mas incformacion', 'Juzgado 1', 'Abogado 1', 'Fiscal 1', 'Sala 2', 'Suplente 3'),
+(8, 'Primera 1', '2024-08-25-08-46-38-1598', 'Virtual', '2024-10-25', '20:16:00', 'Maria', 'Salvador', 'Hurto', 'Se necesita mas incformacion', 'Juzgado 1', 'Abogado 1', 'Fiscal 1', 'Sala 2', 'Suplente 3'),
 (9, 'Primera', '2024-08-23-08-25-14-7711', 'Presencial', '2024-09-02', '21:20:00', 'Maria', 'Andrade', 'Violación', 'sdasdasd', 'Juzgado 1', 'Abogado 1', 'Fiscal 1', 'Sala 1', 'Suplente 1');
 
 -- --------------------------------------------------------
@@ -230,6 +230,30 @@ CREATE TABLE `evidencias_archivadas` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `historial_sesiones`
+--
+
+CREATE TABLE `historial_sesiones` (
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) DEFAULT NULL,
+  `correo` varchar(255) DEFAULT NULL,
+  `fecha_hora` datetime DEFAULT current_timestamp(),
+  `ip_usuario` varchar(50) DEFAULT NULL,
+  `exito` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `historial_sesiones`
+--
+
+INSERT INTO `historial_sesiones` (`id`, `usuario_id`, `correo`, `fecha_hora`, `ip_usuario`, `exito`) VALUES
+(1, 7, 'parcial111@gmail.com', '2024-10-25 00:32:44', '::1', 1),
+(2, NULL, 'maria222@gmail.com', '2024-10-25 01:04:02', '::1', 0),
+(3, 15, 'maria222@gmail.com', '2024-10-25 01:04:09', '::1', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `imputados`
 --
 
@@ -257,7 +281,6 @@ CREATE TABLE `imputados` (
 INSERT INTO `imputados` (`id`, `codigo`, `apellido`, `nombre`, `fecha_nacimiento`, `dui`, `departamento`, `distrito`, `direccion`, `madre`, `padre`, `pandilla`, `alias`, `sexo`) VALUES
 (9, 'IMP 288-4603-956', 'KHKHOWkPhQ==', 'On2PPWkPj+4=', '2002-11-14', 'UCTUfTxY0g', 'PG+WJ30fgfI=', 'PG+WJ30fgfKPZgHdlw==', '', '', '', 'BC0=', 'BSQ=', 'JH2QKH0HifLA'),
 (10, 'IMP 660-2999-792', 'OnOQKg==', 'I2mPInsYgQ==', '2002-02-10', 'UCTUfTxY0g', 'On2NP2lLofLO', 'LXWQP3oClPOPEQ==', 'Cn2PJ21LjunKVROJk9MzNZ40mn551Q==', 'KHKELmQK', 'IG+KL3oE', 'Dn2XJHtLjvnIUR3a', 'BX3DLW0HifLO', 'L3mOLmYCjvM='),
-(11, 'IMP 679-0171-519', 'KE+nClsv', 'KE+nDkk4pNk=', '0000-00-00', '', '', '', '', '', '', 'LU+iCkw=', 'KE+nClsvtw==', ''),
 (12, 'IMP 808-8105-594', 'DXqULQ==', 'DW+FOGw=', '0000-00-00', '', 'On2Na1sKjOrORx3b', 'On2Na1sKjOrORx3b0vF8I489', '', 'GniFOGw=', 'D3iQLQ==', 'GniFOA==', 'D2+HLQ==', 'L3mOLmYCjvM=');
 
 -- --------------------------------------------------------
@@ -288,8 +311,34 @@ CREATE TABLE `imputados_archivados` (
 --
 
 INSERT INTO `imputados_archivados` (`id`, `codigo`, `apellido`, `nombre`, `fecha_nacimiento`, `dui`, `departamento`, `distrito`, `direccion`, `madre`, `padre`, `pandilla`, `alias`, `sexo`) VALUES
-(1, 'IMP 000-0000-000', 'On2PLGkPjw==', 'On2PPWkPj+4=', '2024-09-20', 'WC7Qfz1d1w', 'On2Na1sKjOrORx3b', 'LXWQP3oClPOPEQ==', 'WC3RLnkchO3LQg==', 'JH2RImlLr+/AURvG', 'P3WAP2cZwM/OTxXIltA=', 'JE/SeA==', 'JX3DLXoCivPD', 'B'),
-(2, 'IMP 148-5874-102', 'KHKHOWkPhQ==', 'On2PPWkPj+4=', '0000-00-00', 'UCTUfTxY0g', 'On2Na1sKjOrORx3b', 'LXWQP3oClPOPEQ==', '', '', '', 'JE/SeA==', 'Ok8=', 'K');
+(2, 'IMP 148-5874-102', 'KHKHOWkPhQ==', 'On2PPWkPj+4=', '0000-00-00', 'UCTUfTxY0g', 'On2Na1sKjOrORx3b', 'LXWQP3oClPOPEQ==', '', '', '', 'JE/SeA==', 'Ok8=', 'K'),
+(3, 'IMP 679-0171-519', 'KE+nClsv', 'KE+nDkk4pNk=', '0000-00-00', '', '', '', '', '', '', 'LU+iCkw=', 'KE+nClsvtw==', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `mensajes`
+--
+
+CREATE TABLE `mensajes` (
+  `id` int(11) NOT NULL,
+  `remitente_id` int(11) NOT NULL,
+  `destinatario_id` int(11) NOT NULL,
+  `mensaje` text NOT NULL,
+  `fecha_envio` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `mensajes`
+--
+
+INSERT INTO `mensajes` (`id`, `remitente_id`, `destinatario_id`, `mensaje`, `fecha_envio`) VALUES
+(9, 15, 7, 'Hola', '2024-10-25 07:04:25'),
+(10, 7, 15, 'Como estamos', '2024-10-25 07:04:43'),
+(11, 15, 7, 'Muy bien y tu', '2024-10-25 07:07:22'),
+(18, 7, 15, 'Hola maria', '2024-10-25 07:11:46'),
+(19, 15, 7, 'Hola', '2024-10-25 07:14:19'),
+(20, 7, 15, 'Hola', '2024-10-25 07:14:53');
 
 -- --------------------------------------------------------
 
@@ -357,7 +406,8 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `telefono`, `tipo`, `correo`, `contrasena`) VALUES
 (7, 'Salvador', 'Salgado', '1111-1111', 'abogado', 'parcial111@gmail.com', '$2y$10$xAaoM6TMmGcIb1YsIiJ9CumCMm9QAZ/DqOaMjpBEImwa.iXHh9pti'),
 (9, 'Maria', 'Salgado', '2222-2222', 'juez', 'salva@gmail.com', '$2y$10$COTDr3mZ32Pm3w10uOIhYuoM4WqNNLUeVMXWV9DL03ub/yvN7LZwW'),
-(14, 'Salvador', 'Salgado Osorio', '1111-1111', 'juez', 'parcial123@gmail.com', '$2y$10$AsbhgtZt.YtmJ7EDZrQnF.B7D/vujqC31DHnydk5UM3XuRcpI3I1W');
+(14, 'Salvador', 'Salgado Osorio', '1111-1111', 'juez', 'parcial123@gmail.com', '$2y$10$AsbhgtZt.YtmJ7EDZrQnF.B7D/vujqC31DHnydk5UM3XuRcpI3I1W'),
+(15, 'Maria', 'Andrade', '76284263', 'juez', 'maria222@gmail.com', '$2y$10$2oi/86TeFl6SciTXUPCogOUQSV/X.OaQKEacWbhAHvCq/FR750Xnm');
 
 -- --------------------------------------------------------
 
@@ -482,6 +532,13 @@ ALTER TABLE `evidencias_archivadas`
   ADD KEY `caso_referencia` (`caso_referencia`);
 
 --
+-- Indices de la tabla `historial_sesiones`
+--
+ALTER TABLE `historial_sesiones`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario_id` (`usuario_id`);
+
+--
 -- Indices de la tabla `imputados`
 --
 ALTER TABLE `imputados`
@@ -493,6 +550,14 @@ ALTER TABLE `imputados`
 ALTER TABLE `imputados_archivados`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `dui` (`dui`);
+
+--
+-- Indices de la tabla `mensajes`
+--
+ALTER TABLE `mensajes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `remitente_id` (`remitente_id`),
+  ADD KEY `destinatario_id` (`destinatario_id`);
 
 --
 -- Indices de la tabla `registros`
@@ -585,6 +650,12 @@ ALTER TABLE `evidencias_archivadas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT de la tabla `historial_sesiones`
+--
+ALTER TABLE `historial_sesiones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `imputados`
 --
 ALTER TABLE `imputados`
@@ -594,7 +665,13 @@ ALTER TABLE `imputados`
 -- AUTO_INCREMENT de la tabla `imputados_archivados`
 --
 ALTER TABLE `imputados_archivados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `mensajes`
+--
+ALTER TABLE `mensajes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `registros`
@@ -612,7 +689,7 @@ ALTER TABLE `solicitudes`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `victimas`
@@ -653,6 +730,19 @@ ALTER TABLE `evidencias`
 --
 ALTER TABLE `evidencias_archivadas`
   ADD CONSTRAINT `evidencias_archivadas_ibfk_1` FOREIGN KEY (`caso_referencia`) REFERENCES `casos_archivados` (`referencia`);
+
+--
+-- Filtros para la tabla `historial_sesiones`
+--
+ALTER TABLE `historial_sesiones`
+  ADD CONSTRAINT `historial_sesiones_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
+
+--
+-- Filtros para la tabla `mensajes`
+--
+ALTER TABLE `mensajes`
+  ADD CONSTRAINT `mensajes_ibfk_1` FOREIGN KEY (`remitente_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `mensajes_ibfk_2` FOREIGN KEY (`destinatario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `solicitudes`
