@@ -451,7 +451,32 @@ document.addEventListener('DOMContentLoaded', function() {
       var calendarVisible = false; // Estado para rastrear la visibilidad del calendario
 
 
-      
+      function showPopup(eventTitle, eventDate) {
+    const popup = document.createElement('div');
+    popup.className = 'popup';
+    popup.innerHTML = `
+      <div class="popup-content">
+        <h3>Audiencia cercana</h3>
+        <p><strong>${eventTitle}</strong></p>
+        <p>Fecha: ${eventDate.toLocaleDateString()}</p>
+       
+      </div>
+    `;
+    document.body.appendChild(popup);
+
+    // Cerrar el popup al hacer clic en el botón "Cerrar"
+    document.getElementById('closePopup').addEventListener('click', function() {
+      popup.remove();
+    });
+
+    // Desaparecer el popup automáticamente después de 5 segundos
+    setTimeout(() => {
+      popup.remove();
+    }, 5000);
+  }
+
+
+
 
       var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
@@ -470,6 +495,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (diffDays <= 3) {
               event.classNames = ['event-cercano'];
+              showPopup(event.title, eventDate);
             } else if (diffDays <= 7) {
               event.classNames = ['event-medio'];
             } else {
