@@ -176,6 +176,8 @@ if (isset($_GET['logout'])) {
             }
         }
 
+        
+
 
         /* Estilo del chat */
 
@@ -282,6 +284,26 @@ if (isset($_GET['logout'])) {
   }
 }
 
+/* Ajusta los colores según la proximidad de los eventos */
+.event-cercano {
+  background-color: #FF6347; /* Rojo */
+  color: #ffffff;
+  border: 1px solid #d9534f;
+}
+
+.event-medio {
+  background-color: #FFD700; /* Amarillo */
+  color: #333333;
+  border: 1px solid #ffc107;
+}
+
+.event-lejano {
+  background-color: #90EE90; /* Verde */
+  color: #333333;
+  border: 1px solid #28a745;
+}
+
+
 
 
 
@@ -307,6 +329,49 @@ if (isset($_GET['logout'])) {
     #showCalendarButton:hover {
       background-color: #0056b3;
     }
+
+/* Estilos para el popup de audiencias cercanas */
+.popup {
+ 
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 300px;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #d9534f;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.popup-content h3 {
+  margin: 0 0 10px;
+  color: #d9534f;
+}
+
+.popup-content p {
+  margin: 5px 0;
+  color: #333;
+}
+
+#closePopup {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #d9534f;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#closePopup:hover {
+  background-color: #c9302c;
+}
+
+
+
     </style>
 </head>
 <body>
@@ -380,27 +445,42 @@ if (isset($_GET['logout'])) {
 <script>
 
 
-
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
       var showCalendarButton = document.getElementById('showCalendarButton');
       var calendarVisible = false; // Estado para rastrear la visibilidad del calendario
+
+
+      
 
       var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         locale: 'es', // Para configurar el calendario en español
         events: function(fetchInfo, successCallback, failureCallback) {
           // Hacer solicitud AJAX para obtener los eventos
-          fetch('calendario.php') // Ajusta la ruta
-            .then(response => response.json())
-            .then(data => {
-              // Llamar a successCallback para cargar los eventos
-              successCallback(data);
-            })
-            .catch(error => {
+          fetch('calendario.php')
+        .then(response => response.json())
+        .then(data => {
+          const today = new Date();
+
+          // Asigna colores según la proximidad de la fecha del evento
+          data = data.map(event => {
+            const eventDate = new Date(event.start);
+            const diffDays = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
+
+            if (diffDays <= 3) {
+              event.classNames = ['event-cercano'];
+            } else if (diffDays <= 7) {
+              event.classNames = ['event-medio'];
+            } else {
+              event.classNames = ['event-lejano'];
+            }
+            return event;
+          });
+
+          successCallback(data);
+        })
+        .catch(error => {
               console.error('Error al cargar los eventos:', error);
               failureCallback(error);
             });
@@ -420,6 +500,15 @@ document.addEventListener('DOMContentLoaded', function() {
         calendarVisible = !calendarVisible; // Cambiar el estado
       });
     });
+
+
+
+
+
+
+
+
+      
 
 
 
