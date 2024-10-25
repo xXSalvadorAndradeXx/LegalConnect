@@ -208,6 +208,8 @@ body {
     margin-top: 10px;
     overflow-y: automa 0;
     margin-top: 35px;
+    margin-top: 120px;
+  
 }
 
 .table-container2 {
@@ -566,14 +568,15 @@ body {
 /* Contenedor de la lista de filtros */
 .filter-container {
     width: 250px; /* Aumenté el ancho para mayor espacio */
-    padding: 20px;
+    padding: 10px;
     background-color: #ffffff; /* Cambié a blanco para un diseño más limpio */
     border-radius: 8px; /* Bordes redondeados */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Añadí sombra para profundidad */
     position: fixed;
     margin-top: 35px;
     left: 0px;
-    height: auto; /* Permitir que la altura se ajuste automáticamente */
+    height: auto; 
+    margin-top: 120px;/* Permitir que la altura se ajuste automáticamente */
 }
 
 /* Estilos generales de los filtros */
@@ -703,6 +706,7 @@ input[type="date"]:focus {
     <!-- Mensaje de no resultados -->
     <p id="noResults" style="display:none;">No se encontraron resultados.</p>
 </div>
+
 
 <div class="table-container">
     <div class="custom-table" id="casosTabla">
