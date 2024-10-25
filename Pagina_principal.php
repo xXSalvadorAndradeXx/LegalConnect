@@ -332,12 +332,13 @@ if (isset($_GET['logout'])) {
 
 /* Estilos para el popup de audiencias cercanas */
 .popup {
- 
+ margin-top: 55px;
   position: fixed;
   top: 20px;
+  margin-left: 400px;
   right: 20px;
-  width: 300px;
-  padding: 20px;
+  width: 200px;
+  padding: 10px;
   background-color: #ffffff;
   border: 1px solid #d9534f;
   border-radius: 8px;
@@ -396,7 +397,7 @@ if (isset($_GET['logout'])) {
             
             
             </li>
-            <li><a href="/Audiencias/Buscar_Audiencias.php">Audiencias</a></li>
+            <li><a href="/Audiencias/Principal_audiencias.php">Audiencias</a></li>
             <li><a href="apps.php">Aplicaciones</a></li>
             <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>  
 
@@ -459,7 +460,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <h3>Audiencia cercana</h3>
         <p><strong>${eventTitle}</strong></p>
         <p>Fecha: ${eventDate.toLocaleDateString()}</p>
-       
+        <button id="closePopup"></button>
       </div>
     `;
     document.body.appendChild(popup);
