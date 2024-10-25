@@ -104,10 +104,16 @@ if (isset($_GET['logout'])) {
 </div>
 
 <script>
+
+
+
+// Variables globales
 // Variables globales
 let selectedUserId = null;
 let selectedUserName = null;
 let intervalId = null;
+let lastMessage = "";
+let firstLoad = true; // Control para la primera carga al seleccionar usuario
 
 // Función para seleccionar un usuario
 function selectUser(id, name) {
@@ -116,6 +122,7 @@ function selectUser(id, name) {
     document.getElementById('chat-box').innerHTML = `<p>Estás chateando con <strong>${selectedUserName}</strong></p>`;
     document.getElementById('message').disabled = false;
     document.getElementById('sendBtn').disabled = false;
+    firstLoad = true; // Indica que es la primera carga del chat con el nuevo usuario
     loadChat(selectedUserId);
 
     if (intervalId) {
@@ -132,12 +139,34 @@ function loadChat(userId) {
         .then(response => response.text())
         .then(data => {
             let chatBox = document.getElementById('chat-box');
+
+            // Actualizar el contenido del chat
             let formattedChat = data.replace(/Ellos:/g, `${selectedUserName}:`);
             chatBox.innerHTML = formattedChat;
+
+            // Si el nuevo contenido es diferente al último mensaje y no es la primera carga
+            if (data !== lastMessage && !firstLoad) {
+                // Actualizar el último mensaje con el contenido actual
+                lastMessage = data;
+
+                // Mostrar notificación si hay un mensaje nuevo
+                if (Notification.permission === "granted") {
+                    new Notification("Nuevo mensaje de " + selectedUserName, {
+                        body: "Tienes un nuevo mensaje en el chat",
+                        icon: "/Recursos/inicio.png" // Ruta a un ícono opcional para la notificación
+                    });
+                }
+            }
+
+            // Cambiar el estado de primera carga después de la primera actualización
+            firstLoad = false;
+
+            // Mantener el scroll abajo
             chatBox.scrollTop = chatBox.scrollHeight;
         })
         .catch(error => console.log('Error al cargar mensajes:', error));
 }
+
 
 // Función para enviar un mensaje
 function sendMessage() {
@@ -174,9 +203,23 @@ window.onload = function() {
         })
         .catch(error => console.log('Error al cargar usuarios:', error));
 };
+
+// Solicitar permiso de notificación cuando se carga la página
+window.onload = function() {
+    if (Notification.permission !== "granted") {
+        Notification.requestPermission();
+    }
+
+    // Cargar usuarios
+    fetch('usuarios.php')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('users').innerHTML = data;
+        })
+        .catch(error => console.log('Error al cargar usuarios:', error));
+};
+
 </script>
 
 </body>
 </html>
-
-
