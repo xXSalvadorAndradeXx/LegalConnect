@@ -479,7 +479,7 @@ opacity: 1;
             <li>
                 <a href="" class="activo">Victimas</a>
                 <ul>
-                    <li><a href="/Casos/Buscar_Casos.php">Casos</a></li>
+                    <li><a href="/Casos/agregar_casos.php">Casos</a></li>
                     <li><a href="/casos/imputados/tabladeimputados.php">Imputados</a></li>
                     <li><a href="/archivados/casos_archivados.php">Archivados</a></li>
                 </ul>
