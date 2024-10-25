@@ -1,11 +1,10 @@
 <?php
-// Conexión a la base de datos (ajusta estos valores según tu configuración)
+// Conexión a la base de datos
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "legalcc";
 
-// Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Verificar conexión
@@ -17,6 +16,7 @@ if ($conn->connect_error) {
 // Obtener los datos del formulario
 $correo = $_POST['correo'];
 $contrasena = $_POST['contrasena'];
+$ip_usuario = $_SERVER['REMOTE_ADDR']; // Obtener la IP del usuario
 
 // Buscar el usuario en la base de datos
 $sql = "SELECT id, correo, contrasena FROM usuarios WHERE correo = '$correo'";
@@ -27,19 +27,33 @@ if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     if (password_verify($contrasena, $row['contrasena'])) {
         // Contraseña correcta, inicio de sesión exitoso
-        session_start(); // Iniciar sesión
+        session_start();
         $_SESSION['user_id'] = $row['id'];
-        $_SESSION['user_nombre'] = $user['nombre'];
-        $_SESSION['user_apellido'] = $user['apellido']; // Almacenar el ID de usuario en la sesión
-        header("Location: InicioGuardado.php"); // Redirigir al usuario a la página principal
+        $_SESSION['user_nombre'] = $row['nombre'];
+        $_SESSION['user_apellido'] = $row['apellido'];
+        
+        // Guardar el inicio de sesión exitoso en la tabla historial_sesiones
+        $sql_historial = "INSERT INTO historial_sesiones (usuario_id, correo, ip_usuario, exito)
+                          VALUES ('" . $row['id'] . "', '$correo', '$ip_usuario', 1)";
+        $conn->query($sql_historial);
+        
+        header("Location: InicioGuardado.php");
         exit();
     } else {
-        // Contraseña incorrecta, redirigir de nuevo al formulario de inicio de sesión con un mensaje de error
+        // Contraseña incorrecta
+        $sql_historial = "INSERT INTO historial_sesiones (correo, ip_usuario, exito)
+                          VALUES ('$correo', '$ip_usuario', 0)";
+        $conn->query($sql_historial);
+        
         header("Location: Iniciar_Sesion.php?error=1");
         exit();
     }
 } else {
-    // Usuario no encontrado, redirigir de nuevo al formulario de inicio de sesión con un mensaje de error
+    // Usuario no encontrado
+    $sql_historial = "INSERT INTO historial_sesiones (correo, ip_usuario, exito)
+                      VALUES ('$correo', '$ip_usuario', 0)";
+    $conn->query($sql_historial);
+    
     header("Location: Iniciar_Sesion.php?error=1");
     exit();
 }
@@ -47,3 +61,4 @@ if ($result->num_rows > 0) {
 // Cerrar conexión
 $conn->close();
 ?>
+
