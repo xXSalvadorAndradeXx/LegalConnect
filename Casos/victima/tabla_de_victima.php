@@ -396,6 +396,57 @@ $result = $conn->query($sql);
 
 
 
+#botonArribaIzquierda {
+
+position: relative;
+display: inline-block;
+position: fixed;
+top: 20px;
+left: 20px;
+padding: 10px 20px;
+color: black;
+text-decoration: none;
+border-radius: 5px;
+font-family: Bahnschrift;
+font-size: 16px;
+transition: background-color 0.3s, color 0.3s;
+margin-left: 1080px;
+margin-top: 80px;
+}
+
+#botonArribaIzquierda:hover {
+background-color: #0056b3;
+color: #fff;
+font-family: Bahnschrift;
+}
+
+#botonArribaIzquierda .tooltiptext {
+visibility: hidden;
+width: 120px;
+background-color: black;
+color: #fff;
+text-align: center;
+border-radius: 5px;
+padding: 5px 0;
+
+/* Posicionamiento */
+position: absolute;
+z-index: 1;
+bottom: 125%; /* Cambia esto según la posición deseada */
+left: 50%;
+margin-left: -60px;
+
+/* Flecha */
+opacity: 0;
+transition: opacity 0.3s;
+}
+
+#botonArribaIzquierda:hover .tooltiptext {
+visibility: visible;
+opacity: 1;
+}
+
+
     
     </style>
 </head>
@@ -464,7 +515,10 @@ $result = $conn->query($sql);
 
 <a class='btn-navega' href='/Casos/victima/victima.php' title="Añadir"><i class='fas fa-plus'></i> </a>
 
-
+<a id="botonArribaIzquierda" href="/Casos/victima/tabla_victima_archivada.php">
+    <i class="fas fa-archive"></i>
+    <span class="tooltiptext">Victimas archivadas</span>
+</a>
 
     <div class="container">
         <h1>Registros de victimas </h1>
