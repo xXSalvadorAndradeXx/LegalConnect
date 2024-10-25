@@ -451,6 +451,12 @@ body {
             }
         }
 
+        .activo {
+            background-color:#374D63;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
 
 
     </style>
@@ -460,11 +466,11 @@ body {
         <ul>
             <li><a href="/Pagina_principal.php">Inicio</a></li>
             <li>
-                <a href="/Casos/Buscar_Casos.php">Casos</a>
+                <a href="" class="activo">Archivados</a>
                 <ul>
                     <li><a href="/casos/victima/tabla_de_victima.php">Victimas</a></li>
                     <li><a href="/casos/imputados/tabladeimputados.php">Imputados</a></li>
-                    <li><a href="/archivados/casos_archivados.php">Archivados</a></li>
+                    <li><a href="/Casos/agregar_casos.php">Casos</a></li>
                 </ul>
             
             

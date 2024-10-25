@@ -127,6 +127,7 @@ body {
             background-color:#374D63;
             transform: scale(1.05);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
         }
         ul li a:hover {
             background-color:#374D63;

@@ -122,6 +122,12 @@ $result = $conn->query($sql);
             transition: background-color 0.3s ease, transform 0.2s ease;
             border-radius: 8px;
         }
+
+        .activo {
+            background-color:#374D63;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
         ul li a:hover {
             background-color:#374D63;
             transform: scale(1.05);
@@ -463,29 +469,32 @@ opacity: 1;
 
    
 
-<nav>
-<ul>
-            <li><a href="/Pagina_principal.php">Inicio</a></li>
+    <nav>
+        <ul>
+            <li><a href="/Pagina_principal.php" >Inicio</a></li>
+
+
+
+
             <li>
-                <a href="/Casos/Buscar_Casos.php">Casos</a>
+                <a href="" class="activo">Victimas</a>
                 <ul>
-                    <li><a href="/Casos/victima/tabla_de_victima.php">Victimas</a></li>
-                    <li><a href="/Casos/imputados/tabladeimputados.php">Imputados</a></li>
+                    <li><a href="/Casos/Buscar_Casos.php">Casos</a></li>
+                    <li><a href="/casos/imputados/tabladeimputados.php">Imputados</a></li>
                     <li><a href="/archivados/casos_archivados.php">Archivados</a></li>
-                    
                 </ul>
             
             
             </li>
             <li><a href="/Audiencias/Buscar_Audiencias.php">Audiencias</a></li>
             <li><a href="apps.php">Aplicaciones</a></li>
-            <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>
+            <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>  
 
             <li><a href="/Audiencias/ver_solicitudes.php">Mis Solicitudes</a></li>
 
             <?php endif; ?>
 
-            <?php if ($tipo_usuario === 'juez'): ?>
+            <?php if ($tipo_usuario === 'juez'): ?>  
 
             <li><a href="/Audiencias/ver_solicitudes.php">Solicitudes</a></li>
 
@@ -499,6 +508,7 @@ opacity: 1;
             </li>
         </ul>
     </nav>
+
 
 
 <?php
