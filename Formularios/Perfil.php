@@ -6,8 +6,9 @@ if (!isset($_SESSION['user_id'])) {
     // Redirigir al usuario a la página de inicio de sesión si no ha iniciado sesión
     header("Location: Iniciar_Sesion.php");
     exit();
+    
 }
-
+$usuario_id = $_SESSION['user_id'];
 
 $servername = "localhost";
 $username = "root";
@@ -358,6 +359,19 @@ h1 {
       background-color: #0056b3;
     }
 
+
+    table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -441,7 +455,58 @@ h1 {
 
 </center>
 
+<table>
+        <tr>
+           
+            <th>Correo</th>
+            <th>Fecha y Hora</th>
+            <th>IP Usuario</th>
+            <th>Éxito</th>
+        </tr>
+        
+        <?php
+        // Conexión a la base de datos
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "legalcc"; // Nombre de la base de datos
 
+        // Crear la conexión
+        $conn = new mysqli($servername, $username, $password, $dbname);
+
+        // Verificar la conexión
+        if ($conn->connect_error) {
+            die("Conexión fallida: " . $conn->connect_error);
+        }
+
+        // Consulta SQL
+        $sql = "SELECT id, usuario_id, correo, fecha_hora, ip_usuario, exito FROM historial_sesiones WHERE usuario_id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $usuario_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Mostrar los datos en la tabla
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                echo "<tr>
+                         <td>" . $row["correo"] . "</td>
+                        <td>" . $row["fecha_hora"] . "</td>
+                        <td>" . $row["ip_usuario"] . "</td>
+                        <td>" . $row["exito"] . "</td>
+                    </tr>";
+            }
+        } else {
+            echo "<tr><td colspan='6'>No hay datos disponibles para este usuario</td></tr>";
+        }
+
+        // Cerrar la conexión
+        $stmt->close();
+        $conn->close();
+        ?>
+
+     
+    </table>
 
 
 
