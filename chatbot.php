@@ -111,14 +111,21 @@
                 userInput.value = "";
             }
         }
-
         function addMessage(sender, text, timestamp) {
-            const message = document.createElement('div');
-            message.classList.add('message', sender);
-            message.textContent = text;
-            messages.appendChild(message);
-            messages.scrollTop = messages.scrollHeight;
-        }
+    const message = document.createElement('div');
+    message.classList.add('message', sender);
+
+    // Formato de tiempo
+    const date = new Date(timestamp);
+    const timeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    // Contenido del mensaje
+    message.innerHTML = `<strong>${timeString}</strong> - ${text}`;
+    
+    messages.appendChild(message);
+    messages.scrollTop = messages.scrollHeight;
+}
+
 
         function saveMessage(sender, text, timestamp) {
             const savedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
