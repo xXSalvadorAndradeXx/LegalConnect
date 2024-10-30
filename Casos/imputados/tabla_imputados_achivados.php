@@ -249,10 +249,10 @@ body {
             <th>Apellido</th>
             <th>Nombre</th>
             <th>DUI</th>
-            
             <th>Sexo</th>
-            <th>Acciones</th>
-            <th>Acciones</th>
+            <th>Pandilla</th>
+            <th>Alias</th>
+            <th>Estado</th>
         </tr>
         
         <?php
@@ -297,6 +297,7 @@ body {
                 echo "<td>" . decrypt_data($row['sexo'], $encryption_key, $ciphering, $encryption_iv) . "</td>";
                 echo "<td>" . decrypt_data($row['pandilla'], $encryption_key, $ciphering, $encryption_iv) . "</td>";
                 echo "<td>" . decrypt_data($row['alias'], $encryption_key, $ciphering, $encryption_iv) . "</td>";
+                echo "<td>" . $row['estado'], "</td>";
                 echo "</tr>";
             }
         } else {

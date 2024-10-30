@@ -37,9 +37,10 @@ if ($result->num_rows > 0) {
     $madre = $row['madre'];
     $padre = $row['padre'];
     $sexo = $row['sexo'];
+    $estado = "Resuelto";
 
     // Insertar en la tabla archivados
-    $sql_insert = "INSERT INTO victimas_archivados (codigo, apellido, nombre, fecha_nacimiento, dui, departamento, distrito, direccion, madre, padre, sexo) VALUES ('$codigo', '$apellido', '$nombre', '$fecha_nacimiento', '$dui', '$departamento', '$distrito', '$direccion', '$madre', '$padre', '$sexo')";
+    $sql_insert = "INSERT INTO victimas_archivados (codigo, apellido, nombre, fecha_nacimiento, dui, departamento, distrito, direccion, madre, padre, sexo, estado) VALUES ('$codigo', '$apellido', '$nombre', '$fecha_nacimiento', '$dui', '$departamento', '$distrito', '$direccion', '$madre', '$padre', '$sexo' ,'$estado')";
 
     
     $sql_delete = "DELETE FROM victimas WHERE id='$id'";

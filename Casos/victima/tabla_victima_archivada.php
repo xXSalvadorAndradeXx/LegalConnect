@@ -252,6 +252,7 @@ body {
             <th>Madre</th>
             <th>Padre</th>
             <th>Sexo</th>
+            <th>Estado</th>
         </tr>
         
         <?php
@@ -292,6 +293,7 @@ body {
                 echo "<td>" . decrypt_data($row['apellido'], $encryption_key, $ciphering, $encryption_iv) . "</td>";
                 echo "<td>" . decrypt_data($row['nombre'], $encryption_key, $ciphering, $encryption_iv) . "</td>";
                 echo "<td>" . $row['fecha_nacimiento'], "</td>";
+                
                 echo "<td>" . decrypt_data($row['dui'], $encryption_key, $ciphering, $encryption_iv) . "</td>";
                 echo "<td>" . decrypt_data($row['departamento'], $encryption_key, $ciphering, $encryption_iv) . "</td>";
                 echo "<td>" . decrypt_data($row['distrito'], $encryption_key, $ciphering, $encryption_iv) . "</td>";
@@ -299,6 +301,7 @@ body {
                 echo "<td>" . decrypt_data($row['madre'], $encryption_key, $ciphering, $encryption_iv) . "</td>";
                 echo "<td>" . decrypt_data($row['padre'], $encryption_key, $ciphering, $encryption_iv) . "</td>";
                 echo "<td>" . decrypt_data($row['sexo'], $encryption_key, $ciphering, $encryption_iv) . "</td>";
+                echo "<td>" . $row['estado'], "</td>";
                 echo "</tr>";
             }
         } else {

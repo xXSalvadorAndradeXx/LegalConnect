@@ -39,9 +39,10 @@ if ($result->num_rows > 0) {
     $pandilla = $row['pandilla'];
     $alias = $row['alias'];
     $sexo = $row['sexo'];
+    $estado = "Condenado";
 
     // Insertar en la tabla archivados
-    $sql_insert = "INSERT INTO imputados_archivados (codigo, apellido, nombre, fecha_nacimiento, dui, departamento, distrito, direccion, madre, padre, pandilla, alias, sexo) VALUES ('$codigo', '$apellido', '$nombre', '$fecha_nacimiento', '$dui', '$departamento', '$distrito', '$direccion', '$madre', '$padre', '$pandilla', '$alias', '$sexo')";
+    $sql_insert = "INSERT INTO imputados_archivados (codigo, apellido, nombre, fecha_nacimiento, dui, departamento, distrito, direccion, madre, padre, pandilla, alias, sexo, estado) VALUES ('$codigo', '$apellido', '$nombre', '$fecha_nacimiento', '$dui', '$departamento', '$distrito', '$direccion', '$madre', '$padre', '$pandilla', '$alias', '$sexo' , '$estado')";
 
     
     $sql_delete = "DELETE FROM imputados WHERE id='$id'";
