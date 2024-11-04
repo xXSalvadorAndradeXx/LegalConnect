@@ -97,9 +97,21 @@
     <script>
         const messages = document.getElementById('chat-messages');
         const userInput = document.getElementById('user-input');
+        let keywordResponses = [];
 
-        // Cargar mensajes al cargar la página
-        window.onload = loadMessages;
+        window.onload = function() {
+            loadMessages();
+            fetchResponses();
+        };
+
+        function fetchResponses() {
+            fetch('responses.json')
+                .then(response => response.json())
+                .then(data => {
+                    keywordResponses = data;
+                })
+                .catch(error => console.error("Error al cargar respuestas:", error));
+        }
 
         function sendMessage() {
             const userText = userInput.value;
@@ -111,21 +123,16 @@
                 userInput.value = "";
             }
         }
+
         function addMessage(sender, text, timestamp) {
-    const message = document.createElement('div');
-    message.classList.add('message', sender);
-
-    // Formato de tiempo
-    const date = new Date(timestamp);
-    const timeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-    // Contenido del mensaje
-    message.innerHTML = `<strong>${timeString}</strong> - ${text}`;
-    
-    messages.appendChild(message);
-    messages.scrollTop = messages.scrollHeight;
-}
-
+            const message = document.createElement('div');
+            message.classList.add('message', sender);
+            const date = new Date(timestamp);
+            const timeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            message.innerHTML = `<strong>${timeString}</strong> - ${text}`;
+            messages.appendChild(message);
+            messages.scrollTop = messages.scrollHeight;
+        }
 
         function saveMessage(sender, text, timestamp) {
             const savedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
@@ -136,14 +143,10 @@
         function loadMessages() {
             const savedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
             const currentTime = new Date().getTime();
-
             const validMessages = savedMessages.filter(message => {
-                return currentTime - message.timestamp <= 24 * 60 * 60 * 1000; // 24 horas en milisegundos
+                return currentTime - message.timestamp <= 24 * 60 * 60 * 1000;
             });
-
-            // Eliminar mensajes viejos
             localStorage.setItem('chatMessages', JSON.stringify(validMessages));
-
             validMessages.forEach(message => {
                 addMessage(message.sender, message.text, message.timestamp);
             });
@@ -151,17 +154,6 @@
 
         function respondToUser(input, timestamp) {
             let response = "No entiendo lo que dices.";
-
-            const keywordResponses = [
-                { keywords: ["hola", "buenas"], response: "¡Hola! ¿Cómo puedo ayudarte?" },
-                { keywords: ["cómo", "estás"], response: "Estoy bien, gracias por preguntar. ¿Y tú?" },
-                { keywords: ["adiós", "chao"], response: "¡Adiós! Que tengas un buen día." },
-                { keywords: ["nombre", "quien"], response: "Soy Legal IA, tu asistente legal. ¿En qué te puedo ayudar?" },
-                { keywords: ["ayuda", "como hago"], response: "Claro, ¿en qué puedo ayudarte?" },
-                { keywords: ["puedes", "hacer"], response: "Puedo responder algunas preguntas básicas. ¡Inténtalo!" },
-                { keywords: ["ayuda", "caso"], response: "Claro, dirígete al menú principal, opción caso y agrega un caso." }
-            ];
-
             const normalizedInput = input.toLowerCase();
 
             for (let i = 0; i < keywordResponses.length; i++) {
@@ -169,6 +161,14 @@
                 for (let j = 0; j < keywordGroup.keywords.length; j++) {
                     if (normalizedInput.includes(keywordGroup.keywords[j])) {
                         response = keywordGroup.response;
+                        if (response.includes("La hora actual es")) {
+                            const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                            response += currentTime;
+                        }
+                        if (response.includes("La fecha de hoy es")) {
+                            const currentDate = new Date().toLocaleDateString();
+                            response += currentDate;
+                        }
                         break;
                     }
                 }
@@ -180,6 +180,10 @@
                 saveMessage("bot", response, timestamp);
             }, 500);
         }
+
+
+ 
     </script>
 </body>
 </html>
+
