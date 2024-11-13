@@ -195,10 +195,76 @@
         }
 
 
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* Estilos del contenido del pop-up */
+        .popup-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80%;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        /* Estilos del botón de cerrar */
+        .close-btn {
+            cursor: pointer;
+            color: #555;
+            font-size: 24px;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+        }
+
+        /* Estilos del contenido del texto */
+        .popup-content h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .popup-content p {
+            font-size: 16px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .popup-content ol, .popup-content ul {
+            margin-left: 20px;
+        }
+
+        .popup-content li {
+            margin-bottom: 10px;
+        }
 
 
 
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            color: #333;
+        }
 
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 8px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
 
 
 
@@ -261,13 +327,64 @@ $error_message = isset($_GET['mensaje']) ? $_GET['mensaje'] : null;
         </div>
 
     </div>
+
+
+ 
 </div>
 
 
 
 
 
-
+<div class="popup-overlay" id="popupOverlay">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h2>Términos y Condiciones de LegalConnect</h2>
+            <p><strong>Fecha de última actualización:</strong> [Fecha]</p>
+            <p>Bienvenido a LegalConnect. Al acceder o utilizar nuestra plataforma, usted acepta cumplir con estos Términos y Condiciones. Si no está de acuerdo, le recomendamos no utilizar nuestros servicios.</p>
+            <ol>
+                <li><strong>Aceptación de los Términos</strong><br>
+                    Al crear una cuenta o usar los servicios de LegalConnect, usted confirma que ha leído, entendido y acepta estos términos.
+                </li>
+                <li><strong>Descripción del Servicio</strong><br>
+                    LegalConnect es una plataforma [breve descripción del servicio, ej., "de consulta y gestión legal para abogados y clientes"]. Nos reservamos el derecho de modificar, suspender o descontinuar el servicio en cualquier momento, con o sin previo aviso.
+                </li>
+                <li><strong>Registro y Seguridad</strong><br>
+                    Usted se compromete a proporcionar información precisa, completa y actualizada durante el proceso de registro y a mantener la seguridad de su cuenta. Es responsable de todas las actividades que ocurran bajo su cuenta.
+                </li>
+                <li><strong>Uso de la Plataforma</strong><br>
+                    <ul>
+                        <li><strong>Prohibiciones:</strong> No debe usar LegalConnect para ningún propósito ilegal o no autorizado.</li>
+                        <li><strong>Restricciones de Contenido:</strong> Está prohibido subir contenido que sea ofensivo, difamatorio, o que infrinja los derechos de terceros.</li>
+                        <li><strong>Cumplimiento Legal:</strong> Usted acepta cumplir con todas las leyes y regulaciones aplicables.</li>
+                    </ul>
+                </li>
+                <li><strong>Propiedad Intelectual</strong><br>
+                    LegalConnect y su contenido original, características y funcionalidades son propiedad exclusiva de [Tu Empresa/Nombre de la Organización]. Está prohibida la reproducción, distribución, modificación o cualquier uso no autorizado del contenido.
+                </li>
+                <li><strong>Privacidad</strong><br>
+                    Nos tomamos en serio la privacidad de nuestros usuarios. Por favor, consulte nuestra [Política de Privacidad] para comprender cómo recopilamos, usamos y protegemos su información personal.
+                </li>
+                <li><strong>Limitación de Responsabilidad</strong><br>
+                    LegalConnect no se hace responsable de:
+                    <ul>
+                        <li>Cualquier daño o pérdida derivada del uso de la plataforma.</li>
+                        <li>Interrupciones, errores o falta de disponibilidad del servicio.</li>
+                        <li>Contenido o información proporcionada por otros usuarios.</li>
+                    </ul>
+                </li>
+                <li><strong>Modificaciones a los Términos</strong><br>
+                    Nos reservamos el derecho de modificar estos términos en cualquier momento. Le notificaremos sobre los cambios significativos. Su uso continuado de la plataforma después de dichos cambios implica su aceptación de los términos modificados.
+                </li>
+                <li><strong>Ley Aplicable y Jurisdicción</strong><br>
+                    Estos términos se rigen por las leyes de [país o jurisdicción]. Cualquier disputa que surja en relación con estos términos estará sujeta a la jurisdicción exclusiva de los tribunales de [ciudad o país].
+                </li>
+                <li><strong>Contacto</strong><br>
+                    Para consultas sobre estos términos y condiciones, comuníquese con nosotros a través de [correo electrónico de contacto].
+                </li>
+            </ol>
+        </div>
+    </div>
 
 
 
@@ -298,6 +415,15 @@ $error_message = isset($_GET['mensaje']) ? $_GET['mensaje'] : null;
         </div>
     </div>
 
+    <div style="display: flex; justify-content: space-between; width: 20%;">
+        <div style="width: 60%;">
+            <label class="checkbox-container">
+                <input type="checkbox" name="accept_terms" value="yes" required>
+                <a href="#" onclick="showPopup()"> Acepto los Términos y Condiciones </a>
+            </label>
+        </div>
+    </div>
+
 </div>
 <!-- Controles del formulario -->
 <div class="button-group">
@@ -318,6 +444,15 @@ $error_message = isset($_GET['mensaje']) ? $_GET['mensaje'] : null;
    
 
 <script>
+
+
+function showPopup() {
+            document.getElementById("popupOverlay").style.display = "flex";
+        }
+
+        function closePopup() {
+            document.getElementById("popupOverlay").style.display = "none";
+        }
     function togglePasswordVisibility(inputId, iconId) {
         const passwordField = document.getElementById(inputId);
         const toggleIcon = document.getElementById(iconId);
