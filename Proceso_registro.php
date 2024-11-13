@@ -21,13 +21,14 @@ $telefono = $_POST['telefono'];
 $tipo = $_POST['tipo'];
 $correo = $_POST['correo'];
 $contrasena = $_POST['contrasena'];
+$termino = "Si";
 
 // Encriptar la contraseña
 $contrasena_encriptada = password_hash($contrasena, PASSWORD_DEFAULT);
 
 // Insertar los datos en la base de datos
-$sql = "INSERT INTO usuarios (nombre, apellido, telefono, tipo, correo, contrasena) 
-        VALUES ('$nombre', '$apellido', '$telefono', '$tipo', '$correo', '$contrasena_encriptada')";
+$sql = "INSERT INTO usuarios (nombre, apellido, telefono, tipo, correo, contrasena, terminos) 
+        VALUES ('$nombre', '$apellido', '$telefono', '$tipo', '$correo', '$contrasena_encriptada' , '$termino')";
 
 if ($conn->query($sql) === TRUE) {
     header("Location: RegistroGuardado.php");
