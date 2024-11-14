@@ -398,8 +398,7 @@ if (isset($_GET['logout'])) {
             
             </li>
             <li><a href="/Audiencias/Principal_audiencias.php">Audiencias</a></li>
-            <li><a href="apps.php">Aplicaciones</a></li>
-            <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>  
+                  <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>  
 
             <li><a href="/Audiencias/ver_solicitudes.php">Mis Solicitudes</a></li>
 
@@ -410,7 +409,7 @@ if (isset($_GET['logout'])) {
             <li><a href="/Audiencias/ver_solicitudes.php">Solicitudes</a></li>
 
             <?php endif; ?>
-            
+            <li><a href="/Formularios/asistencia.php">Asistencia</a></li>
             <li>
                 <a href="/formularios/Perfil.php">Perfil</a>
                 <ul>
