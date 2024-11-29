@@ -494,7 +494,7 @@ input[type="file"]::file-selector-button:active {
             
             </li>
             <li><a href="/Audiencias/Buscar_Audiencias.php">Audiencias</a></li>
-            <li><a href="apps.php">Aplicaciones</a></li>
+            <li><a href="/apps.php">Aplicaciones</a></li>
             <?php if ($tipo_usuario === 'fiscal' || $tipo_usuario === 'abogado'): ?>  
 
             <li><a href="/Audiencias/ver_solicitudes.php">Mis Solicitudes</a></li>
