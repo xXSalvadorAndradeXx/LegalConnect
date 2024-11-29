@@ -86,7 +86,7 @@
 </head>
 <body>
     <div class="chat-container">
-        <div class="chat-header">Chatbot</div>
+        <div class="chat-header">Legal Assistent</div>
         <div class="chat-messages" id="chat-messages"></div>
         <div class="chat-input">
             <input type="text" id="user-input" placeholder="Escribe una consulta...">

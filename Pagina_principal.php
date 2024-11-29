@@ -44,7 +44,7 @@ if (isset($_GET['logout'])) {
   // Verificar si se ha confirmado la salida
   if ($_GET['logout'] == 'confirm') {
       session_destroy(); // Destruir todas las variables de sesión
-      header("Location: Iniciar_Sesion.php"); // Redirigir al usuario a la página de inicio de sesión
+      header("Location: Cerrardo.php"); // Redirigir al usuario a la página de inicio de sesión
       exit();
   } else {
       // Si no se ha confirmado, redirigir al usuario a esta misma página con un parámetro 'confirm'
@@ -403,6 +403,8 @@ if (isset($_GET['logout'])) {
             <li><a href="/Audiencias/ver_solicitudes.php">Mis Solicitudes</a></li>
 
             <?php endif; ?>
+
+            <li><a href="apps.php">Aplicaciones</a></li>
 
             <?php if ($tipo_usuario === 'juez'): ?>  
 
