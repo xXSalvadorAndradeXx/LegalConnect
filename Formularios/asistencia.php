@@ -215,24 +215,7 @@ if (isset($_GET['logout'])) {
         <!-- Añadir más preguntas y respuestas según sea necesario -->
     </section>
 
-    <section class="instructions">
-        <h2>Indicaciones Textuales</h2>
-        <p>Encuentra a continuación una guía detallada sobre cómo navegar y usar las funciones de LegalConnect:</p>
-        
-        <ul>
-            <li><strong>Registro de cuenta:</strong> Completa el formulario de registro y verifica tu correo electrónico para activar tu cuenta.</li>
-            <li><strong>Inicio de sesión:</strong> Ingresa tu correo electrónico y contraseña. Si olvidaste tu contraseña, haz clic en "¿Olvidaste tu contraseña?"</li>
-            <li><strong>Editar perfil:</strong> En "Mi Perfil", selecciona "Editar" para actualizar tu información personal, incluyendo correo y número de contacto.</li>
-            <li><strong>Subir documentos:</strong> Dirígete a "Mis Documentos" y haz clic en "Subir" para agregar archivos necesarios para tus trámites.</li>
-            <li><strong>Configurar notificaciones:</strong> En "Configuración", ajusta tus preferencias de notificación para recibir avisos importantes.</li>
-            <li><strong>Revisar el historial de pagos:</strong> Entra a "Historial de pagos" para ver tus transacciones y descargar recibos.</li>
-            <li><strong>Cancelar suscripción:</strong> Si decides cancelar tu suscripción, ve a "Configuración de cuenta" y selecciona "Cancelar suscripción".</li>
-            <li><strong>Asistencia en línea:</strong> Utiliza el botón de "Ayuda en vivo" para hablar con un representante de soporte en tiempo real.</li>
-            <li><strong>Reportar un problema:</strong> Si encuentras algún problema en la plataforma, completa el formulario de "Reportar un problema" en esta sección.</li>
-            <li><strong>Ver políticas de privacidad:</strong> Las políticas de privacidad y términos de uso están disponibles en el pie de página de la plataforma.</li>
-            <!-- Añadir más indicaciones según sea necesario -->
-        </ul>
-    </section>
+   
 </main>
 
 <script>
