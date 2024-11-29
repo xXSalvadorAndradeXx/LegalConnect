@@ -586,7 +586,7 @@ $conn->close();
 </div>
 <div class="table-container">
 
-  <div class="custom-table">
+<div class="custom-table" id="audienciasTable">
         <div class="table-header">
             <div class="table-cell">Título</div>
             <div class="table-cell">Referencia</div>
@@ -676,6 +676,19 @@ $sql = "SELECT * FROM audiencias ORDER BY fecha DESC";
 
 
 <script>
+
+
+
+document.getElementById('searchInput').addEventListener('input', function() {
+        const searchValue = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#audienciasTable .table-row');
+
+        rows.forEach(row => {
+            const cells = row.querySelectorAll('.table-cell');
+            const rowText = Array.from(cells).map(cell => cell.textContent.toLowerCase()).join(' ');
+            row.style.display = rowText.includes(searchValue) ? '' : 'none';
+        });
+    });
 
 window.onload = function() {
             // Obtener los parámetros de la URL
