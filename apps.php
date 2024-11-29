@@ -65,7 +65,7 @@ if (isset($_GET['logout'])) {
     <title>Página Principal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
+      body {
             font-family: 'Bahnschrift', sans-serif;
             background-color: #e8f0fa;
             margin: 0;
@@ -75,7 +75,7 @@ if (isset($_GET['logout'])) {
             height: 100vh;
         }
         nav {
-            background-color: #004080;
+            background-color: #2c3e50;
             padding: 15px 0;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -90,6 +90,12 @@ if (isset($_GET['logout'])) {
         ul li {
             position: relative;
         }
+
+        .active {
+          background-color:#374D63;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
         ul li a {
             text-decoration: none;
             color: white;
@@ -101,9 +107,10 @@ if (isset($_GET['logout'])) {
             border-radius: 8px;
         }
         ul li a:hover {
-            background-color: #003366;
+            background-color:#374D65;
             transform: scale(1.05);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
         }
         /* Estilo del submenú "Cerrar sesión" */
         ul li ul {
@@ -111,7 +118,7 @@ if (isset($_GET['logout'])) {
             top: 100%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #004080;
+            background-color: #2c3e50;
             border-radius: 8px;
             display: none;
             min-width: 180px;
@@ -126,7 +133,7 @@ if (isset($_GET['logout'])) {
             display: block;
         }
         ul li ul li a:hover {
-            background-color: #003366;
+            background-color:#374D63;
         }
         /* Contenido */
         .content {
@@ -139,7 +146,7 @@ if (isset($_GET['logout'])) {
             padding: 40px 20px;
         }
         h1 {
-            color: #004080;
+            color: #2c3e50;
             font-size: 48px;
             margin-bottom: 20px;
             letter-spacing: 2px;
