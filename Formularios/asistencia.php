@@ -134,15 +134,7 @@ if (isset($_GET['logout'])) {
             margin-top: 2rem;
         }
 
-        ul {
-            list-style-type: disc;
-            margin-left: 2rem;
-        }
-
-        ul li {
-            margin-bottom: 1rem;
-            font-size: 1rem;
-        }
+       
     </style>
 </head>
 <body>
@@ -252,4 +244,3 @@ if (isset($_GET['logout'])) {
 
 </body>
 </html>
-
