@@ -58,7 +58,7 @@ $sql = "INSERT INTO casos (referencia, documento, victima, inputado, delito, evi
         VALUES ('$referencia', '$rutaDestino', '$victima', '$inputado', '$delito', '$evidencia')";
 
 if ($conexion->query($sql) === TRUE) {
-    header("Location: /casos/"); 
+    header("Location: /casos/");
         exit();
 } else {
     echo "Error al guardar el caso: " . $conexion->error;

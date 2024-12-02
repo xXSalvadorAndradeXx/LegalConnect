@@ -181,38 +181,56 @@ if (isset($_GET['logout'])) {
 <main>
     <section class="faq">
         <h2>Preguntas Frecuentes (FAQ)</h2>
-        
-        <div class="question" onclick="toggleAnswer(this)">¿Cómo creo una cuenta en LegalConnect?</div>
-        <div class="answer">Para crear una cuenta, dirígete a la página de registro y sigue las instrucciones proporcionadas.</div>
-        
-        <div class="question" onclick="toggleAnswer(this)">¿Cómo recupero mi contraseña?</div>
-        <div class="answer">Puedes recuperar tu contraseña haciendo clic en "¿Olvidaste tu contraseña?" en la página de inicio de sesión.</div>
-        
-        <div class="question" onclick="toggleAnswer(this)">¿Qué hago si mi cuenta está bloqueada?</div>
-        <div class="answer">Si tu cuenta está bloqueada, contacta a soporte para recibir ayuda con el desbloqueo.</div>
-        
-        <div class="question" onclick="toggleAnswer(this)">¿Puedo cambiar mi correo electrónico registrado?</div>
-        <div class="answer">Sí, puedes cambiar tu correo electrónico desde la sección "Mi Perfil". Ve a "Editar perfil" y actualiza tu dirección de correo.</div>
-        
-        <div class="question" onclick="toggleAnswer(this)">¿Cómo puedo eliminar mi cuenta?</div>
-        <div class="answer">Para eliminar tu cuenta, ve a "Configuración de cuenta" y selecciona "Eliminar cuenta". Ten en cuenta que esta acción es irreversible.</div>
-        
-        <div class="question" onclick="toggleAnswer(this)">¿Qué métodos de pago están disponibles?</div>
-        <div class="answer">Actualmente, aceptamos pagos con tarjeta de crédito, débito y PayPal.</div>
-        
-        <div class="question" onclick="toggleAnswer(this)">¿Cómo puedo contactar al soporte técnico?</div>
-        <div class="answer">Puedes contactar al soporte desde el formulario de contacto en esta sección o enviando un correo a soporte@legalconnect.com.</div>
-        
-        <div class="question" onclick="toggleAnswer(this)">¿Qué hago si no recibo correos de LegalConnect?</div>
-        <div class="answer">Verifica que los correos no estén en tu carpeta de spam. Si el problema persiste, actualiza tu correo electrónico o contacta al soporte.</div>
-        
-        <div class="question" onclick="toggleAnswer(this)">¿Cómo puedo obtener un recibo o factura de mi pago?</div>
-        <div class="answer">Después de realizar un pago, recibirás un correo con el recibo. También puedes descargarlo desde "Historial de pagos" en tu cuenta.</div>
-        
-        <div class="question" onclick="toggleAnswer(this)">¿LegalConnect ofrece descuentos o promociones?</div>
-        <div class="answer">Sí, ofrecemos descuentos y promociones periódicamente. Revisa la página principal o suscríbete a nuestro boletín para enterarte.</div>
-        
-        <!-- Añadir más preguntas y respuestas según sea necesario -->
+        <?php if ($tipo_usuario === 'fiscal'): ?>
+
+<div class="question" onclick="toggleAnswer(this)">¿Cómo creo un caso penal?</div>
+<div class="answer">Para crear un caso penal, accede a "Gestión de Casos", selecciona "Nuevo Caso Penal" y completa los datos requeridos.</div>
+
+<div class="question" onclick="toggleAnswer(this)">¿Cómo obtengo pruebas digitales para un caso?</div>
+<div class="answer">En la sección "Pruebas Digitales", puedes buscar o cargar pruebas relacionadas con un caso específico.</div>
+
+<div class="question" onclick="toggleAnswer(this)">¿Cómo solicito colaboración de otro fiscal?</div>
+<div class="answer">Puedes solicitar colaboración desde la sección "Gestión de Colaboraciones", seleccionando el fiscal al que deseas invitar.</div>
+
+            
+
+         <h1>Hola Fiscal</h1>
+           
+            
+            <?php endif; ?>
+
+        <?php if ($tipo_usuario === 'abogado'): ?>
+            <h1>Hola Abogado</h1>
+
+<div class="question" onclick="toggleAnswer(this)">¿Cómo presento un escrito legal?</div>
+<div class="answer">Ve a la sección "Gestión de Casos", selecciona el caso correspondiente y utiliza la opción "Presentar Escrito".</div>
+
+<div class="question" onclick="toggleAnswer(this)">¿Cómo solicito una reunión con un juez?</div>
+<div class="answer">Puedes solicitar una reunión desde la sección "Agendar Reunión". Asegúrate de incluir los detalles del caso y el propósito de la reunión.</div>
+
+<div class="question" onclick="toggleAnswer(this)">¿Puedo compartir documentos con otros abogados?</div>
+<div class="answer">Sí, desde la sección "Documentos Compartidos" puedes subir documentos y seleccionar los usuarios con quienes deseas compartirlos.</div>
+
+
+            <?php endif; ?>
+
+
+
+        <?php if ($tipo_usuario === 'juez' ): ?>
+            <h1>Hola Juez</h1>
+
+<div class="question" onclick="toggleAnswer(this)">¿Cómo puedo asignar casos a mi tribunal?</div>
+<div class="answer">Para asignar casos, ve a la sección "Gestión de Casos", selecciona el caso correspondiente y asigna tu tribunal.</div>
+
+<div class="question" onclick="toggleAnswer(this)">¿Puedo acceder a expedientes históricos?</div>
+<div class="answer">Sí, puedes acceder a expedientes históricos desde la sección "Archivo Judicial". Utiliza el buscador para encontrar los casos necesarios.</div>
+
+<div class="question" onclick="toggleAnswer(this)">¿Cómo programo audiencias en LegalConnect?</div>
+<div class="answer">En la sección "Calendario Judicial", puedes seleccionar una fecha y hora disponible para programar audiencias relacionadas a un caso.</div>
+
+
+            <?php endif; ?>
+
     </section>
 
    
