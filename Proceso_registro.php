@@ -34,7 +34,7 @@ if ($conn->query($sql) === TRUE) {
     header("Location: RegistroGuardado.php");
     exit();
 } else {
-    header("Location: Regsitro_Usuario.php"); 
+    header("Location: Registro_proceso.php?error=1");
         exit();;
 }
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-10-2024 a las 09:17:04
+-- Tiempo de generación: 20-11-2024 a las 22:31:30
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -51,7 +51,8 @@ CREATE TABLE `audiencias` (
 
 INSERT INTO `audiencias` (`id`, `titulo`, `caso`, `modalidad`, `fecha`, `hora`, `imputado`, `victima`, `delito`, `descripcion`, `juzgado`, `abogado`, `fiscal`, `sala`, `juez_suplente`) VALUES
 (8, 'Primera 1', '2024-08-25-08-46-38-1598', 'Virtual', '2024-10-25', '20:16:00', 'Maria', 'Salvador', 'Hurto', 'Se necesita mas incformacion', 'Juzgado 1', 'Abogado 1', 'Fiscal 1', 'Sala 2', 'Suplente 3'),
-(9, 'Primera', '2024-08-23-08-25-14-7711', 'Presencial', '2024-09-02', '21:20:00', 'Maria', 'Andrade', 'Violación', 'sdasdasd', 'Juzgado 1', 'Abogado 1', 'Fiscal 1', 'Sala 1', 'Suplente 1');
+(10, 'Segunda', '2024-09-25-02-44-22-5223', 'Presencial', '2024-11-15', '09:13:00', 'Maria', 'Salvador', 'Homicidio', 'sdasdsad', 'Juzgado 1', 'Abogado 1', 'Fiscal 1', 'Sala 1', 'Suplente 1'),
+(11, 'Tercera', '2024-08-25-08-46-38-1598', 'Presencial', '2024-11-15', '09:15:00', 'Maria', 'Salvador', 'Homicidio', 'adsfas', 'Juzgado 1', 'Abogado 1', 'Fiscal 1', 'Sala 1', 'Suplente 1');
 
 -- --------------------------------------------------------
 
@@ -247,9 +248,19 @@ CREATE TABLE `historial_sesiones` (
 --
 
 INSERT INTO `historial_sesiones` (`id`, `usuario_id`, `correo`, `fecha_hora`, `ip_usuario`, `exito`) VALUES
-(1, 7, 'parcial111@gmail.com', '2024-10-25 00:32:44', '::1', 1),
-(2, NULL, 'maria222@gmail.com', '2024-10-25 01:04:02', '::1', 0),
-(3, 15, 'maria222@gmail.com', '2024-10-25 01:04:09', '::1', 1);
+(15, NULL, 'parcial@gmail.com', '2024-11-13 23:19:57', '::1', 0),
+(16, NULL, 'parcial@gmail.com', '2024-11-13 23:20:02', '::1', 0),
+(17, NULL, 'parcial@gmail.com', '2024-11-13 23:20:56', '::1', 0),
+(18, 20, 'parcial@gmail.com', '2024-11-13 23:21:02', '::1', 1),
+(19, NULL, 'parcial@gmail.com', '2024-11-13 23:45:47', '::1', 0),
+(20, 20, 'parcial@gmail.com', '2024-11-13 23:45:55', '::1', 1),
+(21, 21, 'tester2024@legalcc.com', '2024-11-19 00:10:39', '::1', 1),
+(22, 21, 'tester2024@legalcc.com', '2024-11-19 00:15:28', '::1', 1),
+(23, NULL, 'parcila111@gmail.com', '2024-11-20 15:29:48', '::1', 0),
+(24, NULL, 'parcila111@gmail.com', '2024-11-20 15:30:04', '::1', 0),
+(25, NULL, 'parcial111@gmail.com', '2024-11-20 15:30:20', '::1', 0),
+(26, NULL, 'parcial111@gmail.com', '2024-11-20 15:30:34', '::1', 0),
+(27, NULL, 'parcial111@gmail.com', '2024-11-20 15:30:41', '::1', 0);
 
 -- --------------------------------------------------------
 
@@ -279,9 +290,8 @@ CREATE TABLE `imputados` (
 --
 
 INSERT INTO `imputados` (`id`, `codigo`, `apellido`, `nombre`, `fecha_nacimiento`, `dui`, `departamento`, `distrito`, `direccion`, `madre`, `padre`, `pandilla`, `alias`, `sexo`) VALUES
-(9, 'IMP 288-4603-956', 'KHKHOWkPhQ==', 'On2PPWkPj+4=', '2002-11-14', 'UCTUfTxY0g', 'PG+WJ30fgfI=', 'PG+WJ30fgfKPZgHdlw==', '', '', '', 'BC0=', 'BSQ=', 'JH2QKH0HifLA'),
 (10, 'IMP 660-2999-792', 'OnOQKg==', 'I2mPInsYgQ==', '2002-02-10', 'UCTUfTxY0g', 'On2NP2lLofLO', 'LXWQP3oClPOPEQ==', 'Cn2PJ21LjunKVROJk9MzNZ40mn551Q==', 'KHKELmQK', 'IG+KL3oE', 'Dn2XJHtLjvnIUR3a', 'BX3DLW0HifLO', 'L3mOLmYCjvM='),
-(12, 'IMP 808-8105-594', 'DXqULQ==', 'DW+FOGw=', '0000-00-00', '', 'On2Na1sKjOrORx3b', 'On2Na1sKjOrORx3b0vF8I489', '', 'GniFOGw=', 'D3iQLQ==', 'GniFOA==', 'D2+HLQ==', 'L3mOLmYCjvM=');
+(12, 'IMP 808-8105-594', 'DXqULQ==', 'DW+FOGw=', '2000-11-11', 'UCTUfTxY0q', 'On2Na1sKjOrORx3b', 'On2Na1sKjOrORx3b0vF8I489', '', 'GniFOGw=', 'D3iQLQ==', 'GniFOA==', 'D2+HLQ==', 'L3mOLmYCjvM=');
 
 -- --------------------------------------------------------
 
@@ -303,16 +313,16 @@ CREATE TABLE `imputados_archivados` (
   `padre` varchar(255) DEFAULT NULL,
   `pandilla` varchar(255) DEFAULT NULL,
   `alias` varchar(255) DEFAULT NULL,
-  `sexo` char(1) NOT NULL
+  `sexo` char(1) NOT NULL,
+  `estado` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `imputados_archivados`
 --
 
-INSERT INTO `imputados_archivados` (`id`, `codigo`, `apellido`, `nombre`, `fecha_nacimiento`, `dui`, `departamento`, `distrito`, `direccion`, `madre`, `padre`, `pandilla`, `alias`, `sexo`) VALUES
-(2, 'IMP 148-5874-102', 'KHKHOWkPhQ==', 'On2PPWkPj+4=', '0000-00-00', 'UCTUfTxY0g', 'On2Na1sKjOrORx3b', 'LXWQP3oClPOPEQ==', '', '', '', 'JE/SeA==', 'Ok8=', 'K'),
-(3, 'IMP 679-0171-519', 'KE+nClsv', 'KE+nDkk4pNk=', '0000-00-00', '', '', '', '', '', '', 'LU+iCkw=', 'KE+nClsvtw==', '');
+INSERT INTO `imputados_archivados` (`id`, `codigo`, `apellido`, `nombre`, `fecha_nacimiento`, `dui`, `departamento`, `distrito`, `direccion`, `madre`, `padre`, `pandilla`, `alias`, `sexo`, `estado`) VALUES
+(5, 'IMP 288-4603-956', 'KHKHOWkPhQ==', 'On2PPWkPj+4=', '2002-11-14', 'UCTUfTxY0g', 'PG+WJ30fgfI=', 'PG+WJ30fgfKPZgHdlw==', '', '', '', 'BC0=', 'BSQ=', 'J', 'Condenado');
 
 -- --------------------------------------------------------
 
@@ -327,18 +337,6 @@ CREATE TABLE `mensajes` (
   `mensaje` text NOT NULL,
   `fecha_envio` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `mensajes`
---
-
-INSERT INTO `mensajes` (`id`, `remitente_id`, `destinatario_id`, `mensaje`, `fecha_envio`) VALUES
-(9, 15, 7, 'Hola', '2024-10-25 07:04:25'),
-(10, 7, 15, 'Como estamos', '2024-10-25 07:04:43'),
-(11, 15, 7, 'Muy bien y tu', '2024-10-25 07:07:22'),
-(18, 7, 15, 'Hola maria', '2024-10-25 07:11:46'),
-(19, 15, 7, 'Hola', '2024-10-25 07:14:19'),
-(20, 7, 15, 'Hola', '2024-10-25 07:14:53');
 
 -- --------------------------------------------------------
 
@@ -373,16 +371,6 @@ CREATE TABLE `solicitudes` (
   `respuesta` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `solicitudes`
---
-
-INSERT INTO `solicitudes` (`id`, `usuario_id`, `juez_id`, `razon`, `fecha_sugerida`, `estado`, `fecha_creacion`, `caso_id`, `respuesta`) VALUES
-(10, 7, 9, 'Necesito mas tiempo para recolectar mas información', '2024-09-11', 'Rechazada', '2024-09-03 15:55:24', 8, 'Sin Respuesta'),
-(13, 7, 9, 'Tremendo', '2024-09-04', 'Pendiente', '2024-09-04 06:45:04', 8, 'Sin Respuesta'),
-(14, 7, 9, 'sdasdas', '2024-09-04', 'Pendiente', '2024-09-05 00:29:56', 8, 'Sin Respuesta'),
-(15, 7, 9, 'asjhdkjdhasddsa', '2024-09-09', 'Pendiente', '2024-09-09 06:29:34', 8, 'Sin Respuesta');
-
 -- --------------------------------------------------------
 
 --
@@ -396,18 +384,17 @@ CREATE TABLE `usuarios` (
   `telefono` varchar(15) DEFAULT NULL,
   `tipo` varchar(20) DEFAULT NULL,
   `correo` varchar(100) DEFAULT NULL,
-  `contrasena` varchar(255) DEFAULT NULL
+  `contrasena` varchar(255) DEFAULT NULL,
+  `terminos` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `telefono`, `tipo`, `correo`, `contrasena`) VALUES
-(7, 'Salvador', 'Salgado', '1111-1111', 'abogado', 'parcial111@gmail.com', '$2y$10$xAaoM6TMmGcIb1YsIiJ9CumCMm9QAZ/DqOaMjpBEImwa.iXHh9pti'),
-(9, 'Maria', 'Salgado', '2222-2222', 'juez', 'salva@gmail.com', '$2y$10$COTDr3mZ32Pm3w10uOIhYuoM4WqNNLUeVMXWV9DL03ub/yvN7LZwW'),
-(14, 'Salvador', 'Salgado Osorio', '1111-1111', 'juez', 'parcial123@gmail.com', '$2y$10$AsbhgtZt.YtmJ7EDZrQnF.B7D/vujqC31DHnydk5UM3XuRcpI3I1W'),
-(15, 'Maria', 'Andrade', '76284263', 'juez', 'maria222@gmail.com', '$2y$10$2oi/86TeFl6SciTXUPCogOUQSV/X.OaQKEacWbhAHvCq/FR750Xnm');
+INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `telefono`, `tipo`, `correo`, `contrasena`, `terminos`) VALUES
+(20, 'Salvador', 'Andrade', '7628-4363', 'juez', 'parcial@gmail.com', '$2y$10$s30ekgHJahwQp1D8pHWase7mYJGiSyq66HeVtNA3OF4Ie5JOqt0wC', 'Si'),
+(21, 'Tester', 'Tester', '0000-0000', 'juez', 'tester2024@legalcc.com', '$2y$10$nayeuY/CvQusjgFokWTQWOQuXDknbOoWiMT52aaOTSqtcbHG.fRuq', 'Si');
 
 -- --------------------------------------------------------
 
@@ -430,14 +417,6 @@ CREATE TABLE `victimas` (
   `padre` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `victimas`
---
-
-INSERT INTO `victimas` (`id`, `codigo`, `apellido`, `nombre`, `fecha_nacimiento`, `dui`, `sexo`, `departamento`, `distrito`, `direccion`, `madre`, `padre`) VALUES
-(3, 'VIC 953-6560-972', 'On2PLGkPjw==', 'JH2RImk=', '0000-00-00', '', 'BH2QKH0HifLA', 'PG+WJ30fgfI=', 'PG+WJ30fgfKPZgHdlw==', 'WG6Ga0sEjPPBShOJsc1mKw==', 'JH2RImlLr+/AURvG', 'P3WAP2cZwM/OTxXIltA='),
-(4, 'VIC 451-0824-324', 'On2PLGkPjw==', 'JH2RImk=', '2000-05-15', 'WC7Qfz1d2KuCEw==', 'BH2QKH0HifLA', 'OE2y', 'OE2y', 'OE2yGg==', 'OE2y', 'OE2y');
-
 -- --------------------------------------------------------
 
 --
@@ -456,16 +435,16 @@ CREATE TABLE `victimas_archivados` (
   `direccion` text DEFAULT NULL,
   `madre` varchar(100) DEFAULT NULL,
   `padre` varchar(100) DEFAULT NULL,
-  `sexo` varchar(255) DEFAULT NULL
+  `sexo` varchar(255) DEFAULT NULL,
+  `estado` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `victimas_archivados`
 --
 
-INSERT INTO `victimas_archivados` (`id`, `codigo`, `apellido`, `nombre`, `fecha_nacimiento`, `dui`, `departamento`, `distrito`, `direccion`, `madre`, `padre`, `sexo`) VALUES
-(1, 'VIC 914-7407-792', 'On2PLGkPjw==', 'On2PPWkPj+4=', '2002-11-14', 'UCTUfTxY0q', 'On2Na1sKjOrORx3b', 'PG+WJ30fgfKPZgHdlw==', 'WG6Ga0sEjPPBShOJsc1mKw==', 'LX2KOHFLufPDQhzNk59DNDjpkg==', 'P3WAP2cZwM/OTxXIltA=', 'K3WNKnoCjw=='),
-(2, 'VIC 001-1868-566', 'KHKHOWkPhQ==', 'On2PPWkPj+4=', '2010-11-11', '', 'PG+WJ30fgfI=', 'PG+WJ30fgfI=', 'WG6Ga0sEjPPBShOJsc1mKw==', 'LX2KOHFLufPDQhzNk59DNDjpkg==', 'Jm+AKnpLpe7BRgHdnZ9SP58qkmh1', 'OX2NOG0Tlf3D');
+INSERT INTO `victimas_archivados` (`id`, `codigo`, `apellido`, `nombre`, `fecha_nacimiento`, `dui`, `departamento`, `distrito`, `direccion`, `madre`, `padre`, `sexo`, `estado`) VALUES
+(6, 'VIC 336-9681-938', 'On2PLGkPjw==', 'JH2RImk=', '2001-11-11', 'UCTUfTxY0q', 'PG+WJ30fgfI=', 'PG+WJ30fgfKPZgHdlw==', 'WG6Ga0sEjPPBShOJsc1mKw==', 'JH2RImlLr+/AURvG', 'P3WAP2cZwM/OTxXIltA=', 'D3mOLmYCjvM=', 'Resuelto');
 
 --
 -- Índices para tablas volcadas
@@ -599,7 +578,7 @@ ALTER TABLE `victimas_archivados`
 -- AUTO_INCREMENT de la tabla `audiencias`
 --
 ALTER TABLE `audiencias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `casos`
@@ -653,7 +632,7 @@ ALTER TABLE `evidencias_archivadas`
 -- AUTO_INCREMENT de la tabla `historial_sesiones`
 --
 ALTER TABLE `historial_sesiones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `imputados`
@@ -665,13 +644,13 @@ ALTER TABLE `imputados`
 -- AUTO_INCREMENT de la tabla `imputados_archivados`
 --
 ALTER TABLE `imputados_archivados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `registros`
@@ -689,19 +668,19 @@ ALTER TABLE `solicitudes`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `victimas`
 --
 ALTER TABLE `victimas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `victimas_archivados`
 --
 ALTER TABLE `victimas_archivados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
